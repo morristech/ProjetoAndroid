@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "668108535482",
+    "project_id": "firebase-projetointegrador"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668108535482:android:4c00f3e684de9066",
+        "android_client_info": {
+          "package_name": "com.example.amand.projetointegrador"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "668108535482-aq0usn0267bjc00p3hi0j4m8lv0q299s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.amand.projetointegrador",
+            "certificate_hash": "DEB9AFA8CECC98744BB50AFE97C328F9EFF7A447"
+          }
+        },
+        {
+          "client_id": "668108535482-6repme6vkqap8cllk31mk85v11ce7dc9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFtQpl4tWqjLvG8KQPPHPZIWfKidNHzoc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

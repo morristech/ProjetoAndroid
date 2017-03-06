@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_novoanuncio"
+            android:icon="@drawable/ic_add_circle_black_24dp"
+            android:title="Criar um anúncio" />
+        <item
+            android:id="@+id/nav_meusanuncios"
+            android:icon="@drawable/ic_format_list_bulleted_black_24dp"
+            android:title="Meus anúncios" />
+        <item
+            android:id="@+id/nav_vizanuncios"
+            android:icon="@drawable/ic_pets_black_24dp"
+            android:title="Visualizar anúncios" />
+    </group>
+
+    <item android:title="Configurações">
+        <menu>
+            <item
+                android:id="@+id/nav_editprofile"
+                android:icon="@drawable/ic_person_black_24dp"
+                android:title="Alterar dados" />
+            <item
+                android:id="@+id/nav_sobre"
+                android:icon="@drawable/ic_help_black_24px"
+                android:title="Sobre" />
+        </menu>
+    </item>
+
+</menu>

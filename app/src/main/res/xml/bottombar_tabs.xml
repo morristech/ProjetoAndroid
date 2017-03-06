@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+
+    <tab
+        id="@+id/tab_perdidos"
+        icon="@drawable/ic_help_black_24px"
+        title="Perdidos" />
+    <tab
+        id="@+id/tab_encontrados"
+        icon="@drawable/ic_place_black_24dp"
+        title="Encontrados" />
+
+    <tab
+        id="@+id/tab_doacoes"
+        icon="@drawable/ic_favorite_border_black_24dp"
+        title="Doações" />
+</tabs>
