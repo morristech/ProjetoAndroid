@@ -1,10 +1,9 @@
 package com.example.amand.projetointegrador;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -66,6 +65,8 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -73,7 +74,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_novoanuncio) {
-            // Handle the camera action
+            FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+            tx.replace(R.id.flContent, Fragment.instantiate(MainActivity.this, "com.example.amand.projetointegrador.novaDoacao"));
+            tx.addToBackStack(null);
+            tx.commit();
         } else if (id == R.id.nav_meusanuncios) {
 
         } else if (id == R.id.nav_vizanuncios) {
@@ -83,6 +87,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_sobre) {
 
         }
+
+        item.setChecked(true);
+
+        // Set action bar title
+        setTitle(item.getTitle());
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

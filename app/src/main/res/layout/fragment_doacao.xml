@@ -4,17 +4,13 @@
     android:layout_height="match_parent"
     tools:context="com.example.amand.projetointegrador.DoacaoFragment">
 
-
-
-
     <GridView
+        android:id="@+id/gridDoacao"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/gridDoacao"
         android:columnWidth="130dp"
+        android:gravity="center"
         android:numColumns="auto_fit"
-        android:stretchMode="columnWidth"
-        android:gravity="center">
-    </GridView>
+        android:stretchMode="columnWidth"></GridView>
 
 </FrameLayout>
