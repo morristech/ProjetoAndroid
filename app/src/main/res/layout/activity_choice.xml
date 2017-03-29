@@ -1,34 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/backgrounddoaplicativodecachorrinhos"
     tools:context="com.example.amand.projetointegrador.ChoiceActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <ImageButton
         android:id="@+id/btnDoacao"
-        android:layout_width="380dp"
-        android:layout_height="120dp"
+        android:layout_width="325dp"
+        android:layout_height="150dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="55dp"
-        android:background="@drawable/buttonplacehold"/>
-
-    <ImageButton
-        android:id="@+id/btnPerdido"
-        android:layout_width="380dp"
-        android:layout_height="120dp"
-        android:layout_below="@+id/btnDoacao"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/buttonplacehold"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="25dp"
+        android:elevation="5dp"
+        android:background="@drawable/novadoacao"
+        />
 
     <ImageButton
         android:id="@+id/btnEncontrado"
-        android:layout_width="380dp"
-        android:layout_height="120dp"
-        android:layout_below="@id/btnPerdido"
+        android:layout_width="325dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/btnDoacao"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/buttonplacehold"
-        android:layout_marginTop="20dp"/>
+        android:elevation="5dp"
+        android:background="@drawable/novoencontrado"
+        android:layout_marginTop="15dp"/>
 
-</RelativeLayout>
+    <ImageButton
+        android:id="@+id/btnPerdido"
+        android:layout_width="325dp"
+        android:layout_height="150dp"
+        android:layout_below="@id/btnEncontrado"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/novoperdido"
+        android:elevation="5dp"
+        android:layout_marginTop="15dp"/>
+
+    </RelativeLayout>
+
+</ScrollView>

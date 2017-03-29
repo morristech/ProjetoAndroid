@@ -31,4 +31,6 @@
         <item>Cachorro</item>
         <item>Gato</item>
     </string-array>
+    <string name="title_activity_tabs">TabsActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

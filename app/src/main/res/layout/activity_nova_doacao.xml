@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.amand.projetointegrador.novaDoacaoActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/novaDoacaoPager"
+            android:layout_width="wrap_content"
+            android:layout_height="220dp"
+            android:background="@drawable/placehold"
+            android:elevation="5dp"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/novaDoacaoImgBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_below="@+id/novaDoacaoPager"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="195dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_add_photo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/novaDoacaoPager"
+            android:layout_marginTop="25dp"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <EditText
+                android:id="@+id/nomeAnimal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:elevation="2dp"
+                android:hint="Nome do animal"
+                android:paddingTop="5dp"
+                android:inputType="textPersonName"/>
+
+            <info.hoang8f.android.segmented.SegmentedGroup
+                android:id="@+id/tipoAnimal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:background="#fff"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:orientation="horizontal"
+                app:sc_checked_text_color="#eee"
+                app:sc_border_width="1dp"
+                android:layout_marginBottom="10dp"
+                app:sc_tint_color="@color/colorAccent"
+                app:sc_corner_radius="0dp">
+
+                <RadioButton
+                    android:id="@+id/button21"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="175dp"
+                    android:padding="15dp"
+                    android:text="Cachorro"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/button22"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="175dp"
+                    android:padding="15dp"
+                    android:text="Gato"
+                    android:textSize="18sp" />
+            </info.hoang8f.android.segmented.SegmentedGroup>
+
+            <info.hoang8f.android.segmented.SegmentedGroup
+                android:id="@+id/sexoAnimal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="#fff"
+                android:orientation="horizontal"
+                app:sc_border_width="1dp"
+                app:sc_checked_text_color="#eee"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                app:sc_tint_color="@color/colorAccent"
+                app:sc_corner_radius="0dp">
+
+                <RadioButton
+                    android:id="@+id/btnFeminino"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="175dp"
+                    android:padding="15dp"
+                    android:text="Fêmea"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/btnMasculino"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="175dp"
+                    android:padding="15dp"
+                    android:text="Macho"
+                    android:textSize="18sp" />
+            </info.hoang8f.android.segmented.SegmentedGroup>
+
+            <EditText
+                android:id="@+id/racaAnimal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:elevation="2dp"
+                android:hint="Raça"
+                android:paddingTop="20dp"
+                android:inputType="text"/>
+
+            <EditText
+                android:id="@+id/corAnimal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:elevation="2dp"
+                android:hint="Cor"
+                android:paddingTop="20dp"
+                android:inputType="text"/>
+
+            <EditText
+                android:id="@+id/descricaoAnimal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="20dp"
+                android:elevation="2dp"
+                android:ems="10"
+                android:hint="Observações"
+                android:inputType="textMultiLine"
+                android:lines="2" />
+
+
+            <TextView
+                android:id="@+id/textForm1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:labelFor="@+id/radioDeficiencia"
+                android:text="Possui deficiência?"
+                android:textSize="16sp" />
+
+
+            <RadioGroup
+                android:id="@+id/radioDeficiencia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Sim" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Não" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/textForm2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:labelFor="@+id/radioCastrado"
+                android:text="Animal castrado?"
+                android:textSize="16sp" />
+
+            <RadioGroup
+                android:id="@+id/radioCastrado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Sim" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Não" />
+            </RadioGroup>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="25dp"
+                android:background="@color/colorAccent"
+                android:elevation="2dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="Enviar anúncio"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="18dp"
+                android:layout_marginBottom="20dp"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+</ScrollView>
