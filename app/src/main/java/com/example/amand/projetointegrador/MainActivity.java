@@ -2,6 +2,7 @@ package com.example.amand.projetointegrador;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -26,6 +30,34 @@ public class MainActivity extends AppCompatActivity
 
         toolbar.setTitle("Adota Pet");
 
+        BottomBar bb = (BottomBar) findViewById(R.id.bottomBar);
+        bb.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(@IdRes int tabId) {
+                switch (tabId) {
+                    case R.id.tab_doacoes:
+                        FragmentTransaction tx1 = getSupportFragmentManager().beginTransaction();
+                        tx1.replace(R.id.flAnuncios, Fragment.instantiate(MainActivity.this, "com.example.amand.projetointegrador.DoacaoFragment"));
+                        tx1.addToBackStack(null);
+                        tx1.commit();
+                        break;
+
+                    case R.id.tab_encontrados:
+                        FragmentTransaction tx2 = getSupportFragmentManager().beginTransaction();
+                        tx2.replace(R.id.flAnuncios, Fragment.instantiate(MainActivity.this, "com.example.amand.projetointegrador.EncontradoFragment"));
+                        tx2.addToBackStack(null);
+                        tx2.commit();
+                        break;
+
+                    case R.id.tab_perdidos:
+                        FragmentTransaction tx3 = getSupportFragmentManager().beginTransaction();
+                        tx3.replace(R.id.flAnuncios, Fragment.instantiate(MainActivity.this, "com.example.amand.projetointegrador.PerdidoFragment"));
+                        tx3.addToBackStack(null);
+                        tx3.commit();
+                        break;
+                }
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

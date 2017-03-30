@@ -61,7 +61,8 @@
         </activity>
         <activity android:name=".novaDoacaoActivity" />
         <activity android:name=".novoEncontradoActivity" />
-        <activity android:name=".novoPerdidoActivity"/>
+        <activity android:name=".novoPerdidoActivity" />
+        <activity android:name=".DoacaoDetalhesActivity"></activity>
     </application>
 
 </manifest>

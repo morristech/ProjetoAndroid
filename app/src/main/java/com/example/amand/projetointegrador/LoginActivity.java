@@ -102,7 +102,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
-        loginFace = (LoginButton) findViewById(R.id.facebookLogin);
 
         FacebookSdk.getApplicationContext();
         callbackManager = CallbackManager.Factory.create();

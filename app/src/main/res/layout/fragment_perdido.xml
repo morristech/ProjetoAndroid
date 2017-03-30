@@ -4,6 +4,12 @@
     android:layout_height="match_parent"
     tools:context="com.example.amand.projetointegrador.PerdidoFragment">
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fragmento Perdido"/>
+
     <GridView
         android:id="@+id/gridPerdidos"
         android:layout_width="match_parent"

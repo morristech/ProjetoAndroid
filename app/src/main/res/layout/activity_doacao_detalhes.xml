@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.amand.projetointegrador.DoacaoDetalhesActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageSwitcher
+            android:id="@+id/imgSliderDoacao"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginBottom="10dp"
+            android:background="#eee"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp">
+
+
+        </ImageSwitcher>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Nome do Animal"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:id="@+id/nomeAnimal"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Idade do Animal"
+            android:textSize="18sp"
+            android:id="@+id/idadeAnimal"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Sexo do Animal"
+            android:textSize="18sp"
+            android:id="@+id/sexoAnimal"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Raça do Animal"
+            android:textSize="18sp"
+            android:id="@+id/racaAnimal"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Cor do Animal"
+            android:textSize="18sp"
+            android:id="@+id/corAnimal"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Castrado?"
+            android:textSize="18sp"
+            android:id="@+id/castradoAnimal"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Vacinado?"
+            android:textSize="18sp"
+            android:id="@+id/vacinadoAnimal"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Observações"
+            android:textSize="18sp"
+            android:id="@+id/observacoesAnimal"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Entrar em contato"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:drawableLeft="@drawable/ic_contact_phone_black_24dp"
+            android:drawableTint="#fff"
+            android:background="@color/colorAccent"
+            android:drawablePadding="5dp"
+            android:paddingLeft="30dp"/>
+
+    </LinearLayout>
+
+
+</ScrollView>
