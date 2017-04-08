@@ -13,6 +13,7 @@ public class Session {
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
     Context ctx;
+    
 
     public Session(Context ctx){
         this.ctx = ctx;

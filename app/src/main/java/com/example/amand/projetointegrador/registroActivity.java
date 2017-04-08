@@ -1,12 +1,40 @@
 package com.example.amand.projetointegrador;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.amand.projetointegrador.model.Usuario;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.NameValuePair;
+import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
+import cz.msebera.android.httpclient.client.methods.HttpGet;
+import cz.msebera.android.httpclient.client.methods.HttpPost;
+import cz.msebera.android.httpclient.entity.ByteArrayEntity;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import cz.msebera.android.httpclient.impl.client.HttpClientBuilder;
+import cz.msebera.android.httpclient.message.BasicNameValuePair;
+import cz.msebera.android.httpclient.util.EntityUtils;
 
 public class registroActivity extends AppCompatActivity {
 
@@ -16,6 +44,9 @@ public class registroActivity extends AppCompatActivity {
     private EditText senhaNovaConta;
     private EditText confirmaSenhaNovaConta;
     private Button abrirNovaConta;
+
+    public static final String ENDERECO_WEB = "http://192.168.10.106:8080";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +82,36 @@ public class registroActivity extends AppCompatActivity {
             }
         });
 
+        abrirNovaConta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                JSONObject o = new JSONObject();
+                try {
+                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    Date date = null;
+                    date = (Date) formatter.parse(dataNascimentoNovaConta.getText().toString());
+
+                    o.put("email", emailNovaConta.getText().toString());
+                    o.put("nome", nomeNovaConta.getText().toString());
+                    o.put("senha", senhaNovaConta.getText().toString());
+                    o.put("dataNascimento", date);
+                    o.put("authToken", null);
+
+                    System.out.println(o.toString());
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                WebService newUsuario = new WebService("http://192.168.10.106:8080/adotapet-servidor/api/usuario/cadastro");
+                newUsuario.execute(o);
+
+            }
+        });
+
+
         this.getSupportActionBar().setTitle("Abrir uma nova conta");
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -63,5 +124,45 @@ public class registroActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class WebService extends AsyncTask<JSONObject, Void, String> {
+
+        private String webAdd;
+
+        public WebService(String endereco) {
+            webAdd = endereco;
+        }
+
+        String retorno = "";
+
+        @Override
+        protected String doInBackground(JSONObject... params) {
+            HttpClient cliente = HttpClientBuilder.create().build();
+            HttpPost chamada = new HttpPost(webAdd);
+
+            try {
+                /*List<NameValuePair> parametros = new ArrayList<NameValuePair>(1);
+                parametros.add(new BasicNameValuePair("usuario", params[0].toString()));
+
+                chamada.setEntity(new UrlEncodedFormEntity(parametros)); */
+                chamada.addHeader("Accept", "application/json");
+                chamada.addHeader("Content-type", "application/json");
+                chamada.setEntity(new ByteArrayEntity(params[0].toString().getBytes("UTF8")));
+                HttpResponse resposta = cliente.execute(chamada);
+                retorno = EntityUtils.toString(resposta.getEntity());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return retorno;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+
+            Toast.makeText(registroActivity.this, s, Toast.LENGTH_SHORT).show();
+
+        }
     }
 }

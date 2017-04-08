@@ -1,5 +1,7 @@
 package com.example.amand.projetointegrador.model;
 
+import java.util.Date;
+
 /**
  * Created by amanda on 30/03/17.
  */
@@ -9,19 +11,10 @@ public class Usuario {
     private long id;
     private String nome; //fb:public_profile - name |
     private String email; //fb:email |
-    private String whatsapp;
-    private String telefone;
+    private Date dataNascimento;
     private String senha;
-    private String fotoPerfil; //fb:public_profile - picture |
-    private String faceUser; //fb:public_profile - link
+    private String authToken;
 
-    public String getFaceUser() {
-        return faceUser;
-    }
-
-    public void setFaceUser(String faceUser) {
-        this.faceUser = faceUser;
-    }
 
     public long getId() {
         return id;
@@ -47,20 +40,12 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getWhatsapp() {
-        return whatsapp;
+    public Date getDataNascimento() {
+        return dataNascimento;
     }
 
-    public void setWhatsapp(String whatsapp) {
-        this.whatsapp = whatsapp;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     public String getSenha() {
@@ -71,24 +56,14 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public String getFotoPerfil() {
-        return fotoPerfil;
+    public String getAuthToken() {
+        return authToken;
     }
 
-    public void setFotoPerfil(String fotoPerfil) {
-        this.fotoPerfil = fotoPerfil;
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
     }
 
-    public Usuario(long id, String nome, String email, String whatsapp, String telefone, String senha, String fotoPerfil, String faceUser) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.whatsapp = whatsapp;
-        this.telefone = telefone;
-        this.senha = senha;
-        this.fotoPerfil = fotoPerfil;
-        this.faceUser = faceUser;
-    }
 
     public Usuario() {
     }
