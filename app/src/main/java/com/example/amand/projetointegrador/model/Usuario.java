@@ -14,7 +14,16 @@ public class Usuario {
     private Date dataNascimento;
     private String senha;
     private String authToken;
+    private PerfilUsuario perfil;
 
+
+    public PerfilUsuario getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(PerfilUsuario perfil) {
+        this.perfil = perfil;
+    }
 
     public long getId() {
         return id;

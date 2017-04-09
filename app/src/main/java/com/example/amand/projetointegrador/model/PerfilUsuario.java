@@ -4,18 +4,16 @@ package com.example.amand.projetointegrador.model;
  * Created by amanda on 06/04/17.
  */
 
-public class ContatoUsuario {
+public class PerfilUsuario {
 
     private long id;
-    private Usuario usuario;
     private String fotoPerfil; //fb:public_profile - picture |
     private String faceUser; //fb:public_profile - link
     private String whatsapp;
     private String telefone;
 
-    public ContatoUsuario(long id, Usuario usuario, String fotoPerfil, String faceUser, String whatsapp, String telefone) {
+    public PerfilUsuario(long id, String fotoPerfil, String faceUser, String whatsapp, String telefone) {
         this.id = id;
-        this.usuario = usuario;
         this.fotoPerfil = fotoPerfil;
         this.faceUser = faceUser;
         this.whatsapp = whatsapp;
@@ -28,14 +26,6 @@ public class ContatoUsuario {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     public String getFotoPerfil() {

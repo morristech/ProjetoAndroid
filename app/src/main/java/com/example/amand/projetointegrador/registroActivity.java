@@ -45,7 +45,7 @@ public class registroActivity extends AppCompatActivity {
     private EditText confirmaSenhaNovaConta;
     private Button abrirNovaConta;
 
-    public static final String ENDERECO_WEB = "http://192.168.10.106:8080";
+   // public static final String ENDERECO_WEB = "http://192.168.10.106:8080";
 
 
     @Override
@@ -89,15 +89,16 @@ public class registroActivity extends AppCompatActivity {
 
                 JSONObject o = new JSONObject();
                 try {
-                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    /*DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                     Date date = null;
-                    date = (Date) formatter.parse(dataNascimentoNovaConta.getText().toString());
+                    date = (Date) formatter.parse(dataNascimentoNovaConta.getText().toString());*/
 
                     o.put("email", emailNovaConta.getText().toString());
                     o.put("nome", nomeNovaConta.getText().toString());
                     o.put("senha", senhaNovaConta.getText().toString());
-                    o.put("dataNascimento", date);
+                    o.put("dataNascimento", dataNascimentoNovaConta.getText().toString());
                     o.put("authToken", null);
+                    //o.put("perfil", null);
 
                     System.out.println(o.toString());
 
@@ -105,7 +106,7 @@ public class registroActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                WebService newUsuario = new WebService("http://192.168.10.106:8080/adotapet-servidor/api/usuario/cadastro");
+                WebService newUsuario = new WebService("http://192.168.1.8:8888/adotapet-servidor/api/usuario/cadastro");
                 newUsuario.execute(o);
 
             }
@@ -150,7 +151,12 @@ public class registroActivity extends AppCompatActivity {
                 chamada.addHeader("Content-type", "application/json");
                 chamada.setEntity(new ByteArrayEntity(params[0].toString().getBytes("UTF8")));
                 HttpResponse resposta = cliente.execute(chamada);
+
+                System.out.println(resposta.getStatusLine().getStatusCode());
+                System.out.println(resposta.getStatusLine().getReasonPhrase());
                 retorno = EntityUtils.toString(resposta.getEntity());
+
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -160,6 +166,8 @@ public class registroActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
+
+            System.out.println(s);
 
             Toast.makeText(registroActivity.this, s, Toast.LENGTH_SHORT).show();
 
