@@ -132,6 +132,14 @@
             android:textSize="18dp"
             android:id="@+id/abrirNovaConta"/>
 
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressoRegistro"
+            android:layout_gravity="center_horizontal"
+            android:elevation="10dp"
+            android:visibility="invisible"/>
+
 
     </LinearLayout>
 

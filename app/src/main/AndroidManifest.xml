@@ -62,7 +62,9 @@
         <activity android:name=".novaDoacaoActivity" />
         <activity android:name=".novoEncontradoActivity" />
         <activity android:name=".novoPerdidoActivity" />
-        <activity android:name=".DoacaoDetalhesActivity"></activity>
+        <activity android:name=".DoacaoDetalhesActivity" />
+        <activity android:name=".finalizaCadastro" />
+        <activity android:name=".FinalizaCadastroActivity"></activity>
     </application>
 
 </manifest>

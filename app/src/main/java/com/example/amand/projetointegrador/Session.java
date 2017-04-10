@@ -26,11 +26,11 @@ public class Session {
         editor.commit();
     }
 
-    public void setUserPrefs(String login, String nome, String senha, String ultimoLogin) {
+    public void setUserPrefs(String login, String nome, String senha, String authToken) {
         editor.putString("login", login);
         editor.putString("nome", nome);
         editor.putString("senha", senha);
-        editor.putString("ultimoLogin", ultimoLogin);
+        editor.putString("authToken", authToken);
         editor.commit();
     }
 
