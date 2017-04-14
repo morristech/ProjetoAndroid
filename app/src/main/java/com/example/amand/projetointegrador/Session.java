@@ -4,6 +4,11 @@ package com.example.amand.projetointegrador;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.amand.projetointegrador.model.Usuario;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -26,21 +31,21 @@ public class Session {
         editor.commit();
     }
 
-    public void setUserPrefs(String login, String nome, String senha, String authToken) {
-        editor.putString("login", login);
-        editor.putString("nome", nome);
-        editor.putString("senha", senha);
-        editor.putString("authToken", authToken);
+    public void setUserPrefs(Usuario user) {
+
+        Gson gson = new Gson();
+        String json = gson.toJson(user);
+        editor.putString("Usuario", json);
         editor.commit();
+
     }
 
-    public String getUserPrefs() {
-        String l = prefs.getString("login", null);
-        String n = prefs.getString("nome", null);
-        String s = prefs.getString("senha", null);
-        String ul = prefs.getString("ultimoLogin", null);
+    public Usuario getUserPrefs() {
 
-        return "Login: "+ l +"\nUsuario: "+ n +"\nSenha: "+ s +"\nUltimo Login: " +ul;
+        Gson gson = new Gson();
+        String json = prefs.getString("Usuario", null);
+        return gson.fromJson(json, Usuario.class);
+
     }
 
     public boolean loggedin(){

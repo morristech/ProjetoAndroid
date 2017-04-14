@@ -20,6 +20,9 @@ public class PerfilUsuario {
         this.telefone = telefone;
     }
 
+    public PerfilUsuario() {
+    }
+
     public long getId() {
         return id;
     }
