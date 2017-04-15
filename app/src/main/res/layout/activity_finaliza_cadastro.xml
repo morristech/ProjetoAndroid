@@ -17,7 +17,8 @@
             android:layout_gravity="center_horizontal"
             android:background="#e2e2e2"
             android:elevation="5dp"
-            android:layout_marginBottom="30dp"/>
+            android:layout_marginBottom="30dp"
+            android:id="@+id/imgFinalizaCadastro"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/uploadImageButton"
@@ -34,26 +35,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Telefone"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:id="@+id/finalizaCadastroTelefone"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Celular"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:id="@+id/finalizaCadastroCelular"/>
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/finalizaCadastroFacebook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:hint="Facebook" />
+            android:hint="Facebook"
+            />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Telefone WhatsApp"
-            android:layout_marginBottom="25dp"/>
+            android:layout_marginBottom="25dp"
+            android:id="@+id/finalizaCadastroWhats"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -68,7 +73,8 @@
             android:textSize="18sp"
             android:background="@color/colorAccent"
             android:textColor="#eee"
-            android:elevation="5dp"/>
+            android:elevation="5dp"
+            android:id="@+id/finalizaCadastroBtn"/>
 
 
     </LinearLayout>
