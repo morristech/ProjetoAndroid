@@ -54,7 +54,7 @@ public class registroActivity extends AppCompatActivity {
     private ProgressBar pb;
     private Session session;
 
-    public static final String ENDERECO_WEB = "http://10.42.0.1:8888";
+    public static final String ENDERECO_WEB = "http://192.168.25.18:8080";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

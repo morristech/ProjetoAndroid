@@ -36,14 +36,16 @@
             android:layout_height="wrap_content"
             android:hint="Telefone"
             android:layout_marginBottom="20dp"
-            android:id="@+id/finalizaCadastroTelefone"/>
+            android:id="@+id/finalizaCadastroTelefone"
+            android:inputType="phone"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Celular"
             android:layout_marginBottom="20dp"
-            android:id="@+id/finalizaCadastroCelular"/>
+            android:id="@+id/finalizaCadastroCelular"
+            android:inputType="phone"/>
 
         <EditText
             android:id="@+id/finalizaCadastroFacebook"
@@ -58,7 +60,8 @@
             android:layout_height="wrap_content"
             android:hint="Telefone WhatsApp"
             android:layout_marginBottom="25dp"
-            android:id="@+id/finalizaCadastroWhats"/>
+            android:id="@+id/finalizaCadastroWhats"
+            android:inputType="phone"/>
 
         <Button
             android:layout_width="wrap_content"
