@@ -54,7 +54,7 @@ public class registroActivity extends AppCompatActivity {
     private ProgressBar pb;
     private Session session;
 
-    public static final String ENDERECO_WEB = "http://192.168.25.18:8080";
+    public static final String ENDERECO_WEB = "http://10.42.0.1:8888";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,6 +230,7 @@ public class registroActivity extends AppCompatActivity {
                 parametros.add(new BasicNameValuePair("senha", params[1]));
 
                 chamada.setHeader("Authorization", "Basic " + new String(Base64.encode((params[0]+":"+params[1]).getBytes(), Base64.NO_WRAP)));
+                session.setToken(new String (Base64.encode((params[0]+":"+params[1]).getBytes(), Base64.NO_WRAP)));
 
                 chamada.setEntity(new UrlEncodedFormEntity(parametros));
                 resposta = cliente.execute(chamada);
@@ -257,26 +258,7 @@ public class registroActivity extends AppCompatActivity {
                     systemRes = EntityUtils.toString(s.getEntity());
                     JSONObject obj = new JSONObject(systemRes);
 
-                    Usuario usuario = new Usuario();
-                    usuario.setId(obj.getLong("id"));
-                    usuario.setNome(obj.getString("nome"));
-                    usuario.setEmail(obj.getString("email"));
-                    usuario.setSenha(obj.getString("senha"));
-
-                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                    Date date;
-                    date = formatter.parse(obj.getString("data"));
-
-                    usuario.setDataNascimento(date);
-                    usuario.setAuthToken(obj.getString("authToken"));
-
-                    JSONObject perfil = obj.getJSONObject("perfil");
-                    PerfilUsuario perfilUsuario = new PerfilUsuario();
-                    perfilUsuario.setId(perfil.getLong("id"));
-
-                    usuario.setPerfil(perfilUsuario);
-
-                    session.setUserPrefs(usuario);
+                    session.setUserPrefs(obj.getLong("id"));
 
 
                 } catch (Exception e) {

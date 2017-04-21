@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 
 import com.example.amand.projetointegrador.model.Usuario;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
 
@@ -31,21 +34,30 @@ public class Session {
         editor.commit();
     }
 
-    public void setUserPrefs(Usuario user) {
+    public void setUserPrefs(Long userId) {
 
-        Gson gson = new Gson();
-        String json = gson.toJson(user);
-        editor.putString("Usuario", json);
+        editor.putString("usuario", userId.toString());
         editor.commit();
 
     }
 
-    public Usuario getUserPrefs() {
+    public void setToken(String token) {
 
-        Gson gson = new Gson();
-        String json = prefs.getString("Usuario", null);
-        return gson.fromJson(json, Usuario.class);
+        editor.putString("authToken", token);
+        editor.commit();
 
+    }
+
+    public String getToken() {
+
+        return prefs.getString("authToken", null);
+    }
+
+    public Long getUserPrefs() {
+
+        String userId = prefs.getString("usuario", null);
+
+        return Long.parseLong(userId);
     }
 
     public boolean loggedin(){

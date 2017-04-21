@@ -57,7 +57,7 @@
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ChoiceActivity" />
-        <activity android:name=".FinalizaCadastroActivity">
+        <activity android:name=".registroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -68,7 +68,7 @@
         <activity android:name=".novoEncontradoActivity" />
         <activity android:name=".novoPerdidoActivity" />
         <activity android:name=".DoacaoDetalhesActivity" />
-        <activity android:name=".registroActivity" />
+        <activity android:name=".FinalizaCadastroActivity" />
     </application>
 
 </manifest>
