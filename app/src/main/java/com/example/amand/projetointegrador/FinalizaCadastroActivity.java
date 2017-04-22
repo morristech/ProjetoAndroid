@@ -23,6 +23,7 @@ import com.mvc.imagepicker.ImagePicker;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -84,12 +85,11 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 try {
-                    perfilService service = new perfilService(registroActivity.ENDERECO_WEB+ "/adotapet-servidor/api/usuario/uploadteste");
+                    perfilService service = new perfilService(registroActivity.ENDERECO_WEB + "/adotapet-servidor/api/usuario/uploadteste");
 
                     service.execute(file, finalizaCadastroTelefone.getText().toString(), finalizaCadastroCelular.getText().toString(),
                             finalizaCadastroFacebook.getText().toString(), finalizaCadastroWhats.getText().toString());
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     System.out.println(e + "*******************************************");
                 }
 
@@ -103,11 +103,14 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
 
         // TODO do something with the bitmap
 
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
+        File file = new File(getFilesDir().getPath() + "image.png");
 
-        file = Base64.encodeToString(byteArray, Base64.NO_WRAP);
+
+        try {
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(file));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         imgFinalizaCadastro.setImageBitmap(createSquaredBitmap(bitmap));
 
@@ -146,24 +149,21 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
             try {
                 chamada.setHeader("Authorization", "Basic " + session.getToken());
 
-                byte[] bytes = Base64.decode(params[0].getBytes(), Base64.NO_WRAP);
 
-                File file = new File(getFilesDir().getPath()+"image.png");
-                BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
-                bos.write(bytes);
-                bos.close();
-
+                File file = new File(getFilesDir().getPath() + "image.png");
 
                 Long userId = session.getUserPrefs();
 
                 MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
                 entityBuilder.addPart("userId", new StringBody(String.valueOf(userId), ContentType.TEXT_PLAIN));
-                entityBuilder.addPart("file", new FileBody(file));
+
+                if (file.exists()) {
+                    entityBuilder.addPart("file", new FileBody(file));
+                }
                 entityBuilder.addPart("telefone", new StringBody((params[1]), ContentType.TEXT_PLAIN));
                 entityBuilder.addPart("celular", new StringBody((params[2]), ContentType.TEXT_PLAIN));
                 entityBuilder.addPart("facebook", new StringBody((params[3]), ContentType.TEXT_PLAIN));
                 entityBuilder.addPart("whats", new StringBody((params[4]), ContentType.TEXT_PLAIN));
-
 
                 HttpEntity entity = entityBuilder.build();
 
