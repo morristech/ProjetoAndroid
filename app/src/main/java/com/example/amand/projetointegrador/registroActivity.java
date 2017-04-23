@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
-import android.util.Base64InputStream;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,17 +17,11 @@ import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
-import com.example.amand.projetointegrador.model.PerfilUsuario;
-import com.example.amand.projetointegrador.model.Usuario;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import cz.msebera.android.httpclient.HttpResponse;
@@ -41,7 +34,7 @@ import cz.msebera.android.httpclient.impl.client.HttpClientBuilder;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.util.EntityUtils;
 
-public class registroActivity extends AppCompatActivity {
+public class RegistroActivity extends AppCompatActivity {
 
     private EditText emailNovaConta;
 
@@ -54,7 +47,7 @@ public class registroActivity extends AppCompatActivity {
     private ProgressBar pb;
     private Session session;
 
-    public static final String ENDERECO_WEB = "http://192.168.25.23:8888";
+    public static final String ENDERECO_WEB = "http://192.168.25.18:8084cd";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +100,7 @@ public class registroActivity extends AppCompatActivity {
 
                 if (!confirmaSenhaNovaConta.getText().toString().equals(senhaNovaConta.getText().toString())) {
 
-                    Toast.makeText(registroActivity.this, "Senhas não correspondem", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistroActivity.this, "Senhas não correspondem", Toast.LENGTH_SHORT).show();
                 }
 
                 if (awesomeValidation.validate()) {
@@ -197,15 +190,15 @@ public class registroActivity extends AppCompatActivity {
             pb.setVisibility(View.GONE);
             abrirNovaConta.setVisibility(View.VISIBLE);
             if (s.getStatusLine().getStatusCode() == 200) {
-                Toast.makeText(registroActivity.this, "Conta criada com sucesso!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistroActivity.this, "Conta criada com sucesso!", Toast.LENGTH_SHORT).show();
 
                 LoginService ls = new LoginService();
                 ls.execute(emailNovaConta.getText().toString(), senhaNovaConta.getText().toString());
 
             } else if (s.getStatusLine().getStatusCode() == 409) {
-                Toast.makeText(registroActivity.this, "Conta já existente!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistroActivity.this, "Conta já existente!", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(registroActivity.this, "Não sei o que aconteceu", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistroActivity.this, "Não sei o que aconteceu", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -265,14 +258,14 @@ public class registroActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                Intent intent = new Intent(registroActivity.this, FinalizaCadastroActivity.class);
+                Intent intent = new Intent(RegistroActivity.this, FinalizaCadastroActivity.class);
                 startActivity(intent);
 
             } else {
 
                 System.out.println(systemRes);
 
-                Toast.makeText(registroActivity.this, "Erro" +s.getStatusLine().getStatusCode(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistroActivity.this, "Erro" +s.getStatusLine().getStatusCode(), Toast.LENGTH_SHORT).show();
             }
         }
     }

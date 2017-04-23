@@ -8,7 +8,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,12 +15,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
-import com.basgeekball.awesomevalidation.utility.RegexTemplate;
-import com.example.amand.projetointegrador.model.Usuario;
 import com.mvc.imagepicker.ImagePicker;
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -85,7 +80,7 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 try {
-                    perfilService service = new perfilService(registroActivity.ENDERECO_WEB + "/adotapet-servidor/api/usuario/uploadteste");
+                    perfilService service = new perfilService(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/usuario/uploadteste");
 
                     service.execute(file, finalizaCadastroTelefone.getText().toString(), finalizaCadastroCelular.getText().toString(),
                             finalizaCadastroFacebook.getText().toString(), finalizaCadastroWhats.getText().toString());

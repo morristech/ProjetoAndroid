@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -21,9 +22,12 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -103,40 +107,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
-        FacebookSdk.getApplicationContext();
-        callbackManager = CallbackManager.Factory.create();
-
-        LoginManager.getInstance().registerCallback(callbackManager,
-                new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                       // Log.d("Success", "Login");
-
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        //Toast.makeText(MainActivity.this, "Login Cancel", Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onError(FacebookException exception) {
-                        //Toast.makeText(MainActivity.this, exception.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-
-
         setContentView(R.layout.activity_main);
-
-        loginFace = (Button) findViewById(R.id.facebookLogin);
-
-        loginFace.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile", "email"));
-            }
-        });
 
     }
 
@@ -158,7 +129,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private class LoginService extends AsyncTask<String, Void, HttpResponse> {
 
         private String
-                webAdd = registroActivity.ENDERECO_WEB + "/adotapet-servidor/api/usuario/login";
+                webAdd = RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/usuario/login";
 
         @Override
         protected HttpResponse doInBackground(String... params) {

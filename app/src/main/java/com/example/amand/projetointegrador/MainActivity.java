@@ -21,7 +21,7 @@ import com.roughike.bottombar.OnTabSelectListener;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    //Session session = new Session(this);
+    Session session = new Session(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,8 +132,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void logout() {
-        //session.setLoggedin(false);
-        //finish();
-        //startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        session.setLoggedin(false);
+        finish();
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
     }
 }
