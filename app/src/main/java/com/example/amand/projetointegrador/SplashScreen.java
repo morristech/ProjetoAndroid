@@ -9,12 +9,15 @@ public class SplashScreen extends AppCompatActivity {
     // Timer da splash screen
     private static int SPLASH_TIME_OUT = 3000;
     Session session;
+    String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         session = new Session(this);
+
+        token = session.getToken();
 
         new Handler().postDelayed(new Runnable() {
             /*
@@ -24,7 +27,7 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
                 // Esse método será executado sempre que o timer acabar
                 // E inicia a activity principal
-                if(session.getToken() == null || session.getToken().equals("")) {
+                if(token.equals("") || token.isEmpty()) {
                     Intent login = new Intent(SplashScreen.this, LoginActivity.class);
                     startActivity(login);
                 } else {

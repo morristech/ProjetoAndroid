@@ -21,7 +21,7 @@ import com.roughike.bottombar.OnTabSelectListener;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    Session session = new Session(this);
+    Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        session = new Session(this);
 
         toolbar.setTitle("Adota Pet");
 
@@ -133,6 +135,7 @@ public class MainActivity extends AppCompatActivity
 
     private void logout() {
         session.setLoggedin(false);
+        session.setToken("");
         finish();
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
     }

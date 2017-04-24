@@ -45,7 +45,7 @@
                 android:textStyle="bold" />
 
 
-            <AutoCompleteTextView
+            <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,6 +57,8 @@
                 android:drawableStart="@drawable/ic_person_black_24dp"
                 android:drawableTint="#333"
                 android:hint="@string/prompt_email"
+                android:textColor="#222"
+                android:textColorHint="#999"
                 android:inputType="textEmailAddress"
                 android:maxLines="1" />
 
@@ -72,6 +74,8 @@
                 android:drawableLeft="@drawable/ic_lock_outline_black_24dp"
                 android:drawablePadding="10dp"
                 android:hint="@string/prompt_password"
+                android:textColor="#222"
+                android:textColorHint="#999"
                 android:imeActionId="@+id/login"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionUnspecified"
