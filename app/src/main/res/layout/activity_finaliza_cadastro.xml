@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.amand.projetointegrador.FinalizaCadastroActivity">
+    tools:context="com.example.amand.projetointegrador.FinalizaCadastroActivity"
+    android:background="@drawable/backgrounddoaplicativodecachorrinhos">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,10 +16,11 @@
             android:layout_width="160dp"
             android:layout_height="160dp"
             android:layout_gravity="center_horizontal"
-            android:background="#e2e2e2"
+            android:background="#c2e2e2e2"
             android:elevation="5dp"
             android:layout_marginBottom="30dp"
-            android:id="@+id/imgFinalizaCadastro"/>
+            android:id="@+id/imgFinalizaCadastro"
+            />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/uploadImageButton"
@@ -37,7 +39,9 @@
             android:hint="Telefone"
             android:layout_marginBottom="20dp"
             android:id="@+id/finalizaCadastroTelefone"
-            android:inputType="phone"/>
+            android:inputType="phone"
+            android:background="#c0eeeeee"
+            android:padding="15dp"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -45,7 +49,9 @@
             android:hint="Celular"
             android:layout_marginBottom="20dp"
             android:id="@+id/finalizaCadastroCelular"
-            android:inputType="phone"/>
+            android:inputType="phone"
+            android:background="#c0eeeeee"
+            android:padding="15dp"/>
 
         <EditText
             android:id="@+id/finalizaCadastroFacebook"
@@ -53,6 +59,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:hint="Facebook"
+            android:background="#c0eeeeee"
+            android:padding="15dp"
             />
 
         <EditText
@@ -61,7 +69,9 @@
             android:hint="Telefone WhatsApp"
             android:layout_marginBottom="25dp"
             android:id="@+id/finalizaCadastroWhats"
-            android:inputType="phone"/>
+            android:inputType="phone"
+            android:background="#c0eeeeee"
+            android:padding="15dp"/>
 
         <Button
             android:layout_width="wrap_content"

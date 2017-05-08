@@ -53,6 +53,8 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
 
         session = new Session(this);
 
+        getSupportActionBar().setTitle("Finalize seu cadastro!");
+
         imgFinalizaCadastro = (ImageView) findViewById(R.id.imgFinalizaCadastro);
         uploadImageButton = (FloatingActionButton) findViewById(R.id.uploadImageButton);
         finalizaCadastroTelefone = (EditText) findViewById(R.id.finalizaCadastroTelefone);
@@ -115,6 +117,8 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
         // Click on image button
         ImagePicker.pickImage(this, "Select your image:");
     }
+
+
 
     private static Bitmap createSquaredBitmap(Bitmap srcBmp) {
         int dim = Math.max(srcBmp.getWidth(), srcBmp.getHeight());

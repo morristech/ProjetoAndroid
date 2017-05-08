@@ -16,7 +16,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="250sp"
         android:keepScreenOn="true"
-        android:text="Adota Pet"
+        android:text="Lucky Pets"
         android:textColor="#fff"
         android:textSize="50sp"
         android:textStyle="bold" />

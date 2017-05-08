@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
                 android:layout_marginTop="20dp"
-                android:text="Adotar Bichos"
+                android:text="Lucky Pets"
                 android:textAlignment="center"
                 android:textColor="#fff"
                 android:textSize="28sp"
@@ -152,18 +152,20 @@
                 />
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
                 android:background="#00ffffff"
                 android:text="Esqueceu sua senha?"
                 android:textAllCaps="false"
                 android:textColor="#ccc"
-                android:layout_marginTop="25dp"
-                android:textSize="17sp"/>
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="25sp"
+                android:textSize="16sp"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -172,11 +174,11 @@
                 android:text="Cadastre-se"
                 android:textAllCaps="false"
                 android:textColor="#ddd"
-                android:layout_marginTop="25dp"
-                android:layout_marginLeft="55dp"
-                android:textSize="17sp"
+                android:layout_marginTop="25sp"
+                android:layout_marginStart="50sp"
+                android:textSize="16sp"
                 android:autoLink="all"
-                android:layout_marginRight="15dp"
+                android:id="@+id/registerBtn"
                 />
 
             </LinearLayout>

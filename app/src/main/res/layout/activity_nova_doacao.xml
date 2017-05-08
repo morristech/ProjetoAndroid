@@ -16,8 +16,8 @@
             android:id="@+id/novaDoacaoPager"
             android:layout_width="wrap_content"
             android:layout_height="220dp"
-            android:background="@drawable/placehold"
-            android:elevation="5dp"/>
+            android:background="@drawable/imgplaceholder"
+            android:elevation="5dp" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/novaDoacaoImgBtn"
@@ -65,17 +65,17 @@
                 app:sc_corner_radius="0dp">
 
                 <RadioButton
-                    android:id="@+id/button21"
+                    android:id="@+id/cachorroTipo"
                     style="@style/RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:width="175dp"
                     android:padding="15dp"
                     android:text="Cachorro"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"/>
 
                 <RadioButton
-                    android:id="@+id/button22"
+                    android:id="@+id/gatoTipo"
                     style="@style/RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                 app:sc_tint_color="@color/colorAccent"
                 app:sc_corner_radius="0dp">
 
-                <RadioButton
+               <RadioButton
                     android:id="@+id/btnFeminino"
                     style="@style/RadioButton"
                     android:layout_width="wrap_content"
@@ -173,14 +173,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Sim" />
+                    android:text="Sim"
+                    android:id="@+id/deficienciaSim"
+                    />
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:text="Não" />
+                    android:text="Não"
+                    android:id="@+id/deficienciaNao"
+                    />
             </RadioGroup>
 
             <TextView
@@ -202,14 +206,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Sim" />
+                    android:text="Sim"
+                    android:id="@+id/castradoSim"/>
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:text="Não" />
+                    android:text="Não"
+                    android:id="@+id/castradoNao"/>
             </RadioGroup>
 
             <Button
@@ -225,7 +231,8 @@
                 android:textAllCaps="false"
                 android:textColor="#fff"
                 android:textSize="18dp"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginBottom="20dp"
+                android:id="@+id/enviaAnuncio"/>
         </LinearLayout>
 
     </RelativeLayout>

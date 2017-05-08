@@ -55,10 +55,14 @@ public class LoginActivity extends Activity {
     private Button loginFace;
     private CallbackManager callbackManager;
 
+    private Button registerView;
+    private Button forgotView;
+
     private EditText loginEmail;
     private EditText loginPass;
     private Button btnLogin;
     Session session;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +101,16 @@ public class LoginActivity extends Activity {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        registerView = (Button) findViewById(R.id.registerBtn);
+
+        registerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this , RegistroActivity.class);
+                startActivity(i);
+            }
+        });
 
         //setContentView(R.layout.activity_login);
 
