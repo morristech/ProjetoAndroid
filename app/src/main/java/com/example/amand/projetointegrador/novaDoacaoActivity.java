@@ -193,7 +193,7 @@ public class novaDoacaoActivity extends AppCompatActivity {
 
         // TODO do something with the bitmap
 
-        File file = new File(getFilesDir().getPath() + "image.png");
+        File file = new File(getFilesDir().getPath() + "image" + bitmap.getByteCount() +".png");
 
 
         try {
@@ -221,7 +221,6 @@ public class novaDoacaoActivity extends AppCompatActivity {
 
                 chamada.setHeader("Authorization", "Basic " + session.getToken());
 
-
                 Long userId = session.getUserPrefs();
 
                 MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
@@ -229,8 +228,7 @@ public class novaDoacaoActivity extends AppCompatActivity {
 
                 if (!urlImg.isEmpty()) {
                     for (int i = 0; i < urlImg.size(); i++) {
-                        FileBody fileBody = new FileBody(urlImg.get(i));
-                        entityBuilder.addPart("file", fileBody);
+                        entityBuilder.addPart("file", new FileBody(urlImg.get(i)));
                     }
                 }
 

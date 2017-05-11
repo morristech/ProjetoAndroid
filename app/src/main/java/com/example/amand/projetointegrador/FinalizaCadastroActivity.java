@@ -82,7 +82,7 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 try {
-                    perfilService service = new perfilService(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/usuario/uploadteste");
+                    perfilService service = new perfilService(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/usuario/upload");
 
                     service.execute(file, finalizaCadastroTelefone.getText().toString(), finalizaCadastroCelular.getText().toString(),
                             finalizaCadastroFacebook.getText().toString(), finalizaCadastroWhats.getText().toString());
@@ -183,7 +183,15 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(HttpResponse httpResponse) {
 
-            Toast.makeText(getApplicationContext(), String.valueOf(httpResponse.getStatusLine().getStatusCode()), Toast.LENGTH_SHORT).show();
+            if (httpResponse.getStatusLine().getStatusCode() == 200) {
+                Toast.makeText(getApplicationContext(), String.valueOf(httpResponse.getStatusLine().getStatusCode()), Toast.LENGTH_SHORT).show();
+
+                Intent i = new Intent(FinalizaCadastroActivity.this, MainActivity.class);
+                startActivity(i);
+            } else {
+                Toast.makeText(getApplicationContext(), "Erro: " +String.valueOf(httpResponse.getStatusLine().getStatusCode()), Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 

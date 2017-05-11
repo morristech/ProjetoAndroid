@@ -46,8 +46,9 @@ public class RegistroActivity extends AppCompatActivity {
     private AwesomeValidation awesomeValidation;
     private ProgressBar pb;
     private Session session;
+    static Long id;
 
-    public static final String ENDERECO_WEB = "http://192.168.25.26:8888";
+    public static final String ENDERECO_WEB = "http://192.168.11.26:8888";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,7 +149,7 @@ public class RegistroActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private class WebService extends AsyncTask<JSONObject, Integer, HttpResponse> {
+    private class WebService extends AsyncTask<JSONObject, Integer, String> {
 
         private String webAdd;
 
@@ -157,10 +158,11 @@ public class RegistroActivity extends AppCompatActivity {
         }
 
         @Override
-        protected HttpResponse doInBackground(JSONObject... params) {
+        protected String doInBackground(JSONObject... params) {
             HttpClient cliente = HttpClientBuilder.create().build();
             HttpPost chamada = new HttpPost(webAdd);
             HttpResponse resposta = null;
+            String systemRes = "";
 
             try {
                 chamada.addHeader("Accept", "application/json");
@@ -171,12 +173,12 @@ public class RegistroActivity extends AppCompatActivity {
                 System.out.println(resposta.getStatusLine().getStatusCode());
                 System.out.println(resposta.getStatusLine().getReasonPhrase());
 
-
+                systemRes = EntityUtils.toString(resposta.getEntity());
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            return resposta;
+            return systemRes;
         }
 
         @Override
@@ -186,19 +188,18 @@ public class RegistroActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(HttpResponse s) {
+        protected void onPostExecute(String s) {
             pb.setVisibility(View.GONE);
             abrirNovaConta.setVisibility(View.VISIBLE);
-            if (s.getStatusLine().getStatusCode() == 200) {
+
+            if (s.equals("Erro")) {
+                Toast.makeText(RegistroActivity.this, "Não sei o que aconteceu", Toast.LENGTH_SHORT).show();
+            } else {
                 Toast.makeText(RegistroActivity.this, "Conta criada com sucesso!", Toast.LENGTH_SHORT).show();
 
                 LoginService ls = new LoginService();
                 ls.execute(emailNovaConta.getText().toString(), senhaNovaConta.getText().toString());
-
-            } else if (s.getStatusLine().getStatusCode() == 409) {
-                Toast.makeText(RegistroActivity.this, "Conta já existente!", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(RegistroActivity.this, "Não sei o que aconteceu", Toast.LENGTH_SHORT).show();
+                id = Long.valueOf(s);
             }
 
         }
@@ -207,7 +208,7 @@ public class RegistroActivity extends AppCompatActivity {
     private class LoginService extends AsyncTask<String, Void, HttpResponse> {
 
         private String
-            webAdd = ENDERECO_WEB + "/adotapet-servidor/api/usuario/login";
+                webAdd = ENDERECO_WEB + "/adotapet-servidor/api/usuario/login";
 
         @Override
         protected HttpResponse doInBackground(String... params) {
@@ -222,8 +223,8 @@ public class RegistroActivity extends AppCompatActivity {
                 parametros.add(new BasicNameValuePair("email", params[0]));
                 parametros.add(new BasicNameValuePair("senha", params[1]));
 
-                chamada.setHeader("Authorization", "Basic " + new String(Base64.encode((params[0]+":"+params[1]).getBytes(), Base64.NO_WRAP)));
-                session.setToken(new String (Base64.encode((params[0]+":"+params[1]).getBytes(), Base64.NO_WRAP)));
+                chamada.setHeader("Authorization", "Basic " + new String(Base64.encode((params[0] + ":" + params[1]).getBytes(), Base64.NO_WRAP)));
+                session.setToken(new String(Base64.encode((params[0] + ":" + params[1]).getBytes(), Base64.NO_WRAP)));
 
                 chamada.setEntity(new UrlEncodedFormEntity(parametros));
                 resposta = cliente.execute(chamada);
@@ -247,16 +248,7 @@ public class RegistroActivity extends AppCompatActivity {
             if (s.getStatusLine().getStatusCode() == 200) {
                 //Ok
 
-                try {
-                    systemRes = EntityUtils.toString(s.getEntity());
-                    JSONObject obj = new JSONObject(systemRes);
-
-                    session.setUserPrefs(obj.getLong("id"));
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                session.setUserPrefs(id);
 
                 Intent intent = new Intent(RegistroActivity.this, FinalizaCadastroActivity.class);
                 startActivity(intent);
@@ -265,7 +257,7 @@ public class RegistroActivity extends AppCompatActivity {
 
                 System.out.println(systemRes);
 
-                Toast.makeText(RegistroActivity.this, "Erro" +s.getStatusLine().getStatusCode(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistroActivity.this, "Erro" + s.getStatusLine().getStatusCode(), Toast.LENGTH_SHORT).show();
             }
         }
     }
