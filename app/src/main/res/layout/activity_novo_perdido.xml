@@ -11,19 +11,19 @@
         android:orientation="vertical">
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/novaDoacaoPager"
+            android:id="@+id/novoPerdidoPager"
             android:layout_width="wrap_content"
             android:layout_height="220dp"
-            android:background="@drawable/placehold"
+            android:background="@drawable/imgplaceholder"
             android:elevation="5dp" />
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/novaDoacaoImgBtn"
+            android:id="@+id/novoPerdidoImgBtn"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_below="@+id/novaDoacaoPager"
+            android:layout_below="@+id/novoPerdidoPager"
             android:layout_marginRight="20dp"
             android:layout_marginTop="195dp"
             android:scaleType="center"
@@ -32,7 +32,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/novaDoacaoPager"
+            android:layout_below="@+id/novoPerdidoPager"
             android:layout_marginTop="25dp"
             android:orientation="vertical"
             android:padding="15dp">
@@ -64,7 +64,7 @@
                 app:sc_tint_color="@color/colorAccent">
 
                 <RadioButton
-                    android:id="@+id/button21"
+                    android:id="@+id/tipoCachorro"
                     style="@style/RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
                     android:textSize="18sp" />
 
                 <RadioButton
-                    android:id="@+id/button22"
+                    android:id="@+id/tipoGato"
                     style="@style/RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -225,7 +225,8 @@
                 android:textAllCaps="false"
                 android:textColor="#fff"
                 android:textSize="18dp"
-                android:layout_marginBottom="15dp"/>
+                android:layout_marginBottom="15dp"
+                android:id="@+id/enviaAnuncio"/>
 
 
         </LinearLayout>

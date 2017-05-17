@@ -48,7 +48,7 @@ public class RegistroActivity extends AppCompatActivity {
     private Session session;
     static Long id;
 
-    public static final String ENDERECO_WEB = "http://192.168.11.26:8888";
+    public static final String ENDERECO_WEB = "http://192.168.25.9:8888";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,17 +205,18 @@ public class RegistroActivity extends AppCompatActivity {
         }
     }
 
-    private class LoginService extends AsyncTask<String, Void, HttpResponse> {
+    private class LoginService extends AsyncTask<String, Void, String> {
 
         private String
                 webAdd = ENDERECO_WEB + "/adotapet-servidor/api/usuario/login";
 
         @Override
-        protected HttpResponse doInBackground(String... params) {
+        protected String doInBackground(String... params) {
 
             HttpClient cliente = HttpClientBuilder.create().build();
             HttpPost chamada = new HttpPost(webAdd);
             HttpResponse resposta = null;
+            String systemRes = "";
 
             try {
 
@@ -228,6 +229,7 @@ public class RegistroActivity extends AppCompatActivity {
 
                 chamada.setEntity(new UrlEncodedFormEntity(parametros));
                 resposta = cliente.execute(chamada);
+                systemRes = EntityUtils.toString(resposta.getEntity());
 
                 System.out.println(resposta.getStatusLine().getStatusCode());
                 System.out.println(resposta.getStatusLine().getReasonPhrase());
@@ -237,27 +239,39 @@ public class RegistroActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            return resposta;
+            return systemRes;
         }
 
         @Override
-        protected void onPostExecute(HttpResponse s) {
+        protected void onPostExecute(String s) {
 
             String systemRes = "";
 
-            if (s.getStatusLine().getStatusCode() == 200) {
+            if (!s.equals("Erro")) {
                 //Ok
 
-                session.setUserPrefs(id);
+                try {
 
-                Intent intent = new Intent(RegistroActivity.this, FinalizaCadastroActivity.class);
-                startActivity(intent);
+                    JSONObject obj = new JSONObject(s);
+                    JSONObject perfil = obj.getJSONObject("perfil");
+
+                    session.setUserPrefs(obj.getLong("id"));
+                    session.setUserEmail(obj.getString("email"));
+                    session.setUserName(obj.getString("nome"));
+                    session.setUserImg(perfil.getString("fotoPerfil"));
+
+                    Intent intent = new Intent(RegistroActivity.this, FinalizaCadastroActivity.class);
+                    startActivity(intent);
+                } catch (Exception e) {
+
+                    Toast.makeText(RegistroActivity.this, "Erro", Toast.LENGTH_SHORT).show();
+                }
 
             } else {
 
                 System.out.println(systemRes);
 
-                Toast.makeText(RegistroActivity.this, "Erro" + s.getStatusLine().getStatusCode(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistroActivity.this, "Erro", Toast.LENGTH_SHORT).show();
             }
         }
     }

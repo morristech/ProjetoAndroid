@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/ordenarAnuncios"
+            android:icon="@drawable/ic_add_circle_black_24dp"
+            android:title="Ordenar" />
+        <item
+            android:id="@+id/filtrarAnuncios"
+            android:icon="@drawable/ic_filter_list_black_24dp"
+            android:title="Filtrar" />
+    </group>
+
+</menu>

@@ -17,27 +17,23 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         session = new Session(this);
 
-        token = session.getToken();
+        if (session.getToken() != null) {
+            token = session.getToken();
 
-        new Handler().postDelayed(new Runnable() {
-            /*
-             * Exibindo splash com um timer.
-             */
-            @Override
-            public void run() {
-                // Esse método será executado sempre que o timer acabar
-                // E inicia a activity principal
-                if(token.equals("") || token.isEmpty()) {
-                    Intent login = new Intent(SplashScreen.this, LoginActivity.class);
-                    startActivity(login);
-                } else {
+            new Handler().postDelayed(new Runnable() {
+                /*
+                 * Exibindo splash com um timer.
+                 */
+                @Override
+                public void run() {
                     Intent i = new Intent(SplashScreen.this, MainActivity.class);
                     startActivity(i);
+                    finish();
                 }
-
-                // Fecha esta activity
-                finish();
-            }
-        }, SPLASH_TIME_OUT);
+            }, SPLASH_TIME_OUT);
+        } else {
+            Intent login = new Intent(SplashScreen.this, LoginActivity.class);
+            startActivity(login);
+        }
     }
 }

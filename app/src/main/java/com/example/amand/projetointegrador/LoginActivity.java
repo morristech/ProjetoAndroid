@@ -131,17 +131,18 @@ public class LoginActivity extends Activity {
 
     }*/
 
-    private class LoginService extends AsyncTask<String, Void, HttpResponse> {
+    private class LoginService extends AsyncTask<String, Void, String> {
 
         private String
                 webAdd = RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/usuario/login";
 
         @Override
-        protected HttpResponse doInBackground(String... params) {
+        protected String doInBackground(String... params) {
 
             HttpClient cliente = HttpClientBuilder.create().build();
             HttpPost chamada = new HttpPost(webAdd);
             HttpResponse resposta = null;
+            String systemRes = "";
 
             try {
 
@@ -154,6 +155,7 @@ public class LoginActivity extends Activity {
 
                 chamada.setEntity(new UrlEncodedFormEntity(parametros));
                 resposta = cliente.execute(chamada);
+                systemRes = EntityUtils.toString(resposta.getEntity());
 
                 System.out.println(resposta.getStatusLine().getStatusCode());
                 System.out.println(resposta.getStatusLine().getReasonPhrase());
@@ -163,36 +165,39 @@ public class LoginActivity extends Activity {
                 e.printStackTrace();
             }
 
-            return resposta;
+            return systemRes;
         }
 
         @Override
-        protected void onPostExecute(HttpResponse s) {
+        protected void onPostExecute(String s) {
 
             String systemRes = "";
 
-            if (s.getStatusLine().getStatusCode() == 200) {
+            if (!s.equals("Erro")) {
                 //Ok
 
                 try {
-                    systemRes = EntityUtils.toString(s.getEntity());
-                    JSONObject obj = new JSONObject(systemRes);
+
+                    JSONObject obj = new JSONObject(s);
+                    JSONObject perfil = obj.getJSONObject("perfil");
 
                     session.setUserPrefs(obj.getLong("id"));
+                    session.setUserEmail(obj.getString("email"));
+                    session.setUserName(obj.getString("nome"));
+                    session.setUserImg(perfil.getString("fotoPerfil"));
 
-
+                    Intent intent = new Intent(LoginActivity.this, FinalizaCadastroActivity.class);
+                    startActivity(intent);
                 } catch (Exception e) {
-                    e.printStackTrace();
-                }
 
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
+                    Toast.makeText(LoginActivity.this, "Erro", Toast.LENGTH_SHORT).show();
+                }
 
             } else {
 
                 System.out.println(systemRes);
 
-                Toast.makeText(LoginActivity.this, "Erro" +s.getStatusLine().getStatusCode(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Erro", Toast.LENGTH_SHORT).show();
             }
         }
     }

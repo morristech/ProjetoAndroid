@@ -1,6 +1,10 @@
 package com.example.amand.projetointegrador;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.design.widget.NavigationView;
@@ -11,17 +15,39 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.client.methods.HttpGet;
+import cz.msebera.android.httpclient.impl.client.HttpClientBuilder;
+import cz.msebera.android.httpclient.util.EntityUtils;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Session session;
+    private ImageView barUserImg;
+    private TextView barUserName;
+    private TextView barUserEmail;
+    private Context ctx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +56,15 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        barUserImg = (ImageView) findViewById(R.id.barUserImg);
+        barUserName = (TextView) findViewById(R.id.barUserName);
+        barUserEmail = (TextView) findViewById(R.id.barUserEmail);
+
+        ctx = this;
         session = new Session(this);
 
         toolbar.setTitle("Adota Pet");
+
 
         BottomBar bb = (BottomBar) findViewById(R.id.bottomBar);
         bb.setOnTabSelectListener(new OnTabSelectListener() {
@@ -71,6 +103,19 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        barUserEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.barUserEmail);
+        barUserName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.barUserName);
+
+        new DownloadImageTask((ImageView) navigationView.getHeaderView(0).findViewById(R.id.barUserImg))
+                .execute(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/" + session.getUserPrefs() + "/" + session.getUserImg());
+
+        System.out.print(session.getUserImg() + "**************************************");
+
+        if(session.getUserEmail() != null && session.getUserName() != null) {
+            barUserEmail.setText(session.getUserEmail());
+            barUserName.setText(session.getUserName());
+        }
+
     }
 
 
@@ -138,5 +183,29 @@ public class MainActivity extends AppCompatActivity
         session.setToken("");
         finish();
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 }

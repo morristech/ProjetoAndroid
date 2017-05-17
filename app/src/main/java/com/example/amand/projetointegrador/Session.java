@@ -38,7 +38,24 @@ public class Session {
 
         editor.putString("usuario", userId.toString());
         editor.commit();
+    }
 
+    public void setUserName(String name) {
+
+        editor.putString("nome", name);
+        editor.commit();
+    }
+
+    public void setUserEmail(String email) {
+
+        editor.putString("email", email);
+        editor.commit();
+    }
+
+    public void setUserImg(String img) {
+
+        editor.putString("img", img);
+        editor.commit();
     }
 
     public void setToken(String token) {
@@ -58,6 +75,27 @@ public class Session {
         String userId = prefs.getString("usuario", null);
 
         return Long.parseLong(userId);
+    }
+
+    public String getUserName() {
+
+        String userName = prefs.getString("nome", null);
+
+        return userName;
+    }
+
+    public String getUserEmail() {
+
+        String userEmail = prefs.getString("email", null);
+
+        return userEmail;
+    }
+
+    public String getUserImg() {
+
+        String userImg = prefs.getString("img", null);
+
+        return userImg;
     }
 
     public boolean loggedin(){
