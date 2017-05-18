@@ -186,7 +186,7 @@ public class LoginActivity extends Activity {
                     session.setUserName(obj.getString("nome"));
                     session.setUserImg(perfil.getString("fotoPerfil"));
 
-                    Intent intent = new Intent(LoginActivity.this, FinalizaCadastroActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 } catch (Exception e) {
 
