@@ -40,13 +40,13 @@ public class DoacaoDetalhesActivity extends AppCompatActivity {
 
         // Selected image id
         int position = i.getExtras().getInt("id");
-        DoacaoAdapter doacaoAdapter = new DoacaoAdapter(this);
+        //DoacaoAdapter doacaoAdapter = new DoacaoAdapter(this);
         // Get intent data
 
 
         imageSwitcher = (ImageSwitcher) findViewById(R.id.imgSliderDoacao);
 
-        imageSwitcher.setImageResource(doacaoAdapter.mThumbIds[position]);
+        //imageSwitcher.setImageResource(doacaoAdapter.mThumbIds[position]);
 
         nomeAnimal = (TextView) findViewById(R.id.nomeAnimal);
         nomeAnimal.setText(nomeStrings[position]);

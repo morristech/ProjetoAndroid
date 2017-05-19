@@ -1,13 +1,22 @@
 package com.example.amand.projetointegrador;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageSwitcher;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.amand.projetointegrador.model.AnuncioDoacao;
+
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * Created by amanda on 29/03/17.
@@ -17,25 +26,23 @@ public class DoacaoAdapter extends BaseAdapter {
 
     GridView grid;
 
-    // Keep all Images in array
-    public Integer[] mThumbIds = {
-            //R.drawable.image
-    };
-    public String[] nomeStrings;
 
+    private List<AnuncioDoacao> doacoes;
+
+    private ImageView imgView;
     private TextView nomeAnimal;
-
-    private ImageSwitcher imageSwitcher;
 
     private Context mContext;
 
     // Constructor
-    public DoacaoAdapter(Context c) {
+    public DoacaoAdapter(Context c, List<AnuncioDoacao> anuncios) {
         mContext = c;
+        doacoes = anuncios;
+
     }
 
     public int getCount() {
-        return mThumbIds.length;
+        return doacoes.size();
     }
 
     public Object getItem(int position) {
@@ -57,18 +64,44 @@ public class DoacaoAdapter extends BaseAdapter {
         if (convertView == null) {
 
             grid = new View(mContext);
-            grid = inflater.inflate(R.layout.activity_doacao_detalhes, null);
+            grid = inflater.inflate(R.layout.item, null);
 
             nomeAnimal = (TextView) grid.findViewById(R.id.nomeAnimal);
-            nomeAnimal.setText(nomeStrings[position]);
+            nomeAnimal.setText(doacoes.get(position).getNome());
 
-            imageSwitcher = (ImageSwitcher) grid.findViewById(R.id.imgSliderDoacao);
-            imageSwitcher.setImageResource(mThumbIds[position]);
+            imgView = (ImageView) grid.findViewById(R.id.itemImg);
+            new DownloadImageTask((ImageView) grid.findViewById(R.id.itemImg)).execute(
+                    RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/doacao/"+doacoes.get(position).getId() +
+                            "/" +doacoes.get(position).getImgAnucio().get(0));
 
         } else {
             grid = (View) convertView;
         }
 
         return grid;
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 }

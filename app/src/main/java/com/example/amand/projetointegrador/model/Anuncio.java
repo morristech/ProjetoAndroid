@@ -11,7 +11,7 @@ public abstract class Anuncio {
 
     private long id;
 
-    private List<String> imgAnucio;
+    private List<String> imgAnuncio;
 
     private String descricao;
 
@@ -38,11 +38,11 @@ public abstract class Anuncio {
     }
 
     public List<String> getImgAnucio() {
-        return imgAnucio;
+        return imgAnuncio;
     }
 
     public void setImgAnucio(List<String> imgAnucio) {
-        this.imgAnucio = imgAnucio;
+        this.imgAnuncio = imgAnucio;
     }
 
     public String getDescricao() {

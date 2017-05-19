@@ -11,6 +11,7 @@ public class PerfilUsuario {
     private String faceUser; //fb:public_profile - link
     private String whatsapp;
     private String telefone;
+    private String celular;
 
     public PerfilUsuario(long id, String fotoPerfil, String faceUser, String whatsapp, String telefone) {
         this.id = id;
@@ -21,6 +22,14 @@ public class PerfilUsuario {
     }
 
     public PerfilUsuario() {
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
     }
 
     public long getId() {
