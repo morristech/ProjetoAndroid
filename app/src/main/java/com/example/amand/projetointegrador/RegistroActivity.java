@@ -49,7 +49,7 @@ public class RegistroActivity extends AppCompatActivity {
     static Long id;
 
     //public static final String ENDERECO_WEB = "http://173.44.42.87:8080";
-    public static final String ENDERECO_WEB = "http://192.168.11.139:8888";
+    public static final String ENDERECO_WEB = "http://192.168.11.26:8888";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
