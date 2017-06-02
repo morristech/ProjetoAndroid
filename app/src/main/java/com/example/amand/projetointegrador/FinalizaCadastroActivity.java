@@ -1,5 +1,6 @@
 package com.example.amand.projetointegrador;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -14,23 +15,31 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.mvc.imagepicker.ImagePicker;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.NameValuePair;
 import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
+import cz.msebera.android.httpclient.client.methods.HttpGet;
 import cz.msebera.android.httpclient.client.methods.HttpPost;
 import cz.msebera.android.httpclient.entity.ContentType;
 import cz.msebera.android.httpclient.entity.mime.MultipartEntityBuilder;
 import cz.msebera.android.httpclient.entity.mime.content.FileBody;
 import cz.msebera.android.httpclient.entity.mime.content.StringBody;
 import cz.msebera.android.httpclient.impl.client.HttpClientBuilder;
+import cz.msebera.android.httpclient.message.BasicNameValuePair;
+import cz.msebera.android.httpclient.util.EntityUtils;
 
 public class FinalizaCadastroActivity extends AppCompatActivity {
 
@@ -41,7 +50,6 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
     private EditText finalizaCadastroFacebook;
     private EditText finalizaCadastroWhats;
     private Button finalizaCadastroBtn;
-    private AwesomeValidation awesomeValidation;
     Session session;
 
     public static String file;
@@ -96,20 +104,22 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_CANCELED) {
+            Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
 
-        // TODO do something with the bitmap
+            // TODO do something with the bitmap
 
-        File file = new File(getFilesDir().getPath() + "image.png");
+            File file = new File(getFilesDir().getPath() + "image.png");
 
 
-        try {
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(file));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            try {
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(file));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            imgFinalizaCadastro.setImageBitmap(createSquaredBitmap(bitmap));
         }
-
-        imgFinalizaCadastro.setImageBitmap(createSquaredBitmap(bitmap));
 
     }
 
@@ -186,10 +196,61 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
             if (httpResponse.getStatusLine().getStatusCode() == 200) {
                 Toast.makeText(getApplicationContext(), String.valueOf(httpResponse.getStatusLine().getStatusCode()), Toast.LENGTH_SHORT).show();
 
-                Intent i = new Intent(FinalizaCadastroActivity.this, MainActivity.class);
-                startActivity(i);
+                GetUserData getUserData = new GetUserData(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/usuario/getuserdata/"+ session.getUserEmail());
+                System.out.println(RegistroActivity.ENDERECO_WEB + "adotapet-servidor/api/usuario/getuserdata/"+ session.getUserEmail());
+                getUserData.execute();
             } else {
                 Toast.makeText(getApplicationContext(), "Erro: " +String.valueOf(httpResponse.getStatusLine().getStatusCode()), Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
+
+    private class GetUserData extends AsyncTask<String, Void, String> {
+
+        private String webAdd;
+
+        public GetUserData(String endereco) {
+            webAdd = endereco;
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            HttpClient cliente = HttpClientBuilder.create().build();
+            String systemRes;
+
+            HttpGet chamada = new HttpGet(webAdd);
+
+            try {
+                chamada.setHeader("Authorization", "Basic " + session.getToken());
+
+                HttpResponse resposta = cliente.execute(chamada);
+                systemRes = EntityUtils.toString(resposta.getEntity());
+
+                System.out.println(resposta.getStatusLine().getStatusCode());
+                System.out.println(resposta.getStatusLine().getReasonPhrase());
+
+                return systemRes;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+
+            try {
+                JSONObject obj = new JSONObject(s);
+                JSONObject perfil = obj.getJSONObject("perfil");
+
+                session.setUserImg(perfil.getString("fotoPerfil"));
+
+                Intent intent = new Intent(FinalizaCadastroActivity.this, MainActivity.class);
+                startActivity(intent);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
         }

@@ -71,7 +71,7 @@
                     android:width="175dp"
                     android:padding="15dp"
                     android:text="Cachorro"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <RadioButton
                     android:id="@+id/tipoGato"
@@ -81,11 +81,49 @@
                     android:width="175dp"
                     android:padding="15dp"
                     android:text="Gato"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
+
+
             </info.hoang8f.android.segmented.SegmentedGroup>
 
             <info.hoang8f.android.segmented.SegmentedGroup
                 android:id="@+id/sexoAnimal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="20dp"
+                android:background="#fff"
+                android:orientation="horizontal"
+                app:sc_border_width="1dp"
+                app:sc_checked_text_color="#eee"
+                app:sc_corner_radius="0dp"
+                app:sc_tint_color="@color/colorAccent">
+
+                <RadioButton
+                    android:id="@+id/sexoFem"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="175dp"
+                    android:padding="15dp"
+                    android:text="Fêmea"
+                    android:textSize="16sp" />
+
+                <RadioButton
+                    android:id="@+id/sexoMasc"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="175dp"
+                    android:padding="15dp"
+                    android:text="Macho"
+                    android:textSize="16sp" />
+
+            </info.hoang8f.android.segmented.SegmentedGroup>
+
+            <info.hoang8f.android.segmented.SegmentedGroup
+                android:id="@+id/porteAnimal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
@@ -99,24 +137,34 @@
                 app:sc_tint_color="@color/colorAccent">
 
                 <RadioButton
-                    android:id="@+id/btnFeminino"
+                    android:id="@+id/portePeq"
                     style="@style/RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:width="175dp"
+                    android:width="112dp"
                     android:padding="15dp"
-                    android:text="Fêmea"
-                    android:textSize="18sp" />
+                    android:text="Pequeno"
+                    android:textSize="16sp" />
 
                 <RadioButton
-                    android:id="@+id/btnMasculino"
+                    android:id="@+id/porteMed"
                     style="@style/RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:width="175dp"
+                    android:width="112dp"
                     android:padding="15dp"
-                    android:text="Macho"
-                    android:textSize="18sp" />
+                    android:text="Médio"
+                    android:textSize="16sp" />
+
+                <RadioButton
+                    android:id="@+id/porteGra"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="112dp"
+                    android:padding="15dp"
+                    android:text="Grande"
+                    android:textSize="16sp" />
             </info.hoang8f.android.segmented.SegmentedGroup>
 
             <EditText
@@ -157,12 +205,13 @@
                 android:inputType="textMultiLine"
                 android:lines="2" />
 
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="20dp"
-                android:text="Localização do animal"
+                android:text="Última localização do animal"
                 android:textSize="18sp"
                 android:inputType="text"/>
 
@@ -203,14 +252,12 @@
                 android:visibility="gone"
                 android:inputType="text"/>
 
-            <com.google.android.gms.maps.MapView
+            <fragment
+                android:id="@+id/mapaPerdido"
+                android:name="com.google.android.gms.maps.MapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="10dp"
-                android:visibility="gone">
-
-            </com.google.android.gms.maps.MapView>
-
+                android:layout_height="200dp"
+                android:layout_marginTop="15dp" />
 
             <Button
                 android:layout_width="wrap_content"

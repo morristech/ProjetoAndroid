@@ -1,10 +1,17 @@
 package com.example.amand.projetointegrador;
 
+import android.*;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -12,12 +19,20 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.amand.projetointegrador.Adapters.CustomPagerAdapter;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.mvc.imagepicker.ImagePicker;
 
 import java.io.File;
@@ -40,53 +55,83 @@ import info.hoang8f.android.segmented.SegmentedGroup;
 
 public class novoEncontradoActivity extends AppCompatActivity {
 
-    private RadioGroup radioLocalizacao;
+    private EditText digitarEnderecoEncontrado;
+    private RadioGroup localizacaoEncontrado;
     private RadioButton localizacaoAtual;
-    private RadioGroup digitarLocalizacaoEncontrado;
-    private EditText digitaEndereco;
+    private RadioButton digitaEndereco;
 
-    private ViewPager viewPager;
-    private FloatingActionButton addImg;
+    private ViewPager imgPager;
+    private FloatingActionButton addImgBtn;
     private SegmentedGroup tipoAnimal;
     private SegmentedGroup sexoAnimal;
+    private SegmentedGroup porteAnimal;
     private EditText racaAnimal;
     private EditText corAnimal;
     private EditText observacoesAnimal;
+    private EditText nomeAnimal;
     private Button enviaAnuncio;
+    private Switch resgatado;
+    private View mapa;
 
     private String tipo;
     private String sexo;
+    private String resgatadoString;
+    private String porte;
 
-    Session session;
+
+    private double lat;
+    private double lng;
+
+    private GoogleMap map;
+
+    private LocationManager locationManager;
 
     private List<Bitmap> bitmaps = new ArrayList<>();
     private List<File> urlImg = new ArrayList<>();
 
+    Context ctx;
+
+    Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novo_encontrado);
 
-        radioLocalizacao = (RadioGroup) findViewById(R.id.radioLocalizacao);
-        digitaEndereco = (EditText) findViewById(R.id.digitaEndereco);
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setTitle("Novo animal Encontrado");
+
+        ctx = this;
+
         session = new Session(this);
 
-        viewPager = (ViewPager) findViewById(R.id.novoEncontradoPager);
-        addImg = (FloatingActionButton) findViewById(R.id.addImgPager);
+        imgPager = (ViewPager) findViewById(R.id.novoEncontradoPager);
+        addImgBtn = (FloatingActionButton) findViewById(R.id.novoEncontradoImgBtn);
         tipoAnimal = (SegmentedGroup) findViewById(R.id.tipoAnimal);
         sexoAnimal = (SegmentedGroup) findViewById(R.id.sexoAnimal);
+        porteAnimal = (SegmentedGroup) findViewById(R.id.porteAnimal);
         racaAnimal = (EditText) findViewById(R.id.racaAnimal);
         corAnimal = (EditText) findViewById(R.id.corAnimal);
         observacoesAnimal = (EditText) findViewById(R.id.descricaoAnimal);
         enviaAnuncio = (Button) findViewById(R.id.enviaAnuncio);
+        nomeAnimal = (EditText) findViewById(R.id.nomeAnimal);
+        resgatado = (Switch) findViewById(R.id.switchResgatado);
+        mapa = findViewById(R.id.mapaEncontrado);
 
-        addImg.setOnClickListener(new View.OnClickListener() {
+        digitarEnderecoEncontrado = (EditText) findViewById(R.id.digitarEnderecoEncontrado);
+        localizacaoEncontrado = (RadioGroup) findViewById(R.id.localizacaoRadio);
+        localizacaoAtual = (RadioButton) findViewById(R.id.localizacaoAtual);
+        digitaEndereco = (RadioButton) findViewById(R.id.digitaEndereco);
+
+        addImgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onPickImage(v);
             }
         });
+
+
+
 
         tipoAnimal.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -95,8 +140,26 @@ public class novoEncontradoActivity extends AppCompatActivity {
                     case R.id.tipoCachorro:
                         tipo = "Cachorro";
                         break;
+
                     case R.id.tipoGato:
                         tipo = "Gato";
+                        break;
+                }
+            }
+        });
+
+        porteAnimal.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                switch (checkedId) {
+                    case R.id.portePeq:
+                        porte = "Pequeno";
+                        break;
+                    case R.id.porteMed:
+                        porte = "Médio";
+                        break;
+                    case R.id.porteGra:
+                        porte = "Grande";
                         break;
                 }
             }
@@ -105,45 +168,92 @@ public class novoEncontradoActivity extends AppCompatActivity {
         sexoAnimal.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                switch (checkedId){
-                    case R.id.btnFeminino:
+                switch (checkedId) {
+                    case R.id.sexoFem:
                         sexo = "Fêmea";
                         break;
-                    case R.id.btnMasculino:
+                    case R.id.sexoMasc:
                         sexo = "Macho";
                         break;
                 }
             }
         });
 
-        radioLocalizacao.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        if (resgatado != null) {
+            resgatado.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked) {
+                        resgatadoString = "Sim";
+                        //do stuff when Switch is ON
+                    } else {
+                        resgatadoString = "Não";
+                        //do stuff when Switch if OFF
+                    }
+                }
+            });
+        }
+
+        localizacaoEncontrado.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
 
                 switch (checkedId) {
                     case R.id.localizacaoAtual:
-                        if(digitaEndereco.getVisibility() == View.VISIBLE) {
-                            digitaEndereco.setVisibility(View.GONE);
+                        if(digitarEnderecoEncontrado.getVisibility() == View.VISIBLE) {
+                            digitarEnderecoEncontrado.setVisibility(View.GONE);
                         }
+
+                        Toast.makeText(ctx, "Localizacao Atual", Toast.LENGTH_SHORT).show();
+
+                        if (ActivityCompat.checkSelfPermission(ctx, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ctx, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            // TODO: Consider calling
+                            ActivityCompat.requestPermissions(novoEncontradoActivity.this, new String[]{
+                                    android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                            //    ActivityCompat#requestPermissions
+                            // here to request the missing permissions, and then overriding
+                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                            //                                          int[] grantResults)
+                            // to handle the case where the user grants the permission. See the documentation
+                            // for ActivityCompat#requestPermissions for more details.
+                            return;
+                        }
+
+                        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                        Criteria criteria = new Criteria();
+                        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
+                        lat = location.getLatitude();
+                        lng = location.getLongitude();
+
+                        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapaEncontrado);
+
+                        mapFragment.getMapAsync(new OnMapReadyCallback() {
+                            @Override
+                            public void onMapReady(GoogleMap googleMap) {
+                                LatLng ll = new LatLng(lat, lng);
+                                map = googleMap;
+                                map.addMarker(new MarkerOptions().position(ll).title("Você está aqui"));
+                                map.moveCamera(CameraUpdateFactory.newLatLng(ll));
+                                map.animateCamera(CameraUpdateFactory.zoomTo(16f));
+                            }
+                        });
+
                         break;
 
-                    case R.id.digitarEnderecoEncontrado:
-                        digitaEndereco.setVisibility(View.VISIBLE);
+                    case R.id.digitaEndereco:
+                        Toast.makeText(ctx, "Digitar endereço", Toast.LENGTH_SHORT).show();
+                        digitarEnderecoEncontrado.setVisibility(View.VISIBLE);
                         break;
                 }
             }
         });
 
-        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        this.getSupportActionBar().setTitle("Novo animal encontrado");
-
         enviaAnuncio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AnuncioService anuncio = new AnuncioService();
-                anuncio.execute(tipo, sexo, racaAnimal.getText().toString(),
-                        corAnimal.getText().toString(),
-                        observacoesAnimal.getText().toString());
+                novoEncontradoActivity.AnuncioService anuncio = new novoEncontradoActivity.AnuncioService();
+                anuncio.execute(tipo, sexo, racaAnimal.getText().toString(), corAnimal.getText().toString(),
+                        observacoesAnimal.getText().toString(), nomeAnimal.getText().toString(), resgatadoString, porte);
             }
         });
     }
@@ -181,7 +291,7 @@ public class novoEncontradoActivity extends AppCompatActivity {
         bitmaps.add(bitmap);
         urlImg.add(file);
         PagerAdapter pAdapter = new CustomPagerAdapter(this, bitmaps);
-        viewPager.setAdapter(pAdapter);
+        imgPager.setAdapter(pAdapter);
 
     }
 
@@ -190,7 +300,7 @@ public class novoEncontradoActivity extends AppCompatActivity {
         @Override
         protected HttpResponse doInBackground(String... params) {
             HttpClient cliente = HttpClientBuilder.create().build();
-            HttpPost chamada = new HttpPost(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/anuncio/cadastro-perdido");
+            HttpPost chamada = new HttpPost(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/anuncio/cadastro-encontrado");
             HttpResponse resposta = null;
 
             try {
@@ -208,11 +318,16 @@ public class novoEncontradoActivity extends AppCompatActivity {
                     }
                 }
 
+
                 entityBuilder.addPart("tipo", new StringBody((params[0]), ContentType.TEXT_PLAIN));
                 entityBuilder.addPart("sexo", new StringBody((params[1]), ContentType.TEXT_PLAIN));
                 entityBuilder.addPart("raca", new StringBody((params[2]), ContentType.TEXT_PLAIN));
                 entityBuilder.addPart("cor", new StringBody((params[3]), ContentType.TEXT_PLAIN));
-                entityBuilder.addPart("observacoes", new StringBody((params[4]), ContentType.TEXT_PLAIN));
+                entityBuilder.addPart("descricao", new StringBody((params[4]), ContentType.TEXT_PLAIN));
+                entityBuilder.addPart("titulo", new StringBody((params[5]), ContentType.TEXT_PLAIN));
+                entityBuilder.addPart("resgatado", new StringBody((params[6]), ContentType.TEXT_PLAIN));
+                entityBuilder.addPart("porte", new StringBody((params[7]), ContentType.TEXT_PLAIN));
+
 
                 //Falta a localização
 
@@ -236,6 +351,9 @@ public class novoEncontradoActivity extends AppCompatActivity {
         protected void onPostExecute(HttpResponse httpResponse) {
 
             Toast.makeText(getApplicationContext(), String.valueOf(httpResponse.getStatusLine().getStatusCode()), Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(novoEncontradoActivity.this, MainActivity.class);
+            startActivity(i);
+            finish();
         }
     }
 }

@@ -23,8 +23,6 @@ public abstract class Anuncio {
 
     private String sexo;
 
-    private String observacoes;
-
     private Usuario usuario;
 
     private Date dataPublicacao;
@@ -83,14 +81,6 @@ public abstract class Anuncio {
 
     public void setSexo(String sexo) {
         this.sexo = sexo;
-    }
-
-    public String getObservacoes() {
-        return observacoes;
-    }
-
-    public void setObservacoes(String observacoes) {
-        this.observacoes = observacoes;
     }
 
     public Usuario getUsuario() {

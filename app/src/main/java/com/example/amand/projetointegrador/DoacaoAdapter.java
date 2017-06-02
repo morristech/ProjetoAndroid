@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.amand.projetointegrador.model.AnuncioDoacao;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ public class DoacaoAdapter extends BaseAdapter {
     GridView grid;
 
 
-    private List<AnuncioDoacao> doacoes;
+    private List<AnuncioDoacao> doacoes = new ArrayList<>();
 
     private ImageView imgView;
     private TextView nomeAnimal;
@@ -36,8 +37,8 @@ public class DoacaoAdapter extends BaseAdapter {
 
     // Constructor
     public DoacaoAdapter(Context c, List<AnuncioDoacao> anuncios) {
-        mContext = c;
-        doacoes = anuncios;
+        this.mContext = c;
+        this.doacoes = anuncios;
 
     }
 
@@ -46,7 +47,7 @@ public class DoacaoAdapter extends BaseAdapter {
     }
 
     public Object getItem(int position) {
-        return null;
+        return doacoes.get(position);
     }
 
     public long getItemId(int position) {
@@ -70,9 +71,12 @@ public class DoacaoAdapter extends BaseAdapter {
             nomeAnimal.setText(doacoes.get(position).getNome());
 
             imgView = (ImageView) grid.findViewById(R.id.itemImg);
-            new DownloadImageTask((ImageView) grid.findViewById(R.id.itemImg)).execute(
-                    RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/doacao/"+doacoes.get(position).getId() +
-                            "/" +doacoes.get(position).getImgAnucio().get(0));
+
+            if(!doacoes.get(position).getImgAnucio().isEmpty()) {
+                new DownloadImageTask((ImageView) grid.findViewById(R.id.itemImg)).execute(
+                        RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/doacao/" + doacoes.get(position).getId() +
+                                "/" + doacoes.get(position).getImgAnucio().get(0));
+            }
 
         } else {
             grid = (View) convertView;

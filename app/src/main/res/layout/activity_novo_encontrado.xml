@@ -20,7 +20,7 @@
             android:elevation="5dp" />
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/addImgPager"
+            android:id="@+id/novoEncontradoImgBtn"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentRight="true"
@@ -35,10 +35,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/novoEncontradoPager"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="25dp"
             android:orientation="vertical"
             android:padding="15dp">
 
+            <EditText
+                android:id="@+id/titulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="2dp"
+                android:elevation="2dp"
+                android:hint="Titulo do Anúncio"
+                android:paddingTop="5dp"
+                android:inputType="text"/>
 
             <info.hoang8f.android.segmented.SegmentedGroup
                 android:id="@+id/tipoAnimal"
@@ -73,10 +84,48 @@
                     android:padding="15dp"
                     android:text="Gato"
                     android:textSize="18sp" />
+
+
             </info.hoang8f.android.segmented.SegmentedGroup>
 
             <info.hoang8f.android.segmented.SegmentedGroup
                 android:id="@+id/sexoAnimal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="20dp"
+                android:background="#fff"
+                android:orientation="horizontal"
+                app:sc_border_width="1dp"
+                app:sc_checked_text_color="#eee"
+                app:sc_corner_radius="0dp"
+                app:sc_tint_color="@color/colorAccent">
+
+                <RadioButton
+                    android:id="@+id/sexoFem"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="175dp"
+                    android:padding="15dp"
+                    android:text="Fêmea"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/sexoMasc"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="175dp"
+                    android:padding="15dp"
+                    android:text="Macho"
+                    android:textSize="18sp" />
+
+            </info.hoang8f.android.segmented.SegmentedGroup>
+
+            <info.hoang8f.android.segmented.SegmentedGroup
+                android:id="@+id/porteAnimal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
@@ -90,23 +139,33 @@
                 app:sc_tint_color="@color/colorAccent">
 
                 <RadioButton
-                    android:id="@+id/btnFeminino"
+                    android:id="@+id/portePeq"
                     style="@style/RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:width="175dp"
+                    android:width="130dp"
                     android:padding="15dp"
-                    android:text="Fêmea"
+                    android:text="Pequeno"
                     android:textSize="18sp" />
 
                 <RadioButton
-                    android:id="@+id/btnMasculino"
+                    android:id="@+id/porteMed"
                     style="@style/RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:width="175dp"
+                    android:width="110dp"
                     android:padding="15dp"
-                    android:text="Macho"
+                    android:text="Médio"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/porteGra"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="115dp"
+                    android:padding="15dp"
+                    android:text="Grande"
                     android:textSize="18sp" />
             </info.hoang8f.android.segmented.SegmentedGroup>
 
@@ -118,8 +177,8 @@
                 android:layout_marginRight="2dp"
                 android:layout_marginTop="15dp"
                 android:elevation="2dp"
-                android:paddingTop="20dp"
                 android:hint="Raça"
+                android:paddingTop="20dp"
                 android:inputType="text"/>
 
             <EditText
@@ -130,8 +189,8 @@
                 android:layout_marginRight="2dp"
                 android:layout_marginTop="15dp"
                 android:elevation="2dp"
-                android:paddingTop="20dp"
                 android:hint="Cor"
+                android:paddingTop="20dp"
                 android:inputType="text"/>
 
             <EditText
@@ -151,18 +210,43 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="15dp"
+                android:textSize="18sp"
+                android:text="Animal Resgatado?"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/switchResgatado"
+                    android:layout_marginRight="20dp"
+                    android:textOff="Não"
+                    android:textOn="Sim"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="20dp"
                 android:text="Localização do animal"
                 android:textSize="18sp"
-                android:paddingTop="20dp"
                 android:inputType="text"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:id="@+id/radioLocalizacao">
+                android:id="@+id/localizacaoRadio">
 
                 <RadioButton
                     android:layout_width="wrap_content"
@@ -180,7 +264,7 @@
                     android:text="Digitar endereço"
                     android:textColor="#555"
                     android:textSize="16sp"
-                    android:id="@+id/digitarEnderecoEncontrado"/>
+                    android:id="@+id/digitaEndereco"/>
             </RadioGroup>
 
             <EditText
@@ -189,20 +273,18 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/input_login"
                 android:elevation="2dp"
+                android:id="@+id/digitarEnderecoEncontrado"
                 android:hint="Digite o endereço"
                 android:visibility="gone"
-                android:inputType="text"
-                android:id="@+id/digitaEndereco"/>
+                android:inputType="text"/>
 
-            <com.google.android.gms.maps.MapView
+            <fragment
+                android:id="@+id/mapaEncontrado"
+                android:name="com.google.android.gms.maps.MapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="10dp"
-                android:visibility="gone">
-
-            </com.google.android.gms.maps.MapView>
+                android:layout_height="200dp"
+                android:layout_marginTop="15dp" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -217,9 +299,8 @@
                 android:textAllCaps="false"
                 android:textColor="#fff"
                 android:textSize="18dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="15dp"
                 android:id="@+id/enviaAnuncio"/>
-
 
         </LinearLayout>
 

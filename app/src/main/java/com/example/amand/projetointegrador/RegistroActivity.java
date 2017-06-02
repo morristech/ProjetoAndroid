@@ -15,8 +15,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.basgeekball.awesomevalidation.AwesomeValidation;
-import com.basgeekball.awesomevalidation.ValidationStyle;
 
 import org.json.JSONObject;
 
@@ -43,13 +41,12 @@ public class RegistroActivity extends AppCompatActivity {
     private EditText senhaNovaConta;
     private EditText confirmaSenhaNovaConta;
     private Button abrirNovaConta;
-    private AwesomeValidation awesomeValidation;
     private ProgressBar pb;
     private Session session;
     static Long id;
 
-    //public static final String ENDERECO_WEB = "http://173.44.42.87:8080";
-    public static final String ENDERECO_WEB = "http://192.168.11.26:8888";
+    public static final String ENDERECO_WEB = "http://192.152.0.120:8080";
+    //public static final String ENDERECO_WEB = "http://192.168.25.16:8888";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +56,6 @@ public class RegistroActivity extends AppCompatActivity {
         session = new Session(this);
         pb = (ProgressBar) findViewById(R.id.progressoRegistro);
         pb.setMax(10);
-        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
 
 
         emailNovaConta = (EditText) findViewById(R.id.emailNovaConta);
@@ -68,9 +64,6 @@ public class RegistroActivity extends AppCompatActivity {
         senhaNovaConta = (EditText) findViewById(R.id.senhaNovaConta);
         confirmaSenhaNovaConta = (EditText) findViewById(R.id.confirmaSenhaNovaConta);
         abrirNovaConta = (Button) findViewById(R.id.abrirNovaConta);
-
-        awesomeValidation.addValidation(this, R.id.emailNovaConta, Patterns.EMAIL_ADDRESS, R.string.erroemail);
-        awesomeValidation.addValidation(this, R.id.nomeNovaConta, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", R.string.erronome);
 
         dataNascimentoNovaConta.addTextChangedListener(new TextWatcher() {
             int prevL = 0;
@@ -105,7 +98,6 @@ public class RegistroActivity extends AppCompatActivity {
                     Toast.makeText(RegistroActivity.this, "Senhas não correspondem", Toast.LENGTH_SHORT).show();
                 }
 
-                if (awesomeValidation.validate()) {
                     JSONObject o = new JSONObject();
                     try {
                     /*DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -130,7 +122,6 @@ public class RegistroActivity extends AppCompatActivity {
 
                     WebService newUsuario = new WebService(ENDERECO_WEB + "/adotapet-servidor/api/usuario/cadastro");
                     newUsuario.execute(o);
-                }
 
             }
         });
@@ -260,6 +251,8 @@ public class RegistroActivity extends AppCompatActivity {
                     session.setUserEmail(obj.getString("email"));
                     session.setUserName(obj.getString("nome"));
                     session.setUserImg(perfil.getString("fotoPerfil"));
+
+                    System.out.println(session.getUserPrefs() + "*************");
 
                     Intent intent = new Intent(RegistroActivity.this, FinalizaCadastroActivity.class);
                     startActivity(intent);

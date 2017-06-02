@@ -1,5 +1,6 @@
 package com.example.amand.projetointegrador;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -189,23 +190,25 @@ public class novaDoacaoActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_CANCELED) {
+            Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
 
-        // TODO do something with the bitmap
+            // TODO do something with the bitmap
 
-        File file = new File(getFilesDir().getPath() + "image" + bitmap.getByteCount() +".png");
+            File file = new File(getFilesDir().getPath() + "image" + bitmap.getByteCount() + ".png");
 
 
-        try {
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(file));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            try {
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(file));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            bitmaps.add(bitmap);
+            urlImg.add(file);
+            PagerAdapter pAdapter = new CustomPagerAdapter(this, bitmaps);
+            viewPager.setAdapter(pAdapter);
         }
-
-        bitmaps.add(bitmap);
-        urlImg.add(file);
-        PagerAdapter pAdapter = new CustomPagerAdapter(this, bitmaps);
-        viewPager.setAdapter(pAdapter);
 
     }
 
@@ -237,7 +240,7 @@ public class novaDoacaoActivity extends AppCompatActivity {
                 entityBuilder.addPart("sexo", new StringBody((params[2]), ContentType.TEXT_PLAIN));
                 entityBuilder.addPart("raca", new StringBody((params[3]), ContentType.TEXT_PLAIN));
                 entityBuilder.addPart("cor", new StringBody((params[4]), ContentType.TEXT_PLAIN));
-                entityBuilder.addPart("observacoes  ", new StringBody((params[5]), ContentType.TEXT_PLAIN));
+                entityBuilder.addPart("descricao", new StringBody((params[5]), ContentType.TEXT_PLAIN));
                 entityBuilder.addPart("deficiencia", new StringBody((params[6]), ContentType.TEXT_PLAIN));
                 entityBuilder.addPart("castrado", new StringBody((params[7]), ContentType.TEXT_PLAIN));
 
@@ -261,6 +264,9 @@ public class novaDoacaoActivity extends AppCompatActivity {
         protected void onPostExecute(HttpResponse httpResponse) {
 
             Toast.makeText(getApplicationContext(), String.valueOf(httpResponse.getStatusLine().getStatusCode()), Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(novaDoacaoActivity.this, MainActivity.class);
+            startActivity(i);
+            finish();
         }
     }
 

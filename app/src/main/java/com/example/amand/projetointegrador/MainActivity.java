@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity
                         tx1.replace(R.id.flAnuncios, Fragment.instantiate(MainActivity.this, "com.example.amand.projetointegrador.DoacaoFragment"));
                         tx1.addToBackStack(null);
                         tx1.commit();
+                        getSupportActionBar().setTitle("Doações");
                         break;
 
                     case R.id.tab_encontrados:
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity
                         tx2.replace(R.id.flAnuncios, Fragment.instantiate(MainActivity.this, "com.example.amand.projetointegrador.EncontradoFragment"));
                         tx2.addToBackStack(null);
                         tx2.commit();
+                        getSupportActionBar().setTitle("Encontrados");
                         break;
 
                     case R.id.tab_perdidos:
@@ -90,6 +92,7 @@ public class MainActivity extends AppCompatActivity
                         tx3.replace(R.id.flAnuncios, Fragment.instantiate(MainActivity.this, "com.example.amand.projetointegrador.PerdidoFragment"));
                         tx3.addToBackStack(null);
                         tx3.commit();
+                        getSupportActionBar().setTitle("Perdidos");
                         break;
                 }
             }
@@ -109,7 +112,7 @@ public class MainActivity extends AppCompatActivity
         new DownloadImageTask((ImageView) navigationView.getHeaderView(0).findViewById(R.id.barUserImg))
                 .execute(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/" + session.getUserPrefs() + "/" + session.getUserImg());
 
-        System.out.print(session.getUserImg() + "**************************************");
+        System.out.print(session.getUserImg());
 
         if(session.getUserEmail() != null && session.getUserName() != null) {
             barUserEmail.setText(session.getUserEmail());

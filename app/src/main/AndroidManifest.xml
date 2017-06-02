@@ -53,7 +53,7 @@
             android:name=".LoginActivity"
             android:exported="true"
             android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ChoiceActivity" />
         <activity android:name=".RegistroActivity" />
         <activity android:name=".novaDoacaoActivity" />
@@ -72,7 +72,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PreviewActivity"></activity>
+        <activity android:name=".PreviewActivity" />
+        <activity android:name=".PerdidoDetalhesActivity" />
+        <activity android:name=".EncontradoDetalhesActivity"></activity>
     </application>
 
 </manifest>

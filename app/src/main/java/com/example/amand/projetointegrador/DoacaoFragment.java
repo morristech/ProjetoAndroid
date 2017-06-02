@@ -6,12 +6,14 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -46,6 +48,9 @@ public class DoacaoFragment extends Fragment {
     private GridView gridDoacao;
     Context context;
     private Session session;
+    final List<AnuncioDoacao> listAnuncio = new ArrayList<>();
+    private SwipeRefreshLayout swipeRefresh;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -71,14 +76,25 @@ public class DoacaoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_doacao, container, false);
-
+        swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
         context = this.getActivity().getApplicationContext();
         gridDoacao = (GridView) view.findViewById(R.id.gridDoacao);
-
         GetService get = new GetService();
         get.execute();
 
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+        //Esse negocio tá me fodendo
+                GetService get2 = new GetService();
+                get2.execute();
+            }
+        });
+
         session = new Session(context);
+
+        System.out.println(session.getToken() + "*******************");
 
         gridDoacao.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -86,6 +102,8 @@ public class DoacaoFragment extends Fragment {
 
                 Intent i = new Intent(context, DoacaoDetalhesActivity.class);
                 // Pass image index
+                AnuncioDoacao ad = (AnuncioDoacao) gridDoacao.getAdapter().getItem(position);
+                i.putExtra("doacao", ad.getId());
                 i.putExtra("id", position);
                 startActivity(i);
             }
@@ -144,33 +162,39 @@ public class DoacaoFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
 
-            if (s != null) {
+            if (swipeRefresh.isRefreshing()) {
+                swipeRefresh.setRefreshing(false);
+            }
 
-                List<AnuncioDoacao> listAnuncio = new ArrayList<>();
+            if (s != null) {
 
                 try {
                     JSONArray array = new JSONArray(s);
 
-                    for (int i = 0; i < array.length(); i++) {
+                    final int numberIterator = array.length();
+                    for (int i = 0; i < numberIterator; i++) {
                         JSONObject obj = array.getJSONObject(i);
 
                         AnuncioDoacao ad = new AnuncioDoacao();
 
                         JSONArray imgs = obj.getJSONArray("imgAnuncio");
+
                         List<String> list = new ArrayList<String>();
-                        for (int j = 0; j < imgs.length(); j++) {
-                            list.add(imgs.getJSONObject(i).getString("imgAnuncio"));
+                        if (imgs.length() > 0) {
+                            for (int j = 0; j < imgs.length(); j++) {
+                                list.add(imgs.get(j).toString());
+                            }
                         }
 
                         ad.setId(obj.getLong("id"));
                         ad.setImgAnucio(list);
                         ad.setCastrado(obj.getBoolean("castrado"));
-                        ad.setDeficiencia(obj.getBoolean("deficiente"));
+                        ad.setDeficiencia(obj.getBoolean("deficiencia"));
                         ad.setIdade(obj.getInt("idade"));
                         ad.setRaca(obj.getString("raca"));
                         ad.setNome(obj.getString("nome"));
                         ad.setCor(obj.getString("cor"));
-                        ad.setObservacoes(obj.getString("observacoes"));
+                        ad.setDescricao(obj.getString("descricao"));
                         ad.setSexo(obj.getString("sexo"));
                         ad.setTipo(obj.getString("tipo"));
 
@@ -181,7 +205,7 @@ public class DoacaoFragment extends Fragment {
                         usuario.setNome(user.getString("nome"));
 
                         PerfilUsuario perfil = new PerfilUsuario();
-                        JSONObject objPerfil = obj.getJSONObject("perfil");
+                        JSONObject objPerfil = user.getJSONObject("perfil");
                         perfil.setId(objPerfil.getLong("id"));
                         perfil.setTelefone(objPerfil.getString("telefone"));
                         perfil.setFaceUser(objPerfil.getString("faceUser"));
@@ -196,9 +220,10 @@ public class DoacaoFragment extends Fragment {
                         ad.setDataPublicacao(date);
 
                         listAnuncio.add(ad);
+                        DoacaoAdapter da = new DoacaoAdapter(context, listAnuncio);
+                        gridDoacao.setAdapter(da);
                     }
 
-                    gridDoacao.setAdapter(new DoacaoAdapter(context, listAnuncio));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
