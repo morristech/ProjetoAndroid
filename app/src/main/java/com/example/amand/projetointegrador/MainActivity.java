@@ -8,43 +8,32 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.amand.projetointegrador.helpers.Session;
+import com.google.android.gms.maps.model.Circle;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.io.InputStream;
 
-import cz.msebera.android.httpclient.HttpResponse;
-import cz.msebera.android.httpclient.client.HttpClient;
-import cz.msebera.android.httpclient.client.methods.HttpGet;
-import cz.msebera.android.httpclient.impl.client.HttpClientBuilder;
-import cz.msebera.android.httpclient.util.EntityUtils;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Session session;
-    private ImageView barUserImg;
+    private CircleImageView barUserImg;
     private TextView barUserName;
     private TextView barUserEmail;
     private Context ctx;
@@ -56,7 +45,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        barUserImg = (ImageView) findViewById(R.id.barUserImg);
+        barUserImg = (CircleImageView) findViewById(R.id.barUserImg);
         barUserName = (TextView) findViewById(R.id.barUserName);
         barUserEmail = (TextView) findViewById(R.id.barUserEmail);
 
@@ -73,7 +62,7 @@ public class MainActivity extends AppCompatActivity
                 switch (tabId) {
                     case R.id.tab_doacoes:
                         FragmentTransaction tx1 = getSupportFragmentManager().beginTransaction();
-                        tx1.replace(R.id.flAnuncios, Fragment.instantiate(MainActivity.this, "com.example.amand.projetointegrador.DoacaoFragment"));
+                        tx1.replace(R.id.flAnuncios, Fragment.instantiate(MainActivity.this, "com.example.amand.projetointegrador.doacao.DoacaoFragment"));
                         tx1.addToBackStack(null);
                         tx1.commit();
                         getSupportActionBar().setTitle("Doações");
@@ -81,18 +70,18 @@ public class MainActivity extends AppCompatActivity
 
                     case R.id.tab_encontrados:
                         FragmentTransaction tx2 = getSupportFragmentManager().beginTransaction();
-                        tx2.replace(R.id.flAnuncios, Fragment.instantiate(MainActivity.this, "com.example.amand.projetointegrador.EncontradoFragment"));
+                        tx2.replace(R.id.flAnuncios, Fragment.instantiate(MainActivity.this, "com.example.amand.projetointegrador.encontrado.EncontradoFragment"));
                         tx2.addToBackStack(null);
                         tx2.commit();
-                        getSupportActionBar().setTitle("Encontrados");
+                        getSupportActionBar().setTitle("Animais encontrados");
                         break;
 
                     case R.id.tab_perdidos:
                         FragmentTransaction tx3 = getSupportFragmentManager().beginTransaction();
-                        tx3.replace(R.id.flAnuncios, Fragment.instantiate(MainActivity.this, "com.example.amand.projetointegrador.PerdidoFragment"));
+                        tx3.replace(R.id.flAnuncios, Fragment.instantiate(MainActivity.this, "com.example.amand.projetointegrador.perdido.PerdidoFragment"));
                         tx3.addToBackStack(null);
                         tx3.commit();
-                        getSupportActionBar().setTitle("Perdidos");
+                        getSupportActionBar().setTitle("Animais perdidos");
                         break;
                 }
             }
@@ -109,7 +98,7 @@ public class MainActivity extends AppCompatActivity
         barUserEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.barUserEmail);
         barUserName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.barUserName);
 
-        new DownloadImageTask((ImageView) navigationView.getHeaderView(0).findViewById(R.id.barUserImg))
+        new DownloadImageTask((CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.barUserImg))
                 .execute(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/" + session.getUserPrefs() + "/" + session.getUserImg());
 
         System.out.print(session.getUserImg());
@@ -165,11 +154,12 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_vizanuncios) {
             FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-            tx.replace(R.id.flAnuncios, Fragment.instantiate(MainActivity.this, "com.example.amand.projetointegrador.DoacaoFragment"));
+            tx.replace(R.id.flAnuncios, Fragment.instantiate(MainActivity.this, "com.example.amand.projetointegrador.doacao.DoacaoFragment"));
             tx.addToBackStack(null);
             tx.commit();
         } else if (id == R.id.nav_editprofile) {
-
+            Intent i = new Intent(MainActivity.this, AlterarDadosActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_sobre) {
 
         } else if (id == R.id.nav_logout){
@@ -184,14 +174,17 @@ public class MainActivity extends AppCompatActivity
     private void logout() {
         session.setLoggedin(false);
         session.setToken("");
+        session.setUserEmail("");
+        session.setUserImg("");
+        session.setUserName("");
         finish();
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
+        CircleImageView bmImage;
 
-        public DownloadImageTask(ImageView bmImage) {
+        public DownloadImageTask(CircleImageView bmImage) {
             this.bmImage = bmImage;
         }
 

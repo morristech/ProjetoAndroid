@@ -7,6 +7,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.example.amand.projetointegrador.doacao.novaDoacaoActivity;
+import com.example.amand.projetointegrador.encontrado.novoEncontradoActivity;
+import com.example.amand.projetointegrador.perdido.novoPerdidoActivity;
+
 public class ChoiceActivity extends AppCompatActivity {
 
     private ImageButton novaDoacao;

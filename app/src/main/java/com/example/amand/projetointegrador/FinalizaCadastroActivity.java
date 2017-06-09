@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.amand.projetointegrador.helpers.Session;
+import com.google.android.gms.maps.model.Circle;
 import com.mvc.imagepicker.ImagePicker;
 
 import org.json.JSONObject;
@@ -23,14 +25,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
-import cz.msebera.android.httpclient.NameValuePair;
 import cz.msebera.android.httpclient.client.HttpClient;
-import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
 import cz.msebera.android.httpclient.client.methods.HttpGet;
 import cz.msebera.android.httpclient.client.methods.HttpPost;
 import cz.msebera.android.httpclient.entity.ContentType;
@@ -38,16 +36,15 @@ import cz.msebera.android.httpclient.entity.mime.MultipartEntityBuilder;
 import cz.msebera.android.httpclient.entity.mime.content.FileBody;
 import cz.msebera.android.httpclient.entity.mime.content.StringBody;
 import cz.msebera.android.httpclient.impl.client.HttpClientBuilder;
-import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.util.EntityUtils;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FinalizaCadastroActivity extends AppCompatActivity {
 
-    private ImageView imgFinalizaCadastro;
+    private CircleImageView imgFinalizaCadastro;
     private FloatingActionButton uploadImageButton;
     private EditText finalizaCadastroTelefone;
     private EditText finalizaCadastroCelular;
-    private EditText finalizaCadastroFacebook;
     private EditText finalizaCadastroWhats;
     private Button finalizaCadastroBtn;
     Session session;
@@ -63,11 +60,10 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Finalize seu cadastro!");
 
-        imgFinalizaCadastro = (ImageView) findViewById(R.id.imgFinalizaCadastro);
+        imgFinalizaCadastro = (CircleImageView) findViewById(R.id.imgFinalizaCadastro);
         uploadImageButton = (FloatingActionButton) findViewById(R.id.uploadImageButton);
         finalizaCadastroTelefone = (EditText) findViewById(R.id.finalizaCadastroTelefone);
         finalizaCadastroCelular = (EditText) findViewById(R.id.finalizaCadastroCelular);
-        finalizaCadastroFacebook = (EditText) findViewById(R.id.finalizaCadastroFacebook);
         finalizaCadastroWhats = (EditText) findViewById(R.id.finalizaCadastroWhats);
         finalizaCadastroBtn = (Button) findViewById(R.id.finalizaCadastroBtn);
         ImagePicker.setMinQuality(600, 600);
@@ -93,7 +89,7 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
                     perfilService service = new perfilService(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/usuario/upload");
 
                     service.execute(file, finalizaCadastroTelefone.getText().toString(), finalizaCadastroCelular.getText().toString(),
-                            finalizaCadastroFacebook.getText().toString(), finalizaCadastroWhats.getText().toString());
+                            finalizaCadastroWhats.getText().toString());
                 } catch (Exception e) {
                     System.out.println(e + "*******************************************");
                 }
@@ -171,8 +167,7 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
                 }
                 entityBuilder.addPart("telefone", new StringBody((params[1]), ContentType.TEXT_PLAIN));
                 entityBuilder.addPart("celular", new StringBody((params[2]), ContentType.TEXT_PLAIN));
-                entityBuilder.addPart("facebook", new StringBody((params[3]), ContentType.TEXT_PLAIN));
-                entityBuilder.addPart("whats", new StringBody((params[4]), ContentType.TEXT_PLAIN));
+                entityBuilder.addPart("whats", new StringBody((params[3]), ContentType.TEXT_PLAIN));
 
                 HttpEntity entity = entityBuilder.build();
 

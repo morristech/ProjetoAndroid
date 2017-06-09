@@ -1,4 +1,4 @@
-package com.example.amand.projetointegrador;
+package com.example.amand.projetointegrador.perdido;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,17 +7,17 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.Toast;
 
-import com.example.amand.projetointegrador.model.AnuncioDoacao;
+import com.example.amand.projetointegrador.doacao.DoacaoDetalhesActivity;
+import com.example.amand.projetointegrador.R;
+import com.example.amand.projetointegrador.RegistroActivity;
+import com.example.amand.projetointegrador.helpers.Session;
+import com.example.amand.projetointegrador.model.AnuncioPerdido;
 import com.example.amand.projetointegrador.model.PerfilUsuario;
 import com.example.amand.projetointegrador.model.Usuario;
 
@@ -31,35 +31,31 @@ import java.util.Date;
 import java.util.List;
 
 import cz.msebera.android.httpclient.HttpResponse;
-import cz.msebera.android.httpclient.NameValuePair;
 import cz.msebera.android.httpclient.client.HttpClient;
-import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
 import cz.msebera.android.httpclient.client.methods.HttpGet;
-import cz.msebera.android.httpclient.client.methods.HttpPost;
 import cz.msebera.android.httpclient.impl.client.HttpClientBuilder;
-import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.util.EntityUtils;
 
-//FRAGMENTO DE MOSTRA DE ANUNCIOS DE ANIMAIS PARA DOAÇÃO COMO GRIDVIEW
 
+//FRAGMENTO DE MOSTRA DE ANUNCIOS DE ANIMAIS PERDIDOS COMO GRIDVIEW
 
-public class DoacaoFragment extends Fragment {
+public class PerdidoFragment extends Fragment {
 
-    private GridView gridDoacao;
+    private GridView gridPerdido;
     Context context;
     private Session session;
-    final List<AnuncioDoacao> listAnuncio = new ArrayList<>();
+    final List<AnuncioPerdido> listAnuncio = new ArrayList<>();
     private SwipeRefreshLayout swipeRefresh;
 
 
-    private OnFragmentInteractionListener mListener;
+    private PerdidoFragment.OnFragmentInteractionListener mListener;
 
-    public DoacaoFragment() {
+    public PerdidoFragment() {
         // Required empty public constructor
     }
 
-    public static DoacaoFragment newInstance(String param1, String param2) {
-        DoacaoFragment fragment = new DoacaoFragment();
+    public static PerdidoFragment newInstance(String param1, String param2) {
+        PerdidoFragment fragment = new PerdidoFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -78,7 +74,7 @@ public class DoacaoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_doacao, container, false);
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
         context = this.getActivity().getApplicationContext();
-        gridDoacao = (GridView) view.findViewById(R.id.gridDoacao);
+        gridPerdido = (GridView) view.findViewById(R.id.gridDoacao);
         GetService get = new GetService();
         get.execute();
 
@@ -86,7 +82,7 @@ public class DoacaoFragment extends Fragment {
             @Override
             public void onRefresh() {
 
-        //Esse negocio tá me fodendo
+                //Esse negocio tá me fodendo
                 GetService get2 = new GetService();
                 get2.execute();
             }
@@ -96,14 +92,14 @@ public class DoacaoFragment extends Fragment {
 
         System.out.println(session.getToken() + "*******************");
 
-        gridDoacao.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gridPerdido.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent i = new Intent(context, DoacaoDetalhesActivity.class);
+                Intent i = new Intent(context, PerdidoDetalhesActivity.class);
                 // Pass image index
-                AnuncioDoacao ad = (AnuncioDoacao) gridDoacao.getAdapter().getItem(position);
-                i.putExtra("doacao", ad.getId());
+                AnuncioPerdido ap = (AnuncioPerdido) gridPerdido.getAdapter().getItem(position);
+                i.putExtra("perdido", ap.getId());
                 i.putExtra("id", position);
                 startActivity(i);
             }
@@ -131,7 +127,7 @@ public class DoacaoFragment extends Fragment {
     private class GetService extends AsyncTask<String, Void, String> {
 
         private String
-                webAdd = RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/anuncio/get-doacoes";
+                webAdd = RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/anuncio/get-perdidos";
 
         @Override
         protected String doInBackground(String... params) {
@@ -175,7 +171,7 @@ public class DoacaoFragment extends Fragment {
                     for (int i = 0; i < numberIterator; i++) {
                         JSONObject obj = array.getJSONObject(i);
 
-                        AnuncioDoacao ad = new AnuncioDoacao();
+                        AnuncioPerdido ap = new AnuncioPerdido();
 
                         JSONArray imgs = obj.getJSONArray("imgAnuncio");
 
@@ -186,17 +182,14 @@ public class DoacaoFragment extends Fragment {
                             }
                         }
 
-                        ad.setId(obj.getLong("id"));
-                        ad.setImgAnucio(list);
-                        ad.setCastrado(obj.getBoolean("castrado"));
-                        ad.setDeficiencia(obj.getBoolean("deficiencia"));
-                        ad.setIdade(obj.getInt("idade"));
-                        ad.setRaca(obj.getString("raca"));
-                        ad.setNome(obj.getString("nome"));
-                        ad.setCor(obj.getString("cor"));
-                        ad.setDescricao(obj.getString("descricao"));
-                        ad.setSexo(obj.getString("sexo"));
-                        ad.setTipo(obj.getString("tipo"));
+                        ap.setId(obj.getLong("id"));
+                        ap.setImgAnucio(list);
+                        ap.setRaca(obj.getString("raca"));
+                        ap.setNome(obj.getString("nome"));
+                        ap.setCor(obj.getString("cor"));
+                        ap.setDescricao(obj.getString("descricao"));
+                        ap.setSexo(obj.getString("sexo"));
+                        ap.setTipo(obj.getString("tipo"));
 
                         JSONObject user = obj.getJSONObject("usuario");
                         Usuario usuario = new Usuario();
@@ -213,15 +206,15 @@ public class DoacaoFragment extends Fragment {
                         perfil.setCelular(objPerfil.getString("celular"));
 
                         usuario.setPerfil(perfil);
-                        ad.setUsuario(usuario);
+                        ap.setUsuario(usuario);
 
                         Date date = new Date(obj.getLong("dataPublicacao"));
 
-                        ad.setDataPublicacao(date);
+                        ap.setDataPublicacao(date);
 
-                        listAnuncio.add(ad);
-                        DoacaoAdapter da = new DoacaoAdapter(context, listAnuncio);
-                        gridDoacao.setAdapter(da);
+                        listAnuncio.add(ap);
+                        PerdidoAdapter pa = new PerdidoAdapter(context, listAnuncio);
+                        gridPerdido.setAdapter(pa);
                     }
 
                 } catch (JSONException e) {

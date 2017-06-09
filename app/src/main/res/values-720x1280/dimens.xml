@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="doacao_segmented_width">180dp</dimen>
+    <dimen name="encontrado_sexotipo_width">165dp</dimen>
+    <dimen name="encontrado_porte_width">115dp</dimen>
+</resources>

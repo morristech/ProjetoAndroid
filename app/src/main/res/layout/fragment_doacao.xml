@@ -2,14 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.amand.projetointegrador.DoacaoFragment"
+    tools:context="com.example.amand.projetointegrador.doacao.DoacaoFragment"
     android:id="@+id/swipeRefresh"
     android:layout_marginBottom="20dp"
     android:layout_marginTop="15dp"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
     >
-
 
     <GridView
         android:id="@+id/gridDoacao"

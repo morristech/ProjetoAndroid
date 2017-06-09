@@ -1,4 +1,4 @@
-package com.example.amand.projetointegrador;
+package com.example.amand.projetointegrador.doacao;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,10 +11,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.amand.projetointegrador.Adapters.CustomPagerAdapter;
+import com.example.amand.projetointegrador.adapters.CustomPagerAdapter;
+import com.example.amand.projetointegrador.R;
+import com.example.amand.projetointegrador.RegistroActivity;
+import com.example.amand.projetointegrador.helpers.Session;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,18 +28,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.client.HttpClient;
 import cz.msebera.android.httpclient.client.methods.HttpGet;
 import cz.msebera.android.httpclient.impl.client.HttpClientBuilder;
-import cz.msebera.android.httpclient.protocol.HTTP;
 import cz.msebera.android.httpclient.util.EntityUtils;
 import me.relex.circleindicator.CircleIndicator;
 
 public class DoacaoDetalhesActivity extends AppCompatActivity {
-
-
 
     private final List<String> images = new ArrayList<>();
     private final List<Bitmap> bitmaps = new ArrayList<>();
@@ -148,21 +146,21 @@ public class DoacaoDetalhesActivity extends AppCompatActivity {
 
                 nomeAnimal.setText(o.getString("nome"));
 
-                if (o.getString("raca").equals("null")) {
+                if (o.getString("raca").equals("null") || o.getString("raca").isEmpty()) {
                     racaAnimal.setText("Raça: Sem raça definida");
                 } else {
                     String raca = "Raça: " +o.getString("raca");
                     racaAnimal.setText(raca);
                 }
 
-                if (o.getString("sexo").equals("null")) {
+                if (o.getString("sexo").equals("null") || o.getString("sexo").isEmpty()) {
                     sexoAnimal.setText("Sexo: Indefinido");
                 } else {
                     String sexo = "Sexo: " +o.getString("sexo");
                     sexoAnimal.setText(sexo);
                 }
 
-                if (o.getString("cor").equals("null")) {
+                if (o.getString("cor").equals("null") || o.getString("cor").isEmpty()) {
                     corAnimal.setText("Cor: Indefinido");
                 } else {
                     String cor = "Cor: " +o.getString("cor");
@@ -175,7 +173,7 @@ public class DoacaoDetalhesActivity extends AppCompatActivity {
                     idadeAnimal.setText(String.valueOf(o.getInt("idade")));
                 } //Setar idade em string
 
-                if(o.getString("descricao").equals("null")) {
+                if(o.getString("descricao").equals("null") || o.getString("descricao").isEmpty()) {
                     observacaoAnimal.setVisibility(View.GONE);
                 } else {
                     String obs = "Descrição: " +o.getString("descricao");

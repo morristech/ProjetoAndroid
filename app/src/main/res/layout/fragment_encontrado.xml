@@ -2,20 +2,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.amand.projetointegrador.EncontradoFragment">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fragmento Encontrado"/>
+    tools:context="com.example.amand.projetointegrador.encontrado.EncontradoFragment"    android:layout_marginBottom="20dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    >
 
     <GridView
         android:id="@+id/gridEncontrado"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:columnWidth="130dp"
         android:gravity="center"
-        android:numColumns="auto_fit"
-        android:stretchMode="columnWidth"></GridView>
+        android:numColumns="2"
+        android:verticalSpacing="15dp"
+        android:horizontalSpacing="10dp"
+        android:layout_margin="8dp"/>
 
 </FrameLayout>

@@ -1,39 +1,22 @@
 package com.example.amand.projetointegrador;
 
 import android.app.Activity;
-import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.amand.projetointegrador.helpers.Session;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import cz.msebera.android.httpclient.HttpResponse;
@@ -83,8 +66,6 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                LoginService loginService = new LoginService();
-
                 if(mEmailView.getText().toString().isEmpty()){
                     mEmailView.setError("Campo obrigatório");
                     return;
@@ -94,6 +75,8 @@ public class LoginActivity extends Activity {
                     mPasswordView.setError("Campo obrigatório");
                     return;
                 }
+
+                LoginService loginService = new LoginService();
 
                 loginService.execute(mEmailView.getText().toString(), mPasswordView.getText().toString());
             }
@@ -190,14 +173,14 @@ public class LoginActivity extends Activity {
                     startActivity(intent);
                 } catch (Exception e) {
 
-                    Toast.makeText(LoginActivity.this, "Erro", Toast.LENGTH_SHORT).show();
+                    mPasswordView.setError("E-mail ou senha incorretas");
                 }
 
             } else {
 
                 System.out.println(systemRes);
 
-                Toast.makeText(LoginActivity.this, "Erro", Toast.LENGTH_SHORT).show();
+                mPasswordView.setError("E-mail ou senha incorretas");
             }
         }
     }

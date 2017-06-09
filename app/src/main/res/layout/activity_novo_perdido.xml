@@ -3,36 +3,212 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.amand.projetointegrador.novoPerdidoActivity">
+    tools:context="com.example.amand.projetointegrador.perdido.novoPerdidoActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/novoPerdidoPager"
-            android:layout_width="wrap_content"
-            android:layout_height="220dp"
-            android:background="@drawable/imgplaceholder"
-            android:elevation="5dp" />
+        <HorizontalScrollView
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:id="@+id/novoEncontradoPager"
+            android:elevation="4dp"
+            android:background="#fff">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/novoPerdidoImgBtn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_below="@+id/novoPerdidoPager"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="195dp"
-            android:scaleType="center"
-            android:src="@drawable/ic_add_photo" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:src="@drawable/addimage2"
+                        android:id="@+id/addimage1"
+                        android:tag="addimage2"/>
+
+                    <ImageButton
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_close_browser"
+                        android:background="#00ffffff"
+                        android:tint="#cc0044"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/addimage1"
+                        android:id="@+id/rmimage1"
+                        android:visibility="gone"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:src="@drawable/addimage2"
+                        android:id="@+id/addimage2"
+                        android:tag="addimage2"/>
+
+                    <ImageButton
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_close_browser"
+                        android:background="#00ffffff"
+                        android:tint="#cc0044"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/addimage2"
+                        android:id="@+id/rmimage2"
+                        android:visibility="gone"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:src="@drawable/addimage2"
+                        android:id="@+id/addimage3"
+                        android:tag="addimage2"/>
+
+                    <ImageButton
+                        android:layout_width="35dp"
+                        android:layout_height="350dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_close_browser"
+                        android:background="#00ffffff"
+                        android:tint="#cc0044"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/addimage3"
+                        android:id="@+id/rmimage3"
+                        android:visibility="gone"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:src="@drawable/addimage2"
+                        android:id="@+id/addimage4"
+                        android:tag="addimage2"/>
+
+                    <ImageButton
+                        android:layout_width="35dp"
+                        android:layout_height="350dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_close_browser"
+                        android:background="#00ffffff"
+                        android:tint="#cc0044"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/addimage4"
+                        android:id="@+id/rmimage4"
+                        android:visibility="gone"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:src="@drawable/addimage2"
+                        android:id="@+id/addimage5"
+                        android:tag="addimage2"
+                        />
+
+                    <ImageButton
+                        android:layout_width="35dp"
+                        android:layout_height="350dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_close_browser"
+                        android:background="#00ffffff"
+                        android:tint="#cc0044"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/addimage5"
+                        android:id="@+id/rmimage5"
+                        android:visibility="gone"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:src="@drawable/addimage2"
+                        android:id="@+id/addimage6"
+                        android:tag="addimage2"/>
+
+                    <ImageButton
+                        android:layout_width="35dp"
+                        android:layout_height="350dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_close_browser"
+                        android:background="#00ffffff"
+                        android:tint="#cc0044"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/addimage6"
+                        android:id="@+id/rmimage6"
+                        android:visibility="gone"/>
+
+                </RelativeLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/novoPerdidoPager"
+            android:layout_below="@+id/novoEncontradoPager"
             android:layout_marginTop="25dp"
             android:orientation="vertical"
             android:padding="15dp">
@@ -68,7 +244,7 @@
                     style="@style/RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:width="175dp"
+                    android:width="@dimen/encontrado_sexotipo_width"
                     android:padding="15dp"
                     android:text="Cachorro"
                     android:textSize="16sp" />
@@ -78,7 +254,7 @@
                     style="@style/RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:width="175dp"
+                    android:width="@dimen/encontrado_sexotipo_width"
                     android:padding="15dp"
                     android:text="Gato"
                     android:textSize="16sp" />
@@ -105,7 +281,7 @@
                     style="@style/RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:width="175dp"
+                    android:width="@dimen/encontrado_sexotipo_width"
                     android:padding="15dp"
                     android:text="Fêmea"
                     android:textSize="16sp" />
@@ -115,7 +291,7 @@
                     style="@style/RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:width="175dp"
+                    android:width="@dimen/encontrado_sexotipo_width"
                     android:padding="15dp"
                     android:text="Macho"
                     android:textSize="16sp" />
@@ -141,7 +317,7 @@
                     style="@style/RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:width="112dp"
+                    android:width="@dimen/encontrado_porte_width"
                     android:padding="15dp"
                     android:text="Pequeno"
                     android:textSize="16sp" />
@@ -151,7 +327,7 @@
                     style="@style/RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:width="112dp"
+                    android:width="@dimen/encontrado_porte_width"
                     android:padding="15dp"
                     android:text="Médio"
                     android:textSize="16sp" />
@@ -161,7 +337,7 @@
                     style="@style/RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:width="112dp"
+                    android:width="@dimen/encontrado_porte_width"
                     android:padding="15dp"
                     android:text="Grande"
                     android:textSize="16sp" />
@@ -240,17 +416,17 @@
                     android:id="@+id/digitaEndereco"/>
             </RadioGroup>
 
-            <EditText
+            <fragment
+                android:id="@+id/place_autocomplete_fragment"
+                android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:layout_marginTop="10dp"
                 android:elevation="2dp"
-                android:id="@+id/digitarEnderecoPerdido"
-                android:hint="Digite o endereço"
-                android:visibility="gone"
-                android:inputType="text"/>
+                android:inputType="text"
+                />
 
             <fragment
                 android:id="@+id/mapaPerdido"

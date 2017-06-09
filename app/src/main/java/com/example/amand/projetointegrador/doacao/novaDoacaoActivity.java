@@ -1,26 +1,24 @@
-package com.example.amand.projetointegrador;
+package com.example.amand.projetointegrador.doacao;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.support.annotation.IdRes;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatRadioButton;
-import android.support.v7.widget.Toolbar;
+import android.support.annotation.IdRes;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
+import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.example.amand.projetointegrador.Adapters.CustomPagerAdapter;
+import com.example.amand.projetointegrador.MainActivity;
+import com.example.amand.projetointegrador.R;
+import com.example.amand.projetointegrador.RegistroActivity;
+import com.example.amand.projetointegrador.helpers.Session;
 import com.mvc.imagepicker.ImagePicker;
 
 import java.io.File;
@@ -39,30 +37,36 @@ import cz.msebera.android.httpclient.entity.mime.MultipartEntityBuilder;
 import cz.msebera.android.httpclient.entity.mime.content.FileBody;
 import cz.msebera.android.httpclient.entity.mime.content.StringBody;
 import cz.msebera.android.httpclient.impl.client.HttpClientBuilder;
+import de.hdodenhof.circleimageview.CircleImageView;
 import info.hoang8f.android.segmented.SegmentedGroup;
 
-public class novaDoacaoActivity extends AppCompatActivity {
+public class novaDoacaoActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private ViewPager viewPager;
-    private FloatingActionButton addImages;
     private EditText nomeAnimal;
     private SegmentedGroup tipoAnimal;
-    private RadioButton cachorro;
-    private RadioButton gato;
     private SegmentedGroup sexoAnimal;
-    private RadioButton feminino;
-    private RadioButton masculino;
     private EditText racaAnimal;
     private EditText corAnimal;
     private EditText observacoesAnimal;
-    private RadioButton deficieciaSim;
-    private RadioButton deficienciaNao;
-    private RadioButton castradoSim;
-    private RadioButton castradoNao;
     private Button enviaAnuncio;
 
     private RadioGroup radioDef;
     private RadioGroup radioCas;
+
+    private CircleImageView img1;
+    private CircleImageView img2;
+    private CircleImageView img3;
+    private CircleImageView img4;
+    private CircleImageView img5;
+    private CircleImageView img6;
+
+    private ImageButton rmimg1;
+    private ImageButton rmimg2;
+    private ImageButton rmimg3;
+    private ImageButton rmimg4;
+    private ImageButton rmimg5;
+    private ImageButton rmimg6;
+
 
     private List<Bitmap> bitmaps = new ArrayList<>();
     private List<File> urlImg = new ArrayList<>();
@@ -81,8 +85,6 @@ public class novaDoacaoActivity extends AppCompatActivity {
 
         session = new Session(this);
 
-        viewPager = (ViewPager) findViewById(R.id.novaDoacaoPager);
-        addImages = (FloatingActionButton) findViewById(R.id.novaDoacaoImgBtn);
         nomeAnimal = (EditText) findViewById(R.id.nomeAnimal);
         racaAnimal = (EditText) findViewById(R.id.racaAnimal);
         corAnimal = (EditText) findViewById(R.id.corAnimal);
@@ -90,17 +92,117 @@ public class novaDoacaoActivity extends AppCompatActivity {
 
         enviaAnuncio = (Button) findViewById(R.id.enviaAnuncio);
 
-        addImages.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onPickImage(v);
-            }
-        });
-
         tipoAnimal = (SegmentedGroup) findViewById(R.id.tipoAnimal);
         sexoAnimal = (SegmentedGroup) findViewById(R.id.sexoAnimal);
         radioDef = (RadioGroup) findViewById(R.id.radioDeficiencia);
         radioCas = (RadioGroup) findViewById(R.id.radioCastrado);
+
+        img1 = (CircleImageView) findViewById(R.id.addimage1);
+        img2 = (CircleImageView) findViewById(R.id.addimage2);
+        img3 = (CircleImageView) findViewById(R.id.addimage3);
+        img4 = (CircleImageView) findViewById(R.id.addimage4);
+        img5 = (CircleImageView) findViewById(R.id.addimage5);
+        img6 = (CircleImageView) findViewById(R.id.addimage6);
+
+        rmimg1 = (ImageButton) findViewById(R.id.rmimage1);
+        rmimg2 = (ImageButton) findViewById(R.id.rmimage2);
+        rmimg3 = (ImageButton) findViewById(R.id.rmimage3);
+        rmimg4 = (ImageButton) findViewById(R.id.rmimage4);
+        rmimg5 = (ImageButton) findViewById(R.id.rmimage5);
+        rmimg6 = (ImageButton) findViewById(R.id.rmimage6);
+
+
+        rmimg1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (File url : urlImg) {
+                    if(url.getName().equals(img1.getTag())) {
+                        urlImg.remove(url);
+                        img1.setTag("addimage2");
+                        img1.setImageResource(R.drawable.addimage2);
+                        rmimg1.setVisibility(View.GONE);
+                        System.out.println(urlImg.size() + "+++++++++");
+                    }
+                }
+            }
+        });
+
+        rmimg2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (File url : urlImg) {
+                    if(url.getName().equals(img2.getTag())) {
+                        urlImg.remove(url);
+                        img2.setTag("addimage2");
+                        img2.setImageResource(R.drawable.addimage2);
+                        rmimg2.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+
+        rmimg3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (File url : urlImg) {
+                    if(url.getName().equals(img3.getTag())) {
+                        urlImg.remove(url);
+                        img3.setTag("addimage2");
+                        img3.setImageResource(R.drawable.addimage2);
+                        rmimg3.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+
+        rmimg4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (File url : urlImg) {
+                    if(url.getName().equals(img4.getTag())) {
+                        urlImg.remove(url);
+                        img4.setTag("addimage2");
+                        img4.setImageResource(R.drawable.addimage2);
+                        rmimg4.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+
+        rmimg5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (File url : urlImg) {
+                    if(url.getName().equals(img5.getTag())) {
+                        urlImg.remove(url);
+                        img5.setTag("addimage2");
+                        img5.setImageResource(R.drawable.addimage2);
+                        rmimg5.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+
+        rmimg6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (File url : urlImg) {
+                    if(url.getName().equals(img6.getTag())) {
+                        urlImg.remove(url);
+                        img6.setTag("addimage2");
+                        img6.setImageResource(R.drawable.addimage2);
+                        rmimg6.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+
+        img1.setOnClickListener(this);
+        img2.setOnClickListener(this);
+        img3.setOnClickListener(this);
+        img4.setOnClickListener(this);
+        img5.setOnClickListener(this);
+        img6.setOnClickListener(this);
 
         radioDef.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -166,8 +268,12 @@ public class novaDoacaoActivity extends AppCompatActivity {
                 cor = corAnimal.getText().toString();
                 observacoes = observacoesAnimal.getText().toString();
 
-                AnuncioService newAnuncio = new AnuncioService();
-                newAnuncio.execute(nome, tipo, sexo, raca, cor, observacoes, deficiente, castrado);
+                if(nome.equals("") || nome.isEmpty()) {
+                    nomeAnimal.setError("Digite o nome do animal");
+                } else {
+                    AnuncioService newAnuncio = new AnuncioService();
+                    newAnuncio.execute(nome, tipo, sexo, raca, cor, observacoes, deficiente, castrado);
+                }
             }
         });
 
@@ -204,12 +310,43 @@ public class novaDoacaoActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
+            if (img1.getTag().equals("addimage2")) {
+                img1.setImageBitmap(bitmap);
+                img1.setTag(file.getName());
+                rmimg1.setVisibility(View.VISIBLE);
+            } else if (img2.getTag().equals("addimage2")) {
+                img2.setImageBitmap(bitmap);
+                img2.setTag(file.getName());
+                rmimg2.setVisibility(View.VISIBLE);
+            } else if (img3.getTag().equals("addimage2")) {
+                img3.setImageBitmap(bitmap);
+                img3.setTag(file.getName());
+                rmimg3.setVisibility(View.VISIBLE);
+            } else if (img4.getTag().equals("addimage2")) {
+                img4.setImageBitmap(bitmap);
+                img4.setTag(file.getName());
+                rmimg4.setVisibility(View.VISIBLE);
+            } else if (img5.getTag().equals("addimage2")) {
+                img5.setImageBitmap(bitmap);
+                img5.setTag(file.getName());
+                rmimg5.setVisibility(View.VISIBLE);
+            } else if (img6.getTag().equals("addimage2")) {
+                img6.setImageBitmap(bitmap);
+                img6.setTag(file.getName());
+                rmimg6.setVisibility(View.VISIBLE);
+            }
+
+            System.out.println(urlImg.size() + "++++++++++++");
+
             bitmaps.add(bitmap);
             urlImg.add(file);
-            PagerAdapter pAdapter = new CustomPagerAdapter(this, bitmaps);
-            viewPager.setAdapter(pAdapter);
         }
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        onPickImage(v);
     }
 
     private class AnuncioService extends AsyncTask<String, Void, HttpResponse> {

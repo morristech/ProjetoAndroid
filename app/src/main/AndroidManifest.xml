@@ -31,9 +31,6 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -44,7 +41,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="@string/google_maps_api_key" />
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -56,10 +53,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ChoiceActivity" />
         <activity android:name=".RegistroActivity" />
-        <activity android:name=".novaDoacaoActivity" />
-        <activity android:name=".novoEncontradoActivity" />
-        <activity android:name=".novoPerdidoActivity" />
-        <activity android:name=".DoacaoDetalhesActivity" />
+        <activity android:name=".doacao.novaDoacaoActivity" />
+        <activity android:name=".encontrado.novoEncontradoActivity" />
+        <activity android:name=".perdido.novoPerdidoActivity" />
+        <activity android:name=".doacao.DoacaoDetalhesActivity" />
         <activity android:name=".FinalizaCadastroActivity" />
         <activity
             android:name=".SplashScreen"
@@ -73,8 +70,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".PreviewActivity" />
-        <activity android:name=".PerdidoDetalhesActivity" />
-        <activity android:name=".EncontradoDetalhesActivity"></activity>
+        <activity android:name=".perdido.PerdidoDetalhesActivity" />
+        <activity android:name=".encontrado.EncontradoDetalhesActivity" />
+        <activity android:name=".AlterarDadosActivity"></activity>
     </application>
 
 </manifest>

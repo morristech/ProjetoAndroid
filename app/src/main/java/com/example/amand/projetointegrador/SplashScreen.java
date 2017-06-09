@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.amand.projetointegrador.helpers.Session;
+
 public class SplashScreen extends AppCompatActivity {
     // Timer da splash screen
     private static int SPLASH_TIME_OUT = 3000;
@@ -17,7 +19,7 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         session = new Session(this);
 
-        if (session.getToken() != null) {
+        if (!session.getToken().isEmpty() && !session.getToken().equals("")) {
             token = session.getToken();
 
             new Handler().postDelayed(new Runnable() {

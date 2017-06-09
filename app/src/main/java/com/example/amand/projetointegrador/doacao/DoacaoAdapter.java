@@ -1,4 +1,4 @@
-package com.example.amand.projetointegrador;
+package com.example.amand.projetointegrador.doacao;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,10 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.amand.projetointegrador.R;
+import com.example.amand.projetointegrador.RegistroActivity;
 import com.example.amand.projetointegrador.model.AnuncioDoacao;
 
 import java.io.InputStream;

@@ -39,4 +39,5 @@
     <string name="title_activity_splash_screen">SplashScreen</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="google_maps_api_key">AIzaSyD1UHUDkis9ZbCGX3k7ctu5wfIDDcXxQ7Y</string>
 </resources>

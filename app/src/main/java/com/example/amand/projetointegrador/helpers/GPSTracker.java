@@ -1,6 +1,5 @@
-package com.example.amand.projetointegrador.Helpers;
+package com.example.amand.projetointegrador.helpers;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Service;

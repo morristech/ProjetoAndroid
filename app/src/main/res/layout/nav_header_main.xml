@@ -11,13 +11,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/barUserImg"
-        android:layout_width="80sp"
-        android:layout_height="80sp"
-        android:paddingTop="10sp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:src="@android:drawable/sym_def_app_icon"
-        android:layout_gravity="center" />
+        app:civ_border_width="2dp"
+        app:civ_border_color="#c9c294"
+        />
 
     <TextView
         android:layout_width="match_parent"

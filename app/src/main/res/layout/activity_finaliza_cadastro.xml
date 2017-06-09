@@ -12,14 +12,18 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="160dp"
             android:layout_height="160dp"
             android:layout_gravity="center_horizontal"
-            android:background="#c2e2e2e2"
             android:elevation="5dp"
             android:layout_marginBottom="30dp"
             android:id="@+id/imgFinalizaCadastro"
+            app:civ_border_color="#ede182"
+            app:civ_border_width="2dp"
+            app:civ_fill_color="#b6b0b0"
+            android:src="@drawable/imgplaceholder"
             />
 
         <android.support.design.widget.FloatingActionButton
@@ -41,7 +45,8 @@
             android:id="@+id/finalizaCadastroTelefone"
             android:inputType="phone"
             android:background="#c0eeeeee"
-            android:padding="15dp"/>
+            android:padding="15dp"
+            />
 
         <EditText
             android:layout_width="match_parent"
@@ -52,16 +57,6 @@
             android:inputType="phone"
             android:background="#c0eeeeee"
             android:padding="15dp"/>
-
-        <EditText
-            android:id="@+id/finalizaCadastroFacebook"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:hint="Facebook"
-            android:background="#c0eeeeee"
-            android:padding="15dp"
-            />
 
         <EditText
             android:layout_width="match_parent"

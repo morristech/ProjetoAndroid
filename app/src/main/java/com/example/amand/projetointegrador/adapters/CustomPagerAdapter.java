@@ -1,4 +1,4 @@
-package com.example.amand.projetointegrador.Adapters;
+package com.example.amand.projetointegrador.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.amand.projetointegrador.R;
-import com.example.amand.projetointegrador.Session;
+import com.example.amand.projetointegrador.helpers.Session;
 
 import java.util.ArrayList;
 import java.util.List;

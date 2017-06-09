@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
-import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +14,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+
+import com.example.amand.projetointegrador.helpers.Session;
 
 import org.json.JSONObject;
 
@@ -45,8 +46,8 @@ public class RegistroActivity extends AppCompatActivity {
     private Session session;
     static Long id;
 
-    public static final String ENDERECO_WEB = "http://192.152.0.120:8080";
-    //public static final String ENDERECO_WEB = "http://192.168.25.16:8888";
+    //public static final String ENDERECO_WEB = "http://31.220.58.131:8080";
+    public static final String ENDERECO_WEB = "http://192.168.25.20:8888";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,9 +95,35 @@ public class RegistroActivity extends AppCompatActivity {
                 Integer count = 1;
 
                 if (!confirmaSenhaNovaConta.getText().toString().equals(senhaNovaConta.getText().toString())) {
-
-                    Toast.makeText(RegistroActivity.this, "Senhas não correspondem", Toast.LENGTH_SHORT).show();
+                    confirmaSenhaNovaConta.setError("Senhas não correspondem");
                 }
+
+                else if (emailNovaConta.getText().toString().isEmpty() || emailNovaConta.getText().toString().equals("")) {
+                    emailNovaConta.setError("Digite seu e-mail");
+                    emailNovaConta.requestFocus();
+                }
+
+                else if (nomeNovaConta.getText().toString().isEmpty() || nomeNovaConta.getText().toString().equals("")) {
+                    nomeNovaConta.setError("Digite seu nome");
+                    nomeNovaConta.requestFocus();
+                }
+
+                else if (senhaNovaConta.getText().toString().isEmpty() || senhaNovaConta.getText().toString().equals("")) {
+                    senhaNovaConta.setError("Digite sua senha");
+                    senhaNovaConta.requestFocus();
+                }
+
+                else if (confirmaSenhaNovaConta.getText().toString().isEmpty() || confirmaSenhaNovaConta.getText().toString().equals("")) {
+                    confirmaSenhaNovaConta.setError("Confirme sua senha");
+                    confirmaSenhaNovaConta.requestFocus();
+                }
+
+                else if (dataNascimentoNovaConta.getText().toString().isEmpty() || dataNascimentoNovaConta.getText().toString().equals("")) {
+                    dataNascimentoNovaConta.setError("Digite sua data de nascimento");
+                    dataNascimentoNovaConta.requestFocus();
+
+                } else {
+
 
                     JSONObject o = new JSONObject();
                     try {
@@ -122,6 +149,7 @@ public class RegistroActivity extends AppCompatActivity {
 
                     WebService newUsuario = new WebService(ENDERECO_WEB + "/adotapet-servidor/api/usuario/cadastro");
                     newUsuario.execute(o);
+                }
 
             }
         });
@@ -185,7 +213,8 @@ public class RegistroActivity extends AppCompatActivity {
             abrirNovaConta.setVisibility(View.VISIBLE);
 
             if (s.equals("Erro")) {
-                Toast.makeText(RegistroActivity.this, "Não sei o que aconteceu", Toast.LENGTH_SHORT).show();
+                emailNovaConta.setError("Este e-mail já está em uso");
+                emailNovaConta.requestFocus();
             } else {
                 Toast.makeText(RegistroActivity.this, "Conta criada com sucesso!", Toast.LENGTH_SHORT).show();
 
@@ -264,8 +293,8 @@ public class RegistroActivity extends AppCompatActivity {
             } else {
 
                 System.out.println(systemRes);
-
                 Toast.makeText(RegistroActivity.this, "Erro", Toast.LENGTH_SHORT).show();
+
             }
         }
     }
