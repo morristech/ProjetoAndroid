@@ -40,7 +40,7 @@ import cz.msebera.android.httpclient.impl.client.HttpClientBuilder;
 import cz.msebera.android.httpclient.util.EntityUtils;
 
 
-//FRAGMENTO DE MOSTRA DE ANUNCIOS DE ANIMAIS ENCONTRADOS COMO GRIDVIEW
+/** FRAGMENTO DE MOSTRA DE ANUNCIOS DE ANIMAIS ENCONTRADOS COMO GRIDVIEW */
 
 public class EncontradoFragment extends Fragment {
     private GridView gridEncontrado;

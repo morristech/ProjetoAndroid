@@ -1,4 +1,4 @@
-package com.example.amand.projetointegrador.doacao;
+package com.example.amand.projetointegrador.encontrado;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,7 +17,7 @@ import android.widget.Toast;
 import com.example.amand.projetointegrador.R;
 import com.example.amand.projetointegrador.RegistroActivity;
 import com.example.amand.projetointegrador.helpers.Session;
-import com.example.amand.projetointegrador.model.AnuncioDoacao;
+import com.example.amand.projetointegrador.model.AnuncioEncontrado;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,11 +36,11 @@ import cz.msebera.android.httpclient.util.EntityUtils;
  * Created by amanda on 12/06/17.
  */
 
-public class DoacaoGerenciarAdapter extends BaseAdapter {
+public class EncontradoGerenciarAdapter extends BaseAdapter {
 
     ListView lista;
 
-    private List<AnuncioDoacao> doacoes = new ArrayList<>();
+    private List<AnuncioEncontrado> encontrados = new ArrayList<>();
 
     private ImageView imgView;
     private TextView nomeAnimal;
@@ -52,18 +51,18 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
     private Context mContext;
 
     // Constructor
-    public DoacaoGerenciarAdapter(Context c, List<AnuncioDoacao> anuncios) {
+    public EncontradoGerenciarAdapter(Context c, List<AnuncioEncontrado> anuncios) {
         this.mContext = c;
-        this.doacoes = anuncios;
+        this.encontrados = anuncios;
 
     }
 
     public int getCount() {
-        return doacoes.size();
+        return encontrados.size();
     }
 
     public Object getItem(int position) {
-        return doacoes.get(position);
+        return encontrados.get(position);
     }
 
     public long getItemId(int position) {
@@ -86,14 +85,14 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
             grid = inflater.inflate(R.layout.item_gerenciar, null);
 
             nomeAnimal = (TextView) grid.findViewById(R.id.nomeAnimal);
-            nomeAnimal.setText(doacoes.get(position).getNome());
+            nomeAnimal.setText(encontrados.get(position).getTitulo());
 
             dataPublicacao = (TextView) grid.findViewById(R.id.dataPublicacao);
 
             btnDelete = (Button) grid.findViewById(R.id.btnDelete);
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            dataPublicacao.setText("Publicado em: "+ sdf.format(doacoes.get(position).getDataPublicacao()));
+            dataPublicacao.setText("Publicado em: "+ sdf.format(encontrados.get(position).getDataPublicacao()));
 
             imgView = (ImageView) grid.findViewById(R.id.imgAnimal);
 
@@ -105,10 +104,10 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
                 }
             });
 
-            if(!doacoes.get(position).getImgAnucio().isEmpty()) {
+            if(!encontrados.get(position).getImgAnucio().isEmpty()) {
                 new DownloadImageTask((ImageView) grid.findViewById(R.id.imgAnimal)).execute(
-                        RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/doacao/" + doacoes.get(position).getId() +
-                                "/" + doacoes.get(position).getImgAnucio().get(0));
+                        RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/encontrado/" + encontrados.get(position).getId() +
+                                "/" + encontrados.get(position).getImgAnucio().get(0));
             }
 
         } else {
@@ -151,7 +150,7 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
         }
 
         private String
-                webAdd = RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/anuncio/delete-doacao/" + doacoes.get(pos).getId();
+                webAdd = RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/anuncio/delete-encontrado/" + encontrados.get(pos).getId();
 
         @Override
         protected String doInBackground(String... params) {
@@ -181,7 +180,7 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
         @Override
         protected void onPostExecute(String s) {
             if (s.equals("Sucesso")) {
-                doacoes.remove(doacoes.get(pos));
+                encontrados.remove(encontrados.get(pos));
                 notifyDataSetChanged();
 
             } else {

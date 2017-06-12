@@ -1,13 +1,17 @@
 package com.example.amand.projetointegrador.encontrado;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -26,6 +30,8 @@ import com.example.amand.projetointegrador.RegistroActivity;
 import com.example.amand.projetointegrador.helpers.GPSTracker;
 import com.example.amand.projetointegrador.helpers.Session;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
@@ -35,6 +41,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.mvc.imagepicker.ImagePicker;
 
 import java.io.File;
@@ -69,7 +76,6 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
     private Button enviaAnuncio;
     private Switch resgatado;
     private View mapa;
-    GPSTracker gps;
 
     private String tipo = "";
     private String sexo = "";
@@ -96,12 +102,12 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
     private static final String TAG = "novoEncontradoActivity";
     LatLng coordinates;
 
-    private double lat;
-    private double lng;
+    Double lat;
+    Double lng;
 
     private GoogleMap map;
 
-    private LocationManager locationManager;
+    private FusedLocationProviderClient mFusedLocationClient;
 
     private List<Bitmap> bitmaps = new ArrayList<>();
     private List<File> urlImg = new ArrayList<>();
@@ -141,12 +147,11 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
         rmimg6 = (ImageButton) findViewById(R.id.rmimage6);
 
 
-
         rmimg1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 for (File url : urlImg) {
-                    if(url.getName().equals(img1.getTag())) {
+                    if (url.getName().equals(img1.getTag())) {
                         urlImg.remove(url);
                         img1.setTag("addimage2");
                         img1.setImageResource(R.drawable.addimage2);
@@ -161,7 +166,7 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
             @Override
             public void onClick(View v) {
                 for (File url : urlImg) {
-                    if(url.getName().equals(img2.getTag())) {
+                    if (url.getName().equals(img2.getTag())) {
                         urlImg.remove(url);
                         img2.setTag("addimage2");
                         img2.setImageResource(R.drawable.addimage2);
@@ -175,7 +180,7 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
             @Override
             public void onClick(View v) {
                 for (File url : urlImg) {
-                    if(url.getName().equals(img3.getTag())) {
+                    if (url.getName().equals(img3.getTag())) {
                         urlImg.remove(url);
                         img3.setTag("addimage2");
                         img3.setImageResource(R.drawable.addimage2);
@@ -189,7 +194,7 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
             @Override
             public void onClick(View v) {
                 for (File url : urlImg) {
-                    if(url.getName().equals(img4.getTag())) {
+                    if (url.getName().equals(img4.getTag())) {
                         urlImg.remove(url);
                         img4.setTag("addimage2");
                         img4.setImageResource(R.drawable.addimage2);
@@ -203,7 +208,7 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
             @Override
             public void onClick(View v) {
                 for (File url : urlImg) {
-                    if(url.getName().equals(img5.getTag())) {
+                    if (url.getName().equals(img5.getTag())) {
                         urlImg.remove(url);
                         img5.setTag("addimage2");
                         img5.setImageResource(R.drawable.addimage2);
@@ -217,7 +222,7 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
             @Override
             public void onClick(View v) {
                 for (File url : urlImg) {
-                    if(url.getName().equals(img6.getTag())) {
+                    if (url.getName().equals(img6.getTag())) {
                         urlImg.remove(url);
                         img6.setTag("addimage2");
                         img6.setImageResource(R.drawable.addimage2);
@@ -253,6 +258,27 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
 
         mapFragment.getMapAsync(this);
 
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        if (ActivityCompat.checkSelfPermission(novoEncontradoActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    lat = location.getLatitude();
+                    lng = location.getLongitude();
+                }
+            }
+        });
 
         tipoAnimal.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -304,7 +330,7 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
             resgatado.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(isChecked) {
+                    if (isChecked) {
                         resgatadoString = "Sim";
                         //do stuff when Switch is ON
                     } else {
@@ -327,16 +353,11 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
 
                         Toast.makeText(ctx, "Localizacao Atual", Toast.LENGTH_SHORT).show();
 
-                        gps = new GPSTracker(ctx);
-                        if (gps.canGetLocation()) {
-                            lat = gps.getLatitude();
-                            lng = gps.getLongitude();
-
                             LatLng ll = new LatLng(lat, lng);
                             map.addMarker(new MarkerOptions().position(ll).title("Você está aqui"));
                             map.moveCamera(CameraUpdateFactory.newLatLng(ll));
                             map.animateCamera(CameraUpdateFactory.zoomTo(16f));
-                        }
+
                         break;
 
                     case R.id.digitaEndereco:
@@ -395,6 +416,7 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
             }
         });
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

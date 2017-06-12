@@ -1,14 +1,18 @@
 package com.example.amand.projetointegrador.perdido;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -24,9 +28,12 @@ import android.widget.Toast;
 import com.example.amand.projetointegrador.MainActivity;
 import com.example.amand.projetointegrador.R;
 import com.example.amand.projetointegrador.RegistroActivity;
+import com.example.amand.projetointegrador.encontrado.novoEncontradoActivity;
 import com.example.amand.projetointegrador.helpers.GPSTracker;
 import com.example.amand.projetointegrador.helpers.Session;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
@@ -36,6 +43,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.mvc.imagepicker.ImagePicker;
 
 import java.io.File;
@@ -100,11 +108,9 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
     private double lat;
     private double lng;
 
-    GPSTracker gps;
+    private FusedLocationProviderClient mFusedLocationClient;
 
     private GoogleMap map;
-
-    private LocationManager locationManager;
 
     private List<Bitmap> bitmaps = new ArrayList<>();
     private List<File> urlImg = new ArrayList<>();
@@ -144,12 +150,11 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
         rmimg6 = (ImageButton) findViewById(R.id.rmimage6);
 
 
-
         rmimg1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 for (File url : urlImg) {
-                    if(url.getName().equals(img1.getTag())) {
+                    if (url.getName().equals(img1.getTag())) {
                         urlImg.remove(url);
                         img1.setTag("addimage2");
                         img1.setImageResource(R.drawable.addimage2);
@@ -164,7 +169,7 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View v) {
                 for (File url : urlImg) {
-                    if(url.getName().equals(img2.getTag())) {
+                    if (url.getName().equals(img2.getTag())) {
                         urlImg.remove(url);
                         img2.setTag("addimage2");
                         img2.setImageResource(R.drawable.addimage2);
@@ -178,7 +183,7 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View v) {
                 for (File url : urlImg) {
-                    if(url.getName().equals(img3.getTag())) {
+                    if (url.getName().equals(img3.getTag())) {
                         urlImg.remove(url);
                         img3.setTag("addimage2");
                         img3.setImageResource(R.drawable.addimage2);
@@ -192,7 +197,7 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View v) {
                 for (File url : urlImg) {
-                    if(url.getName().equals(img4.getTag())) {
+                    if (url.getName().equals(img4.getTag())) {
                         urlImg.remove(url);
                         img4.setTag("addimage2");
                         img4.setImageResource(R.drawable.addimage2);
@@ -206,7 +211,7 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View v) {
                 for (File url : urlImg) {
-                    if(url.getName().equals(img5.getTag())) {
+                    if (url.getName().equals(img5.getTag())) {
                         urlImg.remove(url);
                         img5.setTag("addimage2");
                         img5.setImageResource(R.drawable.addimage2);
@@ -220,7 +225,7 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View v) {
                 for (File url : urlImg) {
-                    if(url.getName().equals(img6.getTag())) {
+                    if (url.getName().equals(img6.getTag())) {
                         urlImg.remove(url);
                         img6.setTag("addimage2");
                         img6.setImageResource(R.drawable.addimage2);
@@ -256,6 +261,28 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
 
         mapFragment.getMapAsync(this);
 
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        if (ActivityCompat.checkSelfPermission(novoPerdidoActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        
+        mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    lat = location.getLatitude();
+                    lng = location.getLongitude();
+                }
+            }
+        });
 
         tipoAnimal.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -316,16 +343,10 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
 
                         Toast.makeText(ctx, "Localizacao Atual", Toast.LENGTH_SHORT).show();
 
-                        gps = new GPSTracker(ctx);
-                        if (gps.canGetLocation()) {
-                            lat = gps.getLatitude();
-                            lng = gps.getLongitude();
-
-                            LatLng ll = new LatLng(lat, lng);
-                            map.addMarker(new MarkerOptions().position(ll).title("Você está aqui"));
-                            map.moveCamera(CameraUpdateFactory.newLatLng(ll));
-                            map.animateCamera(CameraUpdateFactory.zoomTo(16f));
-                        }
+                        LatLng ll = new LatLng(lat, lng);
+                        map.addMarker(new MarkerOptions().position(ll).title("Você está aqui"));
+                        map.moveCamera(CameraUpdateFactory.newLatLng(ll));
+                        map.animateCamera(CameraUpdateFactory.zoomTo(16f));
                         break;
 
                     case R.id.digitaEndereco:
@@ -404,7 +425,6 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
         // Click on image button
         ImagePicker.pickImage(this, "Select your image:");
     }
-
 
 
     @Override
@@ -489,7 +509,7 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
                     }
                 }
 
-                System.out.println(urlImg.size() +"***********");
+                System.out.println(urlImg.size() + "***********");
 
                 entityBuilder.addPart("tipo", new StringBody((params[0]), ContentType.TEXT_PLAIN));
                 entityBuilder.addPart("sexo", new StringBody((params[1]), ContentType.TEXT_PLAIN));

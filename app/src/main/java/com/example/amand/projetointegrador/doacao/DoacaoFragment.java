@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,6 +64,8 @@ public class DoacaoFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        GetService get = new GetService();
+        get.execute();
 
     }
 
@@ -74,8 +77,7 @@ public class DoacaoFragment extends Fragment {
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
         context = this.getActivity().getApplicationContext();
         gridDoacao = (GridView) view.findViewById(R.id.gridDoacao);
-        GetService get = new GetService();
-        get.execute();
+
 
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
