@@ -19,7 +19,7 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         session = new Session(this);
 
-        if (!session.getToken().isEmpty() && !session.getToken().equals("")) {
+        if (session.getToken() != null && !session.getToken().equals("")) {
             token = session.getToken();
 
             new Handler().postDelayed(new Runnable() {

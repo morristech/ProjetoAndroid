@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <!--  ListRow Left side Thumbnail image -->
+    <LinearLayout android:id="@+id/thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="3dip"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="5dip">
+
+        <ImageView
+            android:layout_width="150dip"
+            android:layout_height="150dip"
+            android:id="@+id/imgAnimal"
+            android:scaleType="center"
+            android:src="@drawable/imgplaceholder"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/nomeAnimal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/thumbnail"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:text="Nome do Animal"
+        android:layout_marginTop="15dp"
+        android:textColor="#040404"
+        android:typeface="sans"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/dataPublicacao"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nomeAnimal"
+        android:text="Pubicação: 10/10/2010"
+        android:textColor="#343434"
+        android:textSize="15sp"
+        android:layout_marginTop="1dip"
+        android:layout_toRightOf="@+id/thumbnail"  />
+
+       <Button
+            android:layout_width="wrap_content"
+            android:id="@+id/btnDelete"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:text="Excluir Anúncio"
+            android:layout_marginTop="30dp"
+            android:textAllCaps="false"
+            android:paddingLeft="10dp"
+            android:paddingRight="15dp"
+            android:background="#e41414"
+            android:textColor="#fff"
+            android:drawableStart="@drawable/ic_delete_black_24dp"
+            android:drawablePadding="15dp"
+            android:layout_below="@id/dataPublicacao"
+            android:layout_toRightOf="@id/thumbnail"/>
+
+
+</RelativeLayout>

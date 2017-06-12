@@ -48,10 +48,15 @@ dependencies {
     compile 'com.github.Mariovc:ImagePicker:1.0.5'
     compile 'me.relex:circleindicator:1.2.2@aar'
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'junit:junit:4.12'
     testCompile 'junit:junit:4.12'
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+
+
+
 
 
 

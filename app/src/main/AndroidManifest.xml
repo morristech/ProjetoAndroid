@@ -72,7 +72,8 @@
         <activity android:name=".PreviewActivity" />
         <activity android:name=".perdido.PerdidoDetalhesActivity" />
         <activity android:name=".encontrado.EncontradoDetalhesActivity" />
-        <activity android:name=".AlterarDadosActivity"></activity>
+        <activity android:name=".AlterarDadosActivity" />
+        <activity android:name=".GerenciarAnunciosActivity"></activity>
     </application>
 
 </manifest>

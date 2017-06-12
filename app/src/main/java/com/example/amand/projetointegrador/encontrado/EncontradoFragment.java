@@ -169,6 +169,8 @@ public class EncontradoFragment extends Fragment {
                 try {
                     JSONArray array = new JSONArray(s);
 
+                    listAnuncio.clear();
+
                     final int numberIterator = array.length();
                     for (int i = 0; i < numberIterator; i++) {
                         JSONObject obj = array.getJSONObject(i);

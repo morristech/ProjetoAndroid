@@ -1,0 +1,22 @@
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.amand.projetointegrador.encontrado.EncontradoGerenciarFragment"
+    android:id="@+id/swipeRefresh"
+    android:layout_marginBottom="20dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    >
+
+    <ListView
+        android:id="@+id/listGerenciaEncontrado"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:verticalSpacing="15dp"
+        android:horizontalSpacing="10dp"
+        android:layout_margin="8dp"/>
+
+</android.support.v4.widget.SwipeRefreshLayout>
