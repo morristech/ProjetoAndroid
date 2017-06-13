@@ -83,7 +83,6 @@ public class DoacaoFragment extends Fragment {
             @Override
             public void onRefresh() {
 
-        //Esse negocio tá me fodendo
                 GetService get2 = new GetService();
                 get2.execute();
             }

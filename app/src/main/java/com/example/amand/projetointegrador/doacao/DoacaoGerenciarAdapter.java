@@ -94,16 +94,21 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
             dataPublicacao = (TextView) grid.findViewById(R.id.dataPublicacao);
 
             btnDelete = (Button) grid.findViewById(R.id.btnDelete);
+            btnDelete.setTag(position);
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             dataPublicacao.setText("Publicado em: "+ sdf.format(doacoes.get(position).getDataPublicacao()));
 
             imgView = (ImageView) grid.findViewById(R.id.imgAnimal);
 
+
             btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DeleteService del = new DeleteService(posicao);
+                    Integer index = (Integer) btnDelete.getTag();
+
+
+                    DeleteService del = new DeleteService(index);
                     del.execute();
                 }
             });
@@ -155,8 +160,6 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
 
         private String
                 webAdd = RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/anuncio/delete-doacao/" + doacoes.get(pos).getId();
-        AnuncioDoacao doacao = doacoes.get(pos);
-
         @Override
         protected String doInBackground(String... params) {
 
@@ -187,7 +190,6 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
             if (s.equals("Sucesso")) {
                 doacoes.remove(pos);
                 notifyDataSetChanged();
-
             } else {
                 Toast.makeText(mContext, "Ocorreu um erro ao excluir anuncio", Toast.LENGTH_SHORT).show();
             }
