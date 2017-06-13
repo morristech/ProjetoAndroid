@@ -273,7 +273,7 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        
+
         mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
@@ -400,13 +400,18 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
         enviaAnuncio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AnuncioService anuncio = new AnuncioService();
-                anuncio.execute(tipo, sexo,
-                        racaAnimal.getText().toString(),
-                        corAnimal.getText().toString(),
-                        observacoesAnimal.getText().toString(),
-                        nomeAnimal.getText().toString(),
-                        porte, String.valueOf(lat), String.valueOf(lng));
+
+                if(nomeAnimal.getText().toString().equals("") || nomeAnimal.getText().toString().isEmpty()) {
+                    nomeAnimal.setError("Digite o nome do animal");
+                } else{
+                    AnuncioService anuncio = new AnuncioService();
+                    anuncio.execute(tipo, sexo,
+                            racaAnimal.getText().toString(),
+                            corAnimal.getText().toString(),
+                            observacoesAnimal.getText().toString(),
+                            nomeAnimal.getText().toString(),
+                            porte, String.valueOf(lat), String.valueOf(lng));
+                }
             }
         });
     }

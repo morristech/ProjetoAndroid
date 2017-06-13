@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.amand.projetointegrador.R;
 import com.example.amand.projetointegrador.RegistroActivity;
 import com.example.amand.projetointegrador.helpers.Session;
+import com.example.amand.projetointegrador.model.Anuncio;
 import com.example.amand.projetointegrador.model.AnuncioDoacao;
 
 import java.io.IOException;
@@ -49,6 +50,7 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
     private Button btnDelete;
     Session s;
 
+    private int posicao;
     private Context mContext;
 
     // Constructor
@@ -71,7 +73,7 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
     }
 
     // create a new ImageView for each item referenced by the Adapter
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
 
         s = new Session(mContext);
 
@@ -85,6 +87,7 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
             grid = new View(mContext);
             grid = inflater.inflate(R.layout.item_gerenciar, null);
 
+            posicao = position;
             nomeAnimal = (TextView) grid.findViewById(R.id.nomeAnimal);
             nomeAnimal.setText(doacoes.get(position).getNome());
 
@@ -100,7 +103,7 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
             btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DeleteService del = new DeleteService(position);
+                    DeleteService del = new DeleteService(posicao);
                     del.execute();
                 }
             });
@@ -152,6 +155,7 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
 
         private String
                 webAdd = RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/anuncio/delete-doacao/" + doacoes.get(pos).getId();
+        AnuncioDoacao doacao = doacoes.get(pos);
 
         @Override
         protected String doInBackground(String... params) {
@@ -181,7 +185,7 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
         @Override
         protected void onPostExecute(String s) {
             if (s.equals("Sucesso")) {
-                doacoes.remove(doacoes.get(pos));
+                doacoes.remove(pos);
                 notifyDataSetChanged();
 
             } else {

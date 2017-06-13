@@ -1,4 +1,4 @@
-package com.example.amand.projetointegrador.encontrado;
+package com.example.amand.projetointegrador.perdido;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,8 +17,9 @@ import android.widget.Toast;
 
 import com.example.amand.projetointegrador.R;
 import com.example.amand.projetointegrador.RegistroActivity;
+import com.example.amand.projetointegrador.encontrado.EncontradoGerenciarAdapter;
 import com.example.amand.projetointegrador.helpers.Session;
-import com.example.amand.projetointegrador.model.AnuncioEncontrado;
+import com.example.amand.projetointegrador.model.AnuncioPerdido;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,37 +35,38 @@ import cz.msebera.android.httpclient.impl.client.HttpClientBuilder;
 import cz.msebera.android.httpclient.util.EntityUtils;
 
 /**
- * Created by amanda on 12/06/17.
+ * Created by amanda on 13/06/17.
  */
 
-public class EncontradoGerenciarAdapter extends BaseAdapter {
+public class PerdidoGerenciarAdapter extends BaseAdapter{
 
     ListView lista;
 
-    private List<AnuncioEncontrado> encontrados = new ArrayList<>();
+
+    private List<AnuncioPerdido> perdidos = new ArrayList<>();
+    private int posicao;
 
     private ImageView imgView;
+
+    private Context mContext;
     private TextView nomeAnimal;
     private TextView dataPublicacao;
     private Button btnDelete;
     Session s;
-    private int posicao;
-
-    private Context mContext;
 
     // Constructor
-    public EncontradoGerenciarAdapter(Context c, List<AnuncioEncontrado> anuncios) {
+    public PerdidoGerenciarAdapter(Context c, List<AnuncioPerdido> anuncios) {
         this.mContext = c;
-        this.encontrados = anuncios;
+        this.perdidos = anuncios;
 
     }
 
     public int getCount() {
-        return encontrados.size();
+        return perdidos.size();
     }
 
     public Object getItem(int position) {
-        return encontrados.get(position);
+        return perdidos.get(position);
     }
 
     public long getItemId(int position) {
@@ -73,31 +76,30 @@ public class EncontradoGerenciarAdapter extends BaseAdapter {
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        s = new Session(mContext);
-
         // TODO Auto-generated method stub
-        View grid;
+        View list;
         LayoutInflater inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+        s = new Session(mContext);
+
         if (convertView == null) {
 
+            list = new View(mContext);
+            list = inflater.inflate(R.layout.item_gerenciar, null);
+
             posicao = position;
+            nomeAnimal = (TextView) list.findViewById(R.id.nomeAnimal);
+            nomeAnimal.setText(perdidos.get(position).getNome());
 
-            grid = new View(mContext);
-            grid = inflater.inflate(R.layout.item_gerenciar, null);
+            dataPublicacao = (TextView) list.findViewById(R.id.dataPublicacao);
 
-            nomeAnimal = (TextView) grid.findViewById(R.id.nomeAnimal);
-            nomeAnimal.setText(encontrados.get(position).getTitulo());
-
-            dataPublicacao = (TextView) grid.findViewById(R.id.dataPublicacao);
-
-            btnDelete = (Button) grid.findViewById(R.id.btnDelete);
+            btnDelete = (Button) list.findViewById(R.id.btnDelete);
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            dataPublicacao.setText("Publicado em: "+ sdf.format(encontrados.get(position).getDataPublicacao()));
+            dataPublicacao.setText("Publicado em: "+ sdf.format(perdidos.get(position).getDataPublicacao()));
 
-            imgView = (ImageView) grid.findViewById(R.id.imgAnimal);
+            imgView = (ImageView) list.findViewById(R.id.imgAnimal);
 
             btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -107,17 +109,17 @@ public class EncontradoGerenciarAdapter extends BaseAdapter {
                 }
             });
 
-            if(!encontrados.get(position).getImgAnucio().isEmpty()) {
-                new DownloadImageTask((ImageView) grid.findViewById(R.id.imgAnimal)).execute(
-                        RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/encontrado/" + encontrados.get(position).getId() +
-                                "/" + encontrados.get(position).getImgAnucio().get(0));
+            if(!perdidos.get(position).getImgAnucio().isEmpty()) {
+                new DownloadImageTask((ImageView) list.findViewById(R.id.imgAnimal)).execute(
+                        RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/perdido/" + perdidos.get(position).getId() +
+                                "/" + perdidos.get(position).getImgAnucio().get(0));
             }
 
         } else {
-            grid = (View) convertView;
+            list = (View) convertView;
         }
 
-        return grid;
+        return list;
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
@@ -153,7 +155,8 @@ public class EncontradoGerenciarAdapter extends BaseAdapter {
         }
 
         private String
-                webAdd = RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/anuncio/delete-encontrado/" + encontrados.get(pos).getId();
+                webAdd = RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/anuncio/delete-perdido/" + perdidos.get(pos).getId();
+        AnuncioPerdido anuncio = perdidos.get(pos);
 
         @Override
         protected String doInBackground(String... params) {
@@ -183,7 +186,7 @@ public class EncontradoGerenciarAdapter extends BaseAdapter {
         @Override
         protected void onPostExecute(String s) {
             if (s.equals("Sucesso")) {
-                encontrados.remove(pos);
+                perdidos.remove(pos);
                 notifyDataSetChanged();
 
             } else {

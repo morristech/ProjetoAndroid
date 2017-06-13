@@ -16,7 +16,7 @@
             android:layout_width="150dip"
             android:layout_height="150dip"
             android:id="@+id/imgAnimal"
-            android:scaleType="center"
+            android:scaleType="centerCrop"
             android:src="@drawable/imgplaceholder"/>
     </LinearLayout>
 
@@ -30,7 +30,7 @@
         android:layout_marginTop="15dp"
         android:textColor="#040404"
         android:typeface="sans"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold"/>
 
     <TextView
@@ -40,7 +40,7 @@
         android:layout_below="@id/nomeAnimal"
         android:text="Pubicação: 10/10/2010"
         android:textColor="#343434"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:layout_marginTop="1dip"
         android:layout_toRightOf="@+id/thumbnail"  />
 

@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.amand.projetointegrador.MainActivity;
@@ -76,6 +77,7 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
     private Button enviaAnuncio;
     private Switch resgatado;
     private View mapa;
+    private TextView switchTxt;
 
     private String tipo = "";
     private String sexo = "";
@@ -127,6 +129,9 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
         autocompleteView = findViewById(R.id.place_autocomplete_fragment);
         autocompleteFragment = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
         autocompleteView.setVisibility(View.GONE);
+
+        switchTxt = (TextView) findViewById(R.id.switchTxt);
+        switchTxt.setText("Não");
 
         ctx = this;
 
@@ -243,7 +248,6 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
         tipoAnimal = (SegmentedGroup) findViewById(R.id.tipoAnimal);
         sexoAnimal = (SegmentedGroup) findViewById(R.id.sexoAnimal);
         porteAnimal = (SegmentedGroup) findViewById(R.id.porteAnimal);
-        racaAnimal = (EditText) findViewById(R.id.racaAnimal);
         corAnimal = (EditText) findViewById(R.id.corAnimal);
         observacoesAnimal = (EditText) findViewById(R.id.descricaoAnimal);
         enviaAnuncio = (Button) findViewById(R.id.enviaAnuncio);
@@ -331,10 +335,13 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-                        resgatadoString = "Sim";
+                        resgatadoString = "True";
+                        switchTxt.setText("Sim");
                         //do stuff when Switch is ON
                     } else {
-                        resgatadoString = "Não";
+                        resgatadoString = "False";
+                        resgatado.setShowText(false);
+                        switchTxt.setText("Não");
                         //do stuff when Switch if OFF
                     }
                 }
@@ -409,10 +416,14 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
         enviaAnuncio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                novoEncontradoActivity.AnuncioService anuncio = new novoEncontradoActivity.AnuncioService();
-                anuncio.execute(tipo, sexo, racaAnimal.getText().toString(), corAnimal.getText().toString(),
-                        observacoesAnimal.getText().toString(), titulo.getText().toString(), resgatadoString, porte,
-                        String.valueOf(lat), String.valueOf(lng));
+                if(titulo.getText().toString().equals("") || titulo.getText().toString().isEmpty()) {
+                    titulo.setError("Digite o titulo do anúncio");
+                } else {
+                    novoEncontradoActivity.AnuncioService anuncio = new novoEncontradoActivity.AnuncioService();
+                    anuncio.execute(tipo, sexo, corAnimal.getText().toString(),
+                            observacoesAnimal.getText().toString(), titulo.getText().toString(), resgatadoString, porte,
+                            String.valueOf(lat), String.valueOf(lng));
+                }
             }
         });
     }
@@ -519,13 +530,13 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
 
                 entityBuilder.addPart("tipo", new StringBody((params[0]), ContentType.TEXT_PLAIN));
                 entityBuilder.addPart("sexo", new StringBody((params[1]), ContentType.TEXT_PLAIN));
-                entityBuilder.addPart("cor", new StringBody((params[3]), ContentType.TEXT_PLAIN));
-                entityBuilder.addPart("descricao", new StringBody((params[4]), ContentType.TEXT_PLAIN));
-                entityBuilder.addPart("titulo", new StringBody((params[5]), ContentType.TEXT_PLAIN));
-                entityBuilder.addPart("resgatado", new StringBody((params[6]), ContentType.TEXT_PLAIN));
-                entityBuilder.addPart("porte", new StringBody((params[7]), ContentType.TEXT_PLAIN));
-                entityBuilder.addPart("latitude", new StringBody((params[8]), ContentType.TEXT_PLAIN));
-                entityBuilder.addPart("longitude", new StringBody((params[9]), ContentType.TEXT_PLAIN));
+                entityBuilder.addPart("cor", new StringBody((params[2]), ContentType.TEXT_PLAIN));
+                entityBuilder.addPart("descricao", new StringBody((params[3]), ContentType.TEXT_PLAIN));
+                entityBuilder.addPart("titulo", new StringBody((params[4]), ContentType.TEXT_PLAIN));
+                entityBuilder.addPart("resgatado", new StringBody((params[5]), ContentType.TEXT_PLAIN));
+                entityBuilder.addPart("porte", new StringBody((params[6]), ContentType.TEXT_PLAIN));
+                entityBuilder.addPart("latitude", new StringBody((params[7]), ContentType.TEXT_PLAIN));
+                entityBuilder.addPart("longitude", new StringBody((params[8]), ContentType.TEXT_PLAIN));
 
 
                 HttpEntity entity = entityBuilder.build();

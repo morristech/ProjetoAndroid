@@ -58,7 +58,6 @@ public class RegistroActivity extends AppCompatActivity {
         pb = (ProgressBar) findViewById(R.id.progressoRegistro);
         pb.setMax(10);
 
-
         emailNovaConta = (EditText) findViewById(R.id.emailNovaConta);
         nomeNovaConta = (EditText) findViewById(R.id.nomeNovaConta);
         dataNascimentoNovaConta = (EditText) findViewById(R.id.dataNascimentoNovaConta);
