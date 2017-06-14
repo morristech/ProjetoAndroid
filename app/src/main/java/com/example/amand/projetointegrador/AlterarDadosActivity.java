@@ -119,11 +119,19 @@ public class AlterarDadosActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        Intent i = new Intent(AlterarDadosActivity.this, MainActivity.class);
+        startActivity(i);
+        finish();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
-                this.finish();
+                Intent i = new Intent(AlterarDadosActivity.this, MainActivity.class);
+                startActivity(i);
+                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
