@@ -261,19 +261,14 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
 
         mapFragment.getMapAsync(this);
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
         if (ActivityCompat.checkSelfPermission(novoPerdidoActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+            ActivityCompat.requestPermissions(novoPerdidoActivity.this,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+                    1);
             return;
         }
 
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
@@ -341,7 +336,7 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
                             autocompleteView.setVisibility(View.GONE);
                         }
 
-                        Toast.makeText(ctx, "Localizacao Atual", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(ctx, "Localizacao Atual", Toast.LENGTH_SHORT).show();
 
                         LatLng ll = new LatLng(lat, lng);
                         map.addMarker(new MarkerOptions().position(ll).title("Você está aqui"));
@@ -414,6 +409,33 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
                 }
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    Intent intent = getIntent();
+                    finish();
+                    startActivity(intent);
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(novoPerdidoActivity.this, "Necessita permissão de localização", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
     @Override
@@ -514,7 +536,7 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
                     }
                 }
 
-                System.out.println(urlImg.size() + "***********");
+               // System.out.println(urlImg.size() + "***********");
 
                 entityBuilder.addPart("tipo", new StringBody((params[0]), ContentType.TEXT_PLAIN));
                 entityBuilder.addPart("sexo", new StringBody((params[1]), ContentType.TEXT_PLAIN));
@@ -548,7 +570,7 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
         @Override
         protected void onPostExecute(HttpResponse httpResponse) {
 
-            Toast.makeText(getApplicationContext(), String.valueOf(httpResponse.getStatusLine().getStatusCode()), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), String.valueOf(httpResponse.getStatusLine().getStatusCode()), Toast.LENGTH_SHORT).show();
             Intent i = new Intent(novoPerdidoActivity.this, MainActivity.class);
             startActivity(i);
             finish();

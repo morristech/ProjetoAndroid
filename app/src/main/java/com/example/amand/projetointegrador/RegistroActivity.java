@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.sapereaude.maskedEditText.MaskedEditText;
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.NameValuePair;
 import cz.msebera.android.httpclient.client.HttpClient;
@@ -38,7 +39,7 @@ public class RegistroActivity extends AppCompatActivity {
     private EditText emailNovaConta;
 
     private EditText nomeNovaConta;
-    private EditText dataNascimentoNovaConta;
+    private MaskedEditText dataNascimentoNovaConta;
     private EditText senhaNovaConta;
     private EditText confirmaSenhaNovaConta;
     private Button abrirNovaConta;
@@ -60,32 +61,10 @@ public class RegistroActivity extends AppCompatActivity {
 
         emailNovaConta = (EditText) findViewById(R.id.emailNovaConta);
         nomeNovaConta = (EditText) findViewById(R.id.nomeNovaConta);
-        dataNascimentoNovaConta = (EditText) findViewById(R.id.dataNascimentoNovaConta);
+        dataNascimentoNovaConta = (MaskedEditText) findViewById(R.id.dataNascimentoNovaConta);
         senhaNovaConta = (EditText) findViewById(R.id.senhaNovaConta);
         confirmaSenhaNovaConta = (EditText) findViewById(R.id.confirmaSenhaNovaConta);
         abrirNovaConta = (Button) findViewById(R.id.abrirNovaConta);
-
-        dataNascimentoNovaConta.addTextChangedListener(new TextWatcher() {
-            int prevL = 0;
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                prevL = dataNascimentoNovaConta.getText().toString().length();
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                int length = s.length();
-                if ((prevL < length) && (length == 2 || length == 5)) {
-                    s.append("/");
-                }
-            }
-        });
 
         abrirNovaConta.setOnClickListener(new View.OnClickListener() {
             @Override

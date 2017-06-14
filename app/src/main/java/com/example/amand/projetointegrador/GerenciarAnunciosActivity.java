@@ -1,6 +1,7 @@
 package com.example.amand.projetointegrador;
 
 import android.app.TaskStackBuilder;
+import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -57,6 +58,8 @@ public class GerenciarAnunciosActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        Intent main = new Intent(GerenciarAnunciosActivity.this, MainActivity.class);
+        startActivity(main);
         finish();
     }
 
@@ -64,7 +67,9 @@ public class GerenciarAnunciosActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
+                Intent main = new Intent(GerenciarAnunciosActivity.this, MainActivity.class);
+                startActivity(main);
+                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);

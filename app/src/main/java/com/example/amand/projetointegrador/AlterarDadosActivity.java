@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import br.com.sapereaude.maskedEditText.MaskedEditText;
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.NameValuePair;
@@ -52,10 +53,10 @@ public class AlterarDadosActivity extends AppCompatActivity {
     private EditText email;
     private EditText nome;
     //private EditText senha;
-    private EditText dataNascimento;
-    private EditText celular;
-    private EditText telefone;
-    private EditText whatsapp;
+    private MaskedEditText dataNascimento;
+    private MaskedEditText celular;
+    private MaskedEditText telefone;
+    private MaskedEditText whatsapp;
 
     private CircleImageView imagem;
     private FloatingActionButton btnUpload;
@@ -74,10 +75,10 @@ public class AlterarDadosActivity extends AppCompatActivity {
 
         email = (EditText) findViewById(R.id.email);
         nome = (EditText) findViewById(R.id.nome);
-        dataNascimento = (EditText) findViewById(R.id.dataNascimento);
-        celular = (EditText) findViewById(R.id.celular);
-        telefone = (EditText) findViewById(R.id.telefone);
-        whatsapp = (EditText) findViewById(R.id.whatsapp);
+        dataNascimento = (MaskedEditText) findViewById(R.id.dataNascimento);
+        celular = (MaskedEditText) findViewById(R.id.celular);
+        telefone = (MaskedEditText) findViewById(R.id.telefone);
+        whatsapp = (MaskedEditText) findViewById(R.id.whatsapp);
 
         imagem = (CircleImageView) findViewById(R.id.imgAlterarDados);
         btnUpload = (FloatingActionButton) findViewById(R.id.uploadImageButton);

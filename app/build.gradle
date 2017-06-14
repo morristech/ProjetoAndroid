@@ -50,6 +50,7 @@ dependencies {
     compile 'me.relex:circleindicator:1.2.2@aar'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'junit:junit:4.12'
+    compile 'ru.egslava:MaskedEditText:1.0.5'
     testCompile 'junit:junit:4.12'
 }
 

@@ -26,6 +26,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import br.com.sapereaude.maskedEditText.MaskedEditText;
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.client.HttpClient;
@@ -43,9 +44,9 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
 
     private CircleImageView imgFinalizaCadastro;
     private FloatingActionButton uploadImageButton;
-    private EditText finalizaCadastroTelefone;
-    private EditText finalizaCadastroCelular;
-    private EditText finalizaCadastroWhats;
+    private MaskedEditText finalizaCadastroTelefone;
+    private MaskedEditText finalizaCadastroCelular;
+    private MaskedEditText finalizaCadastroWhats;
     private Button finalizaCadastroBtn;
     Session session;
 
@@ -62,16 +63,12 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
 
         imgFinalizaCadastro = (CircleImageView) findViewById(R.id.imgFinalizaCadastro);
         uploadImageButton = (FloatingActionButton) findViewById(R.id.uploadImageButton);
-        finalizaCadastroTelefone = (EditText) findViewById(R.id.finalizaCadastroTelefone);
-        finalizaCadastroCelular = (EditText) findViewById(R.id.finalizaCadastroCelular);
-        finalizaCadastroWhats = (EditText) findViewById(R.id.finalizaCadastroWhats);
+        finalizaCadastroTelefone = (MaskedEditText) findViewById(R.id.finalizaCadastroTelefone);
+        finalizaCadastroCelular = (MaskedEditText) findViewById(R.id.finalizaCadastroCelular);
+        finalizaCadastroWhats = (MaskedEditText) findViewById(R.id.finalizaCadastroWhats);
         finalizaCadastroBtn = (Button) findViewById(R.id.finalizaCadastroBtn);
         ImagePicker.setMinQuality(600, 600);
-        //awesomeValidation.addValidation(this, R.id.finalizaCadastroTelefone, RegexTemplate.TELEPHONE, "Telefone Inválido");
-        //awesomeValidation.addValidation(finalizaCadastroCelular, RegexTemplate.TELEPHONE, "Celular inválido");
-        //awesomeValidation.addValidation(finalizaCadastroWhats, RegexTemplate.TELEPHONE, "Numero inválido");
 
-        //https://github.com/ArthurHub/Android-Image-Cropper/wiki/Pick-image-for-cropping-from-Camera-or-Gallery
 
         uploadImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,7 +186,7 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
         protected void onPostExecute(HttpResponse httpResponse) {
 
             if (httpResponse.getStatusLine().getStatusCode() == 200) {
-                Toast.makeText(getApplicationContext(), String.valueOf(httpResponse.getStatusLine().getStatusCode()), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), String.valueOf(httpResponse.getStatusLine().getStatusCode()), Toast.LENGTH_SHORT).show();
 
                 GetUserData getUserData = new GetUserData(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/usuario/getuserdata/"+ session.getUserEmail());
                 System.out.println(RegistroActivity.ENDERECO_WEB + "adotapet-servidor/api/usuario/getuserdata/"+ session.getUserEmail());

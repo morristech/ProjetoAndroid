@@ -406,7 +406,7 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
         @Override
         protected void onPostExecute(HttpResponse httpResponse) {
 
-            Toast.makeText(getApplicationContext(), String.valueOf(httpResponse.getStatusLine().getStatusCode()), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), String.valueOf(httpResponse.getStatusLine().getStatusCode()), Toast.LENGTH_SHORT).show();
             Intent i = new Intent(novaDoacaoActivity.this, MainActivity.class);
             startActivity(i);
             finish();
