@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.amand.projetointegrador.FinalizaCadastroActivity"
-    android:background="@drawable/backgrounddoaplicativodecachorrinhos">
+    android:background="@drawable/backgrounddoaplicativodecachorrinhos"
+    android:backgroundTintMode="multiply"
+    android:backgroundTint="#ffffff">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +22,7 @@
             android:elevation="5dp"
             android:layout_marginBottom="30dp"
             android:id="@+id/imgFinalizaCadastro"
-            app:civ_border_color="#ede182"
+            app:civ_border_color="#d882ed"
             app:civ_border_width="2dp"
             app:civ_fill_color="#b6b0b0"
             android:src="@drawable/imgplaceholder"
@@ -30,8 +32,8 @@
             android:id="@+id/uploadImageButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="-60dp"
-            android:layout_marginLeft="220dp"
+            android:layout_marginTop="-65dp"
+            android:layout_marginLeft="190dp"
             android:scaleType="center"
             android:elevation="10dp"
             android:src="@drawable/ic_add_photo"
@@ -46,6 +48,9 @@
             android:inputType="phone"
             android:background="#c0eeeeee"
             android:padding="15dp"
+            android:drawableStart="@drawable/ic_local_phone_black_24dp"
+            android:drawableTint="#444"
+            android:drawablePadding="12dp"
             />
 
         <EditText
@@ -56,17 +61,23 @@
             android:id="@+id/finalizaCadastroCelular"
             android:inputType="phone"
             android:background="#c0eeeeee"
-            android:padding="15dp"/>
+            android:padding="15dp"
+            android:drawableStart="@drawable/ic_phone_android_black_24dp"
+            android:drawableTint="#444"
+            android:drawablePadding="12dp"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Telefone WhatsApp"
+            android:hint="WhatsApp"
             android:layout_marginBottom="25dp"
             android:id="@+id/finalizaCadastroWhats"
             android:inputType="phone"
             android:background="#c0eeeeee"
-            android:padding="15dp"/>
+            android:padding="15dp"
+            android:drawableStart="@drawable/ic_whatsapp_logo"
+            android:drawableTint="#444"
+            android:drawablePadding="12dp"/>
 
         <Button
             android:layout_width="wrap_content"

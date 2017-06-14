@@ -216,7 +216,7 @@ public class EncontradoGerenciarFragment extends Fragment {
                         ae.setDataPublicacao(date);
 
                         listAnuncio.add(ae);
-                        EncontradoGerenciarAdapter ea = new EncontradoGerenciarAdapter(context, listAnuncio);
+                        EncontradoGerenciarAdapter ea = new EncontradoGerenciarAdapter(context, listAnuncio, getActivity());
                         listEncontrado.setAdapter(ea);
                     }
 

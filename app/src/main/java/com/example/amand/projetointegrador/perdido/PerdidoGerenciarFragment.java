@@ -218,7 +218,7 @@ public class PerdidoGerenciarFragment extends Fragment {
                         ap.setDataPublicacao(date);
 
                         listAnuncio.add(ap);
-                        PerdidoGerenciarAdapter pa = new PerdidoGerenciarAdapter(context, listAnuncio);
+                        PerdidoGerenciarAdapter pa = new PerdidoGerenciarAdapter(context, listAnuncio, getActivity());
                         listPerdidos.setAdapter(pa);
                     }
 

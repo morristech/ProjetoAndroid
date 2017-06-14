@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -53,6 +54,8 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
     private RadioGroup radioDef;
     private RadioGroup radioCas;
 
+    private RadioButton btnMasculino;
+
     private CircleImageView img1;
     private CircleImageView img2;
     private CircleImageView img3;
@@ -71,7 +74,7 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
     private List<Bitmap> bitmaps = new ArrayList<>();
     private List<File> urlImg = new ArrayList<>();
 
-    private String nome, raca, cor, observacoes, sexo, tipo, castrado, deficiente;
+    private String nome = "", raca = "", cor = "", observacoes = "", sexo = "", tipo = "", castrado = "", deficiente = "";
 
     Session session;
 
@@ -89,6 +92,7 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
         racaAnimal = (EditText) findViewById(R.id.racaAnimal);
         corAnimal = (EditText) findViewById(R.id.corAnimal);
         observacoesAnimal = (EditText) findViewById(R.id.descricaoAnimal);
+        btnMasculino = (RadioButton) findViewById(R.id.btnMasculino);
 
         enviaAnuncio = (Button) findViewById(R.id.enviaAnuncio);
 
@@ -270,7 +274,9 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
 
                 if(nome.equals("") || nome.isEmpty()) {
                     nomeAnimal.setError("Digite o nome do animal");
-                } else {
+                }
+
+                else {
                     AnuncioService newAnuncio = new AnuncioService();
                     newAnuncio.execute(nome, tipo, sexo, raca, cor, observacoes, deficiente, castrado);
                 }

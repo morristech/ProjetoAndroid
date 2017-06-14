@@ -1,6 +1,9 @@
 package com.example.amand.projetointegrador.encontrado;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -14,8 +17,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.amand.projetointegrador.GerenciarAnunciosActivity;
 import com.example.amand.projetointegrador.R;
 import com.example.amand.projetointegrador.RegistroActivity;
+import com.example.amand.projetointegrador.doacao.DoacaoGerenciarAdapter;
 import com.example.amand.projetointegrador.helpers.Session;
 import com.example.amand.projetointegrador.model.AnuncioEncontrado;
 
@@ -38,24 +43,21 @@ import cz.msebera.android.httpclient.util.EntityUtils;
 
 public class EncontradoGerenciarAdapter extends BaseAdapter {
 
-    ListView lista;
+    private List<AnuncioEncontrado> encontrados;
 
-    private List<AnuncioEncontrado> encontrados = new ArrayList<>();
-
-    private ImageView imgView;
-    private TextView nomeAnimal;
-    private TextView dataPublicacao;
-    private Button btnDelete;
     Session s;
-    private int posicao;
 
+    private int posicao;
     private Context mContext;
+    private LayoutInflater inflater = null;
+    private Activity activity;
 
     // Constructor
-    public EncontradoGerenciarAdapter(Context c, List<AnuncioEncontrado> anuncios) {
+    public EncontradoGerenciarAdapter(Context c, List<AnuncioEncontrado> anuncios, Activity activity) {
         this.mContext = c;
         this.encontrados = anuncios;
-
+        this.activity = activity;
+        inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public int getCount() {
@@ -67,57 +69,82 @@ public class EncontradoGerenciarAdapter extends BaseAdapter {
     }
 
     public long getItemId(int position) {
-        return 0;
+        return encontrados.indexOf(encontrados.get(position));
+    }
+
+    public class Holder {
+        private ImageView imgView;
+        private TextView nomeAnimal;
+        private TextView dataPublicacao;
+        private Button btnDelete;
     }
 
     // create a new ImageView for each item referenced by the Adapter
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
+        Holder holder = null;
         s = new Session(mContext);
-
-        // TODO Auto-generated method stub
-        View grid;
-        LayoutInflater inflater = (LayoutInflater) mContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
 
+            convertView = inflater.inflate(R.layout.item_gerenciar, parent, false);
+            holder = new Holder();
+
             posicao = position;
+            holder.nomeAnimal = (TextView) convertView.findViewById(R.id.nomeAnimal);
 
-            grid = new View(mContext);
-            grid = inflater.inflate(R.layout.item_gerenciar, null);
+            holder.dataPublicacao = (TextView) convertView.findViewById(R.id.dataPublicacao);
+            holder.btnDelete = (Button) convertView.findViewById(R.id.btnDelete);
 
-            nomeAnimal = (TextView) grid.findViewById(R.id.nomeAnimal);
-            nomeAnimal.setText(encontrados.get(position).getTitulo());
-
-            dataPublicacao = (TextView) grid.findViewById(R.id.dataPublicacao);
-
-            btnDelete = (Button) grid.findViewById(R.id.btnDelete);
-
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            dataPublicacao.setText("Publicado em: "+ sdf.format(encontrados.get(position).getDataPublicacao()));
-
-            imgView = (ImageView) grid.findViewById(R.id.imgAnimal);
-
-            btnDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    DeleteService del = new DeleteService(posicao);
-                    del.execute();
-                }
-            });
-
-            if(!encontrados.get(position).getImgAnucio().isEmpty()) {
-                new DownloadImageTask((ImageView) grid.findViewById(R.id.imgAnimal)).execute(
-                        RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/encontrado/" + encontrados.get(position).getId() +
-                                "/" + encontrados.get(position).getImgAnucio().get(0));
-            }
-
+            holder.imgView = (ImageView) convertView.findViewById(R.id.imgAnimal);
+            convertView.setTag(holder);
         } else {
-            grid = (View) convertView;
+            holder = (Holder) convertView.getTag();
         }
 
-        return grid;
+        holder.nomeAnimal.setText(encontrados.get(position).getTitulo());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        holder.dataPublicacao.setText("Publicado em: " + sdf.format(encontrados.get(position).getDataPublicacao()));
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+
+                builder.setTitle("Deseja excluir o anúncio?");
+                builder.setMessage("Esta operação não poderá ser desfeita");
+
+                builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        DeleteService del = new DeleteService(position);
+                        del.execute();
+                        dialog.dismiss();
+                    }
+                });
+
+                builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        // Do nothing
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
+
+        if (!encontrados.get(position).getImgAnucio().isEmpty()) {
+            new DownloadImageTask((ImageView) convertView.findViewById(R.id.imgAnimal)).execute(
+                    RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/encontrado/" + encontrados.get(position).getId() +
+                            "/" + encontrados.get(position).getImgAnucio().get(0));
+        }
+
+
+        return convertView;
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
@@ -185,7 +212,6 @@ public class EncontradoGerenciarAdapter extends BaseAdapter {
             if (s.equals("Sucesso")) {
                 encontrados.remove(pos);
                 notifyDataSetChanged();
-
             } else {
                 Toast.makeText(mContext, "Ocorreu um erro ao excluir anuncio", Toast.LENGTH_SHORT).show();
             }

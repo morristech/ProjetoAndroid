@@ -1,6 +1,9 @@
 package com.example.amand.projetointegrador.doacao;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -40,24 +43,21 @@ import cz.msebera.android.httpclient.util.EntityUtils;
 
 public class DoacaoGerenciarAdapter extends BaseAdapter {
 
-    ListView lista;
+    private List<AnuncioDoacao> doacoes;
 
-    private List<AnuncioDoacao> doacoes = new ArrayList<>();
-
-    private ImageView imgView;
-    private TextView nomeAnimal;
-    private TextView dataPublicacao;
-    private Button btnDelete;
     Session s;
 
     private int posicao;
     private Context mContext;
+    private LayoutInflater inflater = null;
+    private Activity activity;
 
     // Constructor
-    public DoacaoGerenciarAdapter(Context c, List<AnuncioDoacao> anuncios) {
+    public DoacaoGerenciarAdapter(Context c, List<AnuncioDoacao> anuncios, Activity activity) {
         this.mContext = c;
         this.doacoes = anuncios;
-
+        this.activity = activity;
+        inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public int getCount() {
@@ -69,61 +69,82 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
     }
 
     public long getItemId(int position) {
-        return 0;
+        return doacoes.indexOf(doacoes.get(position));
+    }
+
+    public class Holder {
+        private ImageView imgView;
+        private TextView nomeAnimal;
+        private TextView dataPublicacao;
+        private Button btnDelete;
     }
 
     // create a new ImageView for each item referenced by the Adapter
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
+        Holder holder = null;
         s = new Session(mContext);
-
-        // TODO Auto-generated method stub
-        View grid;
-        LayoutInflater inflater = (LayoutInflater) mContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
 
-            grid = new View(mContext);
-            grid = inflater.inflate(R.layout.item_gerenciar, null);
+            convertView = inflater.inflate(R.layout.item_gerenciar, parent, false);
+            holder = new Holder();
 
             posicao = position;
-            nomeAnimal = (TextView) grid.findViewById(R.id.nomeAnimal);
-            nomeAnimal.setText(doacoes.get(position).getNome());
+            holder.nomeAnimal = (TextView) convertView.findViewById(R.id.nomeAnimal);
 
-            dataPublicacao = (TextView) grid.findViewById(R.id.dataPublicacao);
+            holder.dataPublicacao = (TextView) convertView.findViewById(R.id.dataPublicacao);
+            holder.btnDelete = (Button) convertView.findViewById(R.id.btnDelete);
 
-            btnDelete = (Button) grid.findViewById(R.id.btnDelete);
-            btnDelete.setTag(position);
-
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            dataPublicacao.setText("Publicado em: "+ sdf.format(doacoes.get(position).getDataPublicacao()));
-
-            imgView = (ImageView) grid.findViewById(R.id.imgAnimal);
-
-
-            btnDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Integer index = (Integer) btnDelete.getTag();
-
-
-                    DeleteService del = new DeleteService(index);
-                    del.execute();
-                }
-            });
-
-            if(!doacoes.get(position).getImgAnucio().isEmpty()) {
-                new DownloadImageTask((ImageView) grid.findViewById(R.id.imgAnimal)).execute(
-                        RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/doacao/" + doacoes.get(position).getId() +
-                                "/" + doacoes.get(position).getImgAnucio().get(0));
-            }
-
+            holder.imgView = (ImageView) convertView.findViewById(R.id.imgAnimal);
+            convertView.setTag(holder);
         } else {
-            grid = (View) convertView;
+            holder = (Holder) convertView.getTag();
         }
 
-        return grid;
+        holder.nomeAnimal.setText(doacoes.get(position).getNome());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        holder.dataPublicacao.setText("Publicado em: " + sdf.format(doacoes.get(position).getDataPublicacao()));
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+
+                builder.setTitle("Deseja excluir o anúncio?");
+                builder.setMessage("Esta operação não poderá ser desfeita");
+
+                builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        DeleteService del = new DeleteService(position);
+                        del.execute();
+                        dialog.dismiss();
+                    }
+                });
+
+                builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        // Do nothing
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
+
+        if (!doacoes.get(position).getImgAnucio().isEmpty()) {
+            new DownloadImageTask((ImageView) convertView.findViewById(R.id.imgAnimal)).execute(
+                    RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/doacao/" + doacoes.get(position).getId() +
+                            "/" + doacoes.get(position).getImgAnucio().get(0));
+        }
+
+
+        return convertView;
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
@@ -160,6 +181,7 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
 
         private String
                 webAdd = RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/anuncio/delete-doacao/" + doacoes.get(pos).getId();
+
         @Override
         protected String doInBackground(String... params) {
 
