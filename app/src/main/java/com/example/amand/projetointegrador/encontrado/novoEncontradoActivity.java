@@ -28,7 +28,6 @@ import android.widget.Toast;
 import com.example.amand.projetointegrador.MainActivity;
 import com.example.amand.projetointegrador.R;
 import com.example.amand.projetointegrador.RegistroActivity;
-import com.example.amand.projetointegrador.helpers.GPSTracker;
 import com.example.amand.projetointegrador.helpers.Session;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;

@@ -59,7 +59,6 @@ public class Session {
     }
 
     public void setToken(String token) {
-
         editor.putString("authToken", token);
         editor.commit();
 

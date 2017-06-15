@@ -9,10 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.amand.projetointegrador.helpers.Session;
-import com.example.amand.projetointegrador.model.Usuario;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -27,8 +25,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -39,7 +35,6 @@ import cz.msebera.android.httpclient.NameValuePair;
 import cz.msebera.android.httpclient.client.HttpClient;
 import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
 import cz.msebera.android.httpclient.client.methods.HttpPost;
-import cz.msebera.android.httpclient.entity.ByteArrayEntity;
 import cz.msebera.android.httpclient.impl.client.HttpClientBuilder;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.util.EntityUtils;
@@ -63,6 +58,7 @@ public class LoginActivity extends Activity {
     private Button btnLogin;
     Session session;
 
+    private String token;
     String id;
     String name;
     String email;
@@ -231,7 +227,7 @@ public class LoginActivity extends Activity {
 
             HttpClient cliente = HttpClientBuilder.create().build();
             HttpPost chamada = new HttpPost(webAdd);
-            HttpResponse resposta = null;
+            HttpResponse resposta;
             String systemRes = "";
 
             try {
@@ -240,12 +236,16 @@ public class LoginActivity extends Activity {
                 parametros.add(new BasicNameValuePair("email", params[0]));
                 parametros.add(new BasicNameValuePair("senha", params[1]));
 
-                chamada.setHeader("Authorization", "Basic " + new String(Base64.encode((params[0] + ":" + params[1]).getBytes(), Base64.NO_WRAP)));
-                session.setToken(new String(Base64.encode((params[0] + ":" + params[1]).getBytes(), Base64.NO_WRAP)));
+                token = new String(Base64.encode((params[0] + ":" + params[1]).getBytes(), Base64.NO_WRAP));
+                chamada.setHeader("Authorization", "Basic " + token);
 
                 chamada.setEntity(new UrlEncodedFormEntity(parametros));
                 resposta = cliente.execute(chamada);
-                systemRes = EntityUtils.toString(resposta.getEntity());
+                try {
+                    systemRes = EntityUtils.toString(resposta.getEntity());
+                } catch (Exception e) {
+                    systemRes = "Erro";
+                }
 
                 System.out.println(resposta.getStatusLine().getStatusCode());
                 System.out.println(resposta.getStatusLine().getReasonPhrase());
@@ -275,6 +275,8 @@ public class LoginActivity extends Activity {
                     session.setUserEmail(obj.getString("email"));
                     session.setUserName(obj.getString("nome"));
                     session.setUserImg(perfil.getString("fotoPerfil"));
+                    session.setToken(token);
+
 
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);

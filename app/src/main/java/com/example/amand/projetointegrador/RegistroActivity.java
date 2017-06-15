@@ -46,6 +46,7 @@ public class RegistroActivity extends AppCompatActivity {
     private ProgressBar pb;
     private Session session;
     static Long id;
+    private String token;
 
     public static final String ENDERECO_WEB = "http://31.220.58.131:8080";
     //public static final String ENDERECO_WEB = "http://192.168.25.5:8888";
@@ -223,8 +224,8 @@ public class RegistroActivity extends AppCompatActivity {
                 parametros.add(new BasicNameValuePair("email", params[0]));
                 parametros.add(new BasicNameValuePair("senha", params[1]));
 
-                chamada.setHeader("Authorization", "Basic " + new String(Base64.encode((params[0] + ":" + params[1]).getBytes(), Base64.NO_WRAP)));
-                session.setToken(new String(Base64.encode((params[0] + ":" + params[1]).getBytes(), Base64.NO_WRAP)));
+                token = new String(Base64.encode((params[0] + ":" + params[1]).getBytes(), Base64.NO_WRAP));
+                chamada.setHeader("Authorization", "Basic " + token);
 
                 chamada.setEntity(new UrlEncodedFormEntity(parametros));
                 resposta = cliente.execute(chamada);
@@ -258,6 +259,7 @@ public class RegistroActivity extends AppCompatActivity {
                     session.setUserEmail(obj.getString("email"));
                     session.setUserName(obj.getString("nome"));
                     session.setUserImg(perfil.getString("fotoPerfil"));
+                    session.setToken(token);
 
                     System.out.println(session.getUserPrefs() + "*************");
 

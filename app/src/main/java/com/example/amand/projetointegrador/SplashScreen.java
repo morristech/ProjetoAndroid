@@ -11,7 +11,6 @@ public class SplashScreen extends AppCompatActivity {
     // Timer da splash screen
     private static int SPLASH_TIME_OUT = 3000;
     Session session;
-    String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,9 +18,8 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         session = new Session(this);
 
-        if (session.getToken() != null && !session.getToken().equals("")) {
-            token = session.getToken();
-
+        String token = session.getToken();
+        if (!session.getToken().isEmpty() && !session.getToken().equals("")) {
             new Handler().postDelayed(new Runnable() {
                 /*
                  * Exibindo splash com um timer.
