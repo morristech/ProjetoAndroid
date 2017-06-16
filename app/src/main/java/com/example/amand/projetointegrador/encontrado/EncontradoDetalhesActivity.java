@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.amand.projetointegrador.R;
@@ -62,6 +63,7 @@ public class EncontradoDetalhesActivity extends AppCompatActivity {
     Context ctx;
     private GoogleMap map;
     private View mapa;
+    private Button encontradoBtn;
 
     private ViewPager viewPager;
     Session s;
@@ -85,6 +87,8 @@ public class EncontradoDetalhesActivity extends AppCompatActivity {
         // Get intent data
         mapa = findViewById(R.id.mapaDetalhesEncontrado);
 
+        encontradoBtn = (Button) findViewById(R.id.contato);
+
         indicator = (CircleIndicator) findViewById(R.id.indicator);
 
         viewPager = (ViewPager) findViewById(R.id.imgSliderEncontrado);
@@ -100,6 +104,13 @@ public class EncontradoDetalhesActivity extends AppCompatActivity {
         porteAnimal = (TextView) findViewById(R.id.porteAnimal);
 
         observacaoAnimal = (TextView) findViewById(R.id.observacoesAnimal);
+
+        encontradoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
 
         GetService get = new GetService();
@@ -180,6 +191,10 @@ public class EncontradoDetalhesActivity extends AppCompatActivity {
                 } else {
                     String obs = "Descrição: " +o.getString("descricao");
                     observacaoAnimal.setText(obs);
+                }
+
+                if(o.getBoolean("resgatado")) {
+                    encontradoBtn.setVisibility(View.VISIBLE);
                 }
 
                 lat = Double.parseDouble(o.getString("latitude"));

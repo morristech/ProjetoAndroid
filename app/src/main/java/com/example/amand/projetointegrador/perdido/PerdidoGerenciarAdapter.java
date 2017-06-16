@@ -109,7 +109,7 @@ public class PerdidoGerenciarAdapter extends BaseAdapter{
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
                 builder.setTitle("Deseja excluir o anúncio?");
                 builder.setMessage("Esta operação não poderá ser desfeita");

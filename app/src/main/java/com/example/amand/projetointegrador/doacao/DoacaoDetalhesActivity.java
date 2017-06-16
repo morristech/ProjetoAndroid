@@ -44,11 +44,11 @@ public class DoacaoDetalhesActivity extends AppCompatActivity {
     private TextView nomeAnimal;
     private TextView racaAnimal;
     private TextView sexoAnimal;
-    private TextView idadeAnimal;
     private TextView corAnimal;
     private TextView castradoAnimal;
     private TextView deficienteAnimal;
     private TextView observacaoAnimal;
+    private TextView porteAnimal;
     private CircleIndicator indicator;
     Context ctx;
 
@@ -80,11 +80,11 @@ public class DoacaoDetalhesActivity extends AppCompatActivity {
 
         nomeAnimal = (TextView) findViewById(R.id.nomeAnimal);
 
+        porteAnimal = (TextView) findViewById(R.id.porteAnimal);
+
         racaAnimal = (TextView) findViewById(R.id.racaAnimal);
 
         sexoAnimal = (TextView) findViewById(R.id.sexoAnimal);
-
-        idadeAnimal = (TextView) findViewById(R.id.idadeAnimal);
 
         corAnimal = (TextView) findViewById(R.id.corAnimal);
 
@@ -167,11 +167,11 @@ public class DoacaoDetalhesActivity extends AppCompatActivity {
                     corAnimal.setText(cor);
                 }
 
-                if(o.getInt("idade") == 0) {
-                    idadeAnimal.setVisibility(View.GONE);
+                if(o.getString("porte").equals("null") || o.getString("porte").isEmpty()) {
+                    porteAnimal.setVisibility(View.GONE);
                 } else {
-                    idadeAnimal.setText(String.valueOf(o.getInt("idade")));
-                } //Setar idade em string
+                    porteAnimal.setText(o.getString("porte"));
+                }
 
                 if(o.getString("descricao").equals("null") || o.getString("descricao").isEmpty()) {
                     observacaoAnimal.setVisibility(View.GONE);

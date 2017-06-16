@@ -45,11 +45,14 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
 
     private EditText nomeAnimal;
     private SegmentedGroup tipoAnimal;
+    private SegmentedGroup porteAnimal;
     private SegmentedGroup sexoAnimal;
     private EditText racaAnimal;
     private EditText corAnimal;
     private EditText observacoesAnimal;
     private Button enviaAnuncio;
+
+    private String porte = "";
 
     private RadioGroup radioDef;
     private RadioGroup radioCas;
@@ -93,6 +96,7 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
         corAnimal = (EditText) findViewById(R.id.corAnimal);
         observacoesAnimal = (EditText) findViewById(R.id.descricaoAnimal);
         btnMasculino = (RadioButton) findViewById(R.id.btnMasculino);
+        porteAnimal = (SegmentedGroup) findViewById(R.id.porteAnimal);
 
         enviaAnuncio = (Button) findViewById(R.id.enviaAnuncio);
 
@@ -115,6 +119,22 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
         rmimg5 = (ImageButton) findViewById(R.id.rmimage5);
         rmimg6 = (ImageButton) findViewById(R.id.rmimage6);
 
+        porteAnimal.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                switch (checkedId) {
+                    case R.id.portePeq:
+                        porte = "Pequeno";
+                        break;
+                    case R.id.porteMed:
+                        porte = "Médio";
+                        break;
+                    case R.id.porteGra:
+                        porte = "Grande";
+                        break;
+                }
+            }
+        });
 
         rmimg1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -278,7 +298,7 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
 
                 else {
                     AnuncioService newAnuncio = new AnuncioService();
-                    newAnuncio.execute(nome, tipo, sexo, raca, cor, observacoes, deficiente, castrado);
+                    newAnuncio.execute(nome, tipo, porte, sexo, raca, cor, observacoes, deficiente, castrado);
                 }
             }
         });
@@ -380,12 +400,13 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
 
                 entityBuilder.addPart("nome", new StringBody((params[0]), ContentType.TEXT_PLAIN));
                 entityBuilder.addPart("tipo", new StringBody((params[1]), ContentType.TEXT_PLAIN));
-                entityBuilder.addPart("sexo", new StringBody((params[2]), ContentType.TEXT_PLAIN));
-                entityBuilder.addPart("raca", new StringBody((params[3]), ContentType.TEXT_PLAIN));
-                entityBuilder.addPart("cor", new StringBody((params[4]), ContentType.TEXT_PLAIN));
-                entityBuilder.addPart("descricao", new StringBody((params[5]), ContentType.TEXT_PLAIN));
-                entityBuilder.addPart("deficiencia", new StringBody((params[6]), ContentType.TEXT_PLAIN));
-                entityBuilder.addPart("castrado", new StringBody((params[7]), ContentType.TEXT_PLAIN));
+                entityBuilder.addPart("porte", new StringBody((params[2]), ContentType.TEXT_PLAIN));
+                entityBuilder.addPart("sexo", new StringBody((params[3]), ContentType.TEXT_PLAIN));
+                entityBuilder.addPart("raca", new StringBody((params[4]), ContentType.TEXT_PLAIN));
+                entityBuilder.addPart("cor", new StringBody((params[5]), ContentType.TEXT_PLAIN));
+                entityBuilder.addPart("descricao", new StringBody((params[6]), ContentType.TEXT_PLAIN));
+                entityBuilder.addPart("deficiencia", new StringBody((params[7]), ContentType.TEXT_PLAIN));
+                entityBuilder.addPart("castrado", new StringBody((params[8]), ContentType.TEXT_PLAIN));
 
                 HttpEntity entity = entityBuilder.build();
 

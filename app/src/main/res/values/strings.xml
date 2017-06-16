@@ -30,17 +30,20 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string-array name="spinner_tipo">
+        <item>Todos</item>
         <item>Cachorro</item>
         <item>Gato</item>
     </string-array>
 
     <string-array name="spinner_porte">
+        <item>Todos</item>
         <item>Pequeno</item>
         <item>Médio</item>
         <item>Grande</item>
     </string-array>
 
     <string-array name="spinner_sexo">
+        <item>Todos</item>
         <item>Fêmea</item>
         <item>Macho</item>
     </string-array>

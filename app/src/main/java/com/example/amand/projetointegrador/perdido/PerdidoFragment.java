@@ -192,6 +192,7 @@ public class PerdidoFragment extends Fragment {
                         ap.setDescricao(obj.getString("descricao"));
                         ap.setSexo(obj.getString("sexo"));
                         ap.setTipo(obj.getString("tipo"));
+                        ap.setPorte(obj.getString("porte"));
 
                         JSONObject user = obj.getJSONObject("usuario");
                         Usuario usuario = new Usuario();
@@ -224,6 +225,112 @@ public class PerdidoFragment extends Fragment {
                 }
             }
         }
+
+    }
+
+    private class GetFiltered extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            HttpClient cliente = HttpClientBuilder.create().build();
+            HttpGet chamada =
+                    new HttpGet(RegistroActivity.ENDERECO_WEB +
+                            "/adotapet-servidor/api/anuncio/get-perdidos-filtered?tipo="+params[0]+"&porte="
+                            +params[1]+"&sexo="+params[2]);
+            HttpResponse resposta = null;
+            String systemRes = "";
+
+            try {
+
+                chamada.setHeader("Authorization", "Basic " + session.getToken());
+
+                resposta = cliente.execute(chamada);
+                systemRes = EntityUtils.toString(resposta.getEntity());
+
+                System.out.println(resposta.getStatusLine().getStatusCode());
+                System.out.println(resposta.getStatusLine().getReasonPhrase());
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return systemRes;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+
+
+            if (s != null) {
+
+                try {
+                    JSONArray array = new JSONArray(s);
+
+                    listAnuncio.clear();
+
+                    final int numberIterator = array.length();
+                    for (int i = 0; i < numberIterator; i++) {
+                        JSONObject obj = array.getJSONObject(i);
+
+                        AnuncioPerdido ap = new AnuncioPerdido();
+
+                        JSONArray imgs = obj.getJSONArray("imgAnuncio");
+
+                        List<String> list = new ArrayList<String>();
+                        if (imgs.length() > 0) {
+                            for (int j = 0; j < imgs.length(); j++) {
+                                list.add(imgs.get(j).toString());
+                            }
+                        }
+
+                        ap.setId(obj.getLong("id"));
+                        ap.setImgAnucio(list);
+                        ap.setRaca(obj.getString("raca"));
+                        ap.setNome(obj.getString("nome"));
+                        ap.setCor(obj.getString("cor"));
+                        ap.setDescricao(obj.getString("descricao"));
+                        ap.setSexo(obj.getString("sexo"));
+                        ap.setTipo(obj.getString("tipo"));
+                        ap.setPorte(obj.getString("porte"));
+
+                        JSONObject user = obj.getJSONObject("usuario");
+                        Usuario usuario = new Usuario();
+                        usuario.setId(user.getLong("id"));
+                        usuario.setEmail(user.getString("email"));
+                        usuario.setNome(user.getString("nome"));
+
+                        PerfilUsuario perfil = new PerfilUsuario();
+                        JSONObject objPerfil = user.getJSONObject("perfil");
+                        perfil.setId(objPerfil.getLong("id"));
+                        perfil.setTelefone(objPerfil.getString("telefone"));
+                        perfil.setFaceUser(objPerfil.getString("faceUser"));
+                        perfil.setWhatsapp(objPerfil.getString("whatsapp"));
+                        perfil.setCelular(objPerfil.getString("celular"));
+
+                        usuario.setPerfil(perfil);
+                        ap.setUsuario(usuario);
+
+                        Date date = new Date(obj.getLong("dataPublicacao"));
+
+                        ap.setDataPublicacao(date);
+
+                        listAnuncio.add(ap);
+                        PerdidoAdapter pa = new PerdidoAdapter(context, listAnuncio);
+                        gridPerdido.setAdapter(pa);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void getPerdidosFilter(String tipo, String porte, String sexo) {
+
+        new GetFiltered().execute(tipo, porte, sexo);
 
     }
 }

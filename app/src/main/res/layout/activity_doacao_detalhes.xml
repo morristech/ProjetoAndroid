@@ -55,14 +55,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Idade do Animal"
-            android:textSize="18sp"
-            android:id="@+id/idadeAnimal"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:text="Sexo do Animal"
             android:textSize="18sp"
             android:id="@+id/sexoAnimal"/>
@@ -74,6 +66,14 @@
             android:text="Raça do Animal"
             android:textSize="18sp"
             android:id="@+id/racaAnimal"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Porte do Animal"
+            android:textSize="18sp"
+            android:id="@+id/porteAnimal"/>
 
         <TextView
             android:layout_width="match_parent"

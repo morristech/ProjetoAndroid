@@ -24,8 +24,11 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.amand.projetointegrador.doacao.DoacaoFragment;
+import com.example.amand.projetointegrador.encontrado.EncontradoFragment;
 import com.example.amand.projetointegrador.helpers.AlertDialogFragment;
 import com.example.amand.projetointegrador.helpers.Session;
+import com.example.amand.projetointegrador.perdido.PerdidoFragment;
 import com.google.android.gms.maps.model.Circle;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -123,7 +126,7 @@ public class MainActivity extends AppCompatActivity
 
         System.out.print(session.getUserImg());
 
-        if(session.getUserEmail() != null && session.getUserName() != null) {
+        if (session.getUserEmail() != null && session.getUserName() != null) {
             barUserEmail.setText(session.getUserEmail());
             barUserName.setText(session.getUserName());
         }
@@ -134,7 +137,7 @@ public class MainActivity extends AppCompatActivity
     private class GetDados extends AsyncTask<String, Void, String> {
 
         private String
-                webAdd = RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/usuario/getuserdata/"+session.getUserEmail();
+                webAdd = RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/usuario/getuserdata/" + session.getUserEmail();
 
         @Override
         protected String doInBackground(String... params) {
@@ -209,26 +212,56 @@ public class MainActivity extends AppCompatActivity
             final Dialog dialog = new Dialog(ctx);
             dialog.setContentView(R.layout.filtros);
 
-            Spinner tipo = (Spinner) dialog.findViewById(R.id.spinnertipo);
-            Spinner porte = (Spinner) dialog.findViewById(R.id.spinnerporte);
-            Spinner sexo = (Spinner) dialog.findViewById(R.id.spinnersexo);
-
-            String tipoStr = tipo.getSelectedItem().toString();
-            String porteStr = porte.getSelectedItem().toString();
-            String sexoStr = sexo.getSelectedItem().toString();
+            final Spinner tipo = (Spinner) dialog.findViewById(R.id.spinnertipo);
+            final Spinner porte = (Spinner) dialog.findViewById(R.id.spinnerporte);
+            final Spinner sexo = (Spinner) dialog.findViewById(R.id.spinnersexo);
 
             Button dialogButton = (Button) dialog.findViewById(R.id.btnFiltrar);
             // if button is clicked, close the custom dialog
             dialogButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(bb.getCurrentTabId() == R.id.tab_doacoes) {
 
-                    } else if(bb.getCurrentTabId() == R.id.tab_encontrados) {
+                    String tipoStr;
+                    String porteStr;
+                    String sexoStr;
 
-                    } if(bb.getCurrentTabId() == R.id.tab_perdidos) {
-
+                    if (tipo.getSelectedItem().toString().equals("Todos")) {
+                        tipoStr = "";
+                    } else {
+                        tipoStr = tipo.getSelectedItem().toString();
                     }
+
+                    if (porte.getSelectedItem().toString().equals("Todos")) {
+                        porteStr = "";
+                    } else {
+                        porteStr = porte.getSelectedItem().toString();
+                    }
+
+                    if (sexo.getSelectedItem().toString().equals("Todos")) {
+                        sexoStr = "";
+                    } else {
+                        sexoStr = sexo.getSelectedItem().toString();
+                    }
+
+                    Fragment frag = getSupportFragmentManager().findFragmentById(R.id.flAnuncios);
+
+                    if (frag instanceof DoacaoFragment) {
+                        DoacaoFragment df = (DoacaoFragment) MainActivity.this.getSupportFragmentManager().findFragmentById(R.id.flAnuncios);
+                        df.getDoacoesFilter(tipoStr, porteStr, sexoStr);
+                    }
+
+                    if (frag instanceof PerdidoFragment) {
+                        PerdidoFragment pf = (PerdidoFragment) MainActivity.this.getSupportFragmentManager().findFragmentById(R.id.flAnuncios);
+                        pf.getPerdidosFilter(tipoStr, porteStr, sexoStr);
+                    }
+
+                    if (frag instanceof EncontradoFragment) {
+                        EncontradoFragment ef = (EncontradoFragment) MainActivity.this.getSupportFragmentManager().findFragmentById(R.id.flAnuncios);
+                        ef.getEncontradosFilter(tipoStr, porteStr, sexoStr);
+                    }
+
+                    dialog.dismiss();
                 }
             });
 
@@ -262,7 +295,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(i);
         } else if (id == R.id.nav_sobre) {
 
-        } else if (id == R.id.nav_logout){
+        } else if (id == R.id.nav_logout) {
             logout();
         }
 

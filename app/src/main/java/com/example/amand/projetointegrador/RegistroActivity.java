@@ -48,8 +48,8 @@ public class RegistroActivity extends AppCompatActivity {
     static Long id;
     private String token;
 
-    public static final String ENDERECO_WEB = "http://31.220.58.131:8080";
-    //public static final String ENDERECO_WEB = "http://192.168.25.5:8888";
+    //public static final String ENDERECO_WEB = "http://31.220.58.131:8080";
+    public static final String ENDERECO_WEB = "http://192.168.25.5:8888";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
