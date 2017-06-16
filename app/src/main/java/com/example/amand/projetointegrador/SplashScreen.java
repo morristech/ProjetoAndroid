@@ -19,7 +19,7 @@ public class SplashScreen extends AppCompatActivity {
         session = new Session(this);
 
         String token = session.getToken();
-        if (!session.getToken().isEmpty() && !session.getToken().equals("")) {
+        if (session.getToken() != null && !session.getToken().equals("")) {
             new Handler().postDelayed(new Runnable() {
                 /*
                  * Exibindo splash com um timer.
