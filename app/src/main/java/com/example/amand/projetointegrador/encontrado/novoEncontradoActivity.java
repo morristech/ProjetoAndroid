@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.example.amand.projetointegrador.MainActivity;
 import com.example.amand.projetointegrador.R;
 import com.example.amand.projetointegrador.RegistroActivity;
+import com.example.amand.projetointegrador.doacao.novaDoacaoActivity;
 import com.example.amand.projetointegrador.helpers.Session;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -580,10 +581,19 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
         @Override
         protected void onPostExecute(HttpResponse httpResponse) {
 
-            //Toast.makeText(getApplicationContext(), String.valueOf(httpResponse.getStatusLine().getStatusCode()), Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(novoEncontradoActivity.this, MainActivity.class);
-            startActivity(i);
-            finish();
+            if(httpResponse.getStatusLine().getStatusCode() == 200) {
+                Toast.makeText(getApplicationContext(), "Anúncio publicado com sucesso!", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(novoEncontradoActivity.this, MainActivity.class);
+                startActivity(i);
+                finish();
+            }
+
+            else {
+                Toast.makeText(getApplicationContext(), "Ocorreu um erro.", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(novoEncontradoActivity.this, MainActivity.class);
+                startActivity(i);
+                finish();
+            }
         }
     }
 }

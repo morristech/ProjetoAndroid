@@ -71,8 +71,8 @@
 
                     <ImageButton
                         android:id="@+id/rmimage2"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:layout_below="@+id/addimage2"
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="15dp"
@@ -100,8 +100,8 @@
 
                     <ImageButton
                         android:id="@+id/rmimage3"
-                        android:layout_width="35dp"
-                        android:layout_height="350dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:layout_below="@+id/addimage3"
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="15dp"
@@ -130,8 +130,8 @@
 
                     <ImageButton
                         android:id="@+id/rmimage4"
-                        android:layout_width="35dp"
-                        android:layout_height="350dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:layout_below="@+id/addimage4"
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="15dp"
@@ -160,8 +160,8 @@
 
                     <ImageButton
                         android:id="@+id/rmimage5"
-                        android:layout_width="35dp"
-                        android:layout_height="350dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:layout_below="@+id/addimage5"
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="15dp"
@@ -190,8 +190,8 @@
 
                     <ImageButton
                         android:id="@+id/rmimage6"
-                        android:layout_width="35dp"
-                        android:layout_height="350dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:layout_below="@+id/addimage6"
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="15dp"

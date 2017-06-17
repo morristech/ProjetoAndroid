@@ -27,6 +27,7 @@ public class CustomPagerAdapter extends PagerAdapter {
     List<Bitmap> img = new ArrayList<>();
     Session s;
 
+    boolean isImageFitToScreen;
 
     public CustomPagerAdapter(Context context, List<Bitmap> imgs) {
         mContext = context;
@@ -50,7 +51,7 @@ public class CustomPagerAdapter extends PagerAdapter {
         Long id = s.getUserPrefs();
         View itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false);
 
-        ImageView imgView = (ImageView) itemView.findViewById(R.id.imageView);
+        final ImageView imgView = (ImageView) itemView.findViewById(R.id.imageView);
         imgView.setImageBitmap(img.get(position));
         container.addView(itemView);
 

@@ -569,11 +569,19 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
         @Override
         protected void onPostExecute(HttpResponse httpResponse) {
 
-            //Toast.makeText(getApplicationContext(), String.valueOf(httpResponse.getStatusLine().getStatusCode()), Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(novoPerdidoActivity.this, MainActivity.class);
-            startActivity(i);
-            finish();
+            if(httpResponse.getStatusLine().getStatusCode() == 200) {
+                Toast.makeText(getApplicationContext(), "Anúncio publicado com sucesso!", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(novoPerdidoActivity.this, MainActivity.class);
+                startActivity(i);
+                finish();
+            }
 
+            else {
+                Toast.makeText(getApplicationContext(), "Ocorreu um erro.", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(novoPerdidoActivity.this, MainActivity.class);
+                startActivity(i);
+                finish();
+            }
         }
     }
 }

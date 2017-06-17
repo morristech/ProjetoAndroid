@@ -1,0 +1,151 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="16dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Contato"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Nome da pessoa"
+            android:id="@+id/nomeDialog"
+            android:textAlignment="center"
+            android:textSize="16sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Entre em contato usando uma das opções abaixo."
+            android:textAlignment="center"/>
+        <Button
+            android:id="@+id/btnWhatsApp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorWhatsApp"
+            android:drawableStart="@drawable/ic_whatsapp_white_logo"
+            android:drawableTint="#fff"
+            android:paddingRight="45dp"
+            android:text="WhatsApp"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            />
+
+        <Button
+            android:id="@+id/btnEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorEmail"
+            android:drawableStart="@drawable/ic_email"
+            android:paddingRight="45dp"
+            android:text="E-mail"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnTelefone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorTelefone"
+            android:drawableStart="@drawable/ic_phone_call"
+            android:paddingRight="40dp"
+            android:text="Telefone"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            />
+
+        <Button
+            android:id="@+id/btnCelular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#268311"
+            android:drawableStart="@drawable/ic_phone_android_white_24dp"
+            android:drawableTint="#fff"
+            android:paddingRight="40dp"
+            android:text="Celular"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            />
+
+        <Button
+            android:id="@+id/btnSms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorSms"
+            android:drawableStart="@drawable/ic_speech_bubble_7"
+            android:paddingRight="35dp"
+            android:text="Mensagem (SMS)"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            />
+
+        <Button
+            android:id="@+id/btnFacebook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorFacebook"
+            android:drawableStart="@drawable/ic_facebook"
+            android:drawableTint="#fff"
+            android:paddingRight="40dp"
+            android:text="Facebook"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:visibility="gone"/>
+
+     <!--   <Button
+            android:id="@+id/btnGooglePlus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorGooglePlus"
+            android:drawableStart="@drawable/ic_google_plus"
+            android:drawableTint="#fff"
+            android:paddingRight="40dp"
+            android:text="Google Plus"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="16sp"/> -->
+
+        <Button
+            android:id="@+id/btnFechar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16sp"
+            android:backgroundTint="#eee"
+            android:text="Cancelar"
+            android:textAllCaps="false"
+            android:textColor="#666"
+            android:textSize="16sp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Informamos que todo o tipo de contato é de responsabilidade exclusiva do usuário do serviço. Ao entrar em contato, você se responsabiliza por eventuais danos, sejam eles morais, físicos, psicológicos e outros."
+            android:textAlignment="center"
+            />
+
+    </LinearLayout>
+</ScrollView>

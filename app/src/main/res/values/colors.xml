@@ -10,6 +10,13 @@
     <color name="colorDivider">#BDBDBD</color>
     <color name="colorHeaderNav">#1E88E5</color>
     <color name="black_overlay">#66000000</color>
+
+    <color name="colorFacebook">#3b5999</color>
+    <color name="colorGooglePlus">#dd4b39</color>
+    <color name="colorWhatsApp">#25d366</color>
+    <color name="colorTelefone">#3d5afe</color>
+    <color name="colorSms">#0d47a1</color>
+    <color name="colorEmail">#ffa000</color>
 </resources>
 
 

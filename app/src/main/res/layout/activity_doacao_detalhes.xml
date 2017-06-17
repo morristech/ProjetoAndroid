@@ -115,7 +115,8 @@
             android:drawableTint="#fff"
             android:background="@color/colorAccent"
             android:drawablePadding="5dp"
-            android:paddingLeft="30dp"/>
+            android:paddingLeft="30dp"
+            android:id="@+id/btnContato"/>
     </LinearLayout>
 
 
