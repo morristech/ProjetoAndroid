@@ -398,7 +398,11 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
 
                 if(nomeAnimal.getText().toString().equals("") || nomeAnimal.getText().toString().isEmpty()) {
                     nomeAnimal.setError("Digite o nome do animal");
+                    enviaAnuncio.setClickable(true);
+                    enviaAnuncio.setBackgroundResource(R.color.colorAccent);
                 } else{
+                    enviaAnuncio.setClickable(false);
+                    enviaAnuncio.setBackgroundResource(R.color.colorDivider);
                     AnuncioService anuncio = new AnuncioService();
                     anuncio.execute(tipo, sexo,
                             racaAnimal.getText().toString(),

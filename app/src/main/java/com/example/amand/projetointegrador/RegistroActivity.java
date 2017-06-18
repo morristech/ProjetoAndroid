@@ -76,35 +76,48 @@ public class RegistroActivity extends AppCompatActivity {
 
                 if (!confirmaSenhaNovaConta.getText().toString().equals(senhaNovaConta.getText().toString())) {
                     confirmaSenhaNovaConta.setError("Senhas não correspondem");
+                    abrirNovaConta.setClickable(true);
+                    abrirNovaConta.setBackgroundResource(R.color.colorAccent);
                 }
 
                 else if (emailNovaConta.getText().toString().isEmpty() || emailNovaConta.getText().toString().equals("")) {
                     emailNovaConta.setError("Digite seu e-mail");
                     emailNovaConta.requestFocus();
+                    abrirNovaConta.setClickable(true);
+                    abrirNovaConta.setBackgroundResource(R.color.colorAccent);
                 }
 
                 else if (nomeNovaConta.getText().toString().isEmpty() || nomeNovaConta.getText().toString().equals("")) {
                     nomeNovaConta.setError("Digite seu nome");
                     nomeNovaConta.requestFocus();
+                    abrirNovaConta.setClickable(true);
+                    abrirNovaConta.setBackgroundResource(R.color.colorAccent);
                 }
 
                 else if (senhaNovaConta.getText().toString().isEmpty() || senhaNovaConta.getText().toString().equals("")) {
                     senhaNovaConta.setError("Digite sua senha");
                     senhaNovaConta.requestFocus();
+                    abrirNovaConta.setClickable(true);
+                    abrirNovaConta.setBackgroundResource(R.color.colorAccent);
                 }
 
                 else if (confirmaSenhaNovaConta.getText().toString().isEmpty() || confirmaSenhaNovaConta.getText().toString().equals("")) {
                     confirmaSenhaNovaConta.setError("Confirme sua senha");
                     confirmaSenhaNovaConta.requestFocus();
+                    abrirNovaConta.setClickable(true);
+                    abrirNovaConta.setBackgroundResource(R.color.colorAccent);
                 }
 
                 else if (dataNascimentoNovaConta.getText().toString().isEmpty() || dataNascimentoNovaConta.getText().toString().equals("")) {
                     dataNascimentoNovaConta.setError("Digite sua data de nascimento");
                     dataNascimentoNovaConta.requestFocus();
+                    abrirNovaConta.setClickable(true);
+                    abrirNovaConta.setBackgroundResource(R.color.colorAccent);
 
                 } else {
 
-
+                    abrirNovaConta.setClickable(false);
+                    abrirNovaConta.setBackgroundResource(R.color.colorDivider);
                     JSONObject o = new JSONObject();
                     try {
                     /*DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");

@@ -415,7 +415,11 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
             public void onClick(View v) {
                 if(titulo.getText().toString().equals("") || titulo.getText().toString().isEmpty()) {
                     titulo.setError("Digite o titulo do anúncio");
+                    enviaAnuncio.setClickable(true);
+                    enviaAnuncio.setBackgroundResource(R.color.colorAccent);
                 } else {
+                    enviaAnuncio.setClickable(false);
+                    enviaAnuncio.setBackgroundResource(R.color.colorDivider);
                     novoEncontradoActivity.AnuncioService anuncio = new novoEncontradoActivity.AnuncioService();
                     anuncio.execute(tipo, sexo, corAnimal.getText().toString(),
                             observacoesAnimal.getText().toString(), titulo.getText().toString(), resgatadoString, porte,

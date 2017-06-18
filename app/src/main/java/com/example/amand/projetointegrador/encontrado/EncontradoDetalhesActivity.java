@@ -123,6 +123,8 @@ public class EncontradoDetalhesActivity extends AppCompatActivity implements Vie
 
         observacaoAnimal = (TextView) findViewById(R.id.observacoesAnimal);
 
+        encontradoBtn = (Button) findViewById(R.id.contato);
+
         encontradoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

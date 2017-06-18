@@ -84,6 +84,8 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 try {
+                    finalizaCadastroBtn.setClickable(false);
+                    finalizaCadastroBtn.setBackgroundResource(R.color.colorDivider);
                     perfilService service = new perfilService(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/usuario/upload");
 
                     service.execute(file, finalizaCadastroTelefone.getText().toString(), finalizaCadastroCelular.getText().toString(),

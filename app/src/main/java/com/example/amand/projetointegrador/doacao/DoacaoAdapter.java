@@ -15,8 +15,11 @@ import android.widget.TextView;
 import com.example.amand.projetointegrador.R;
 import com.example.amand.projetointegrador.RegistroActivity;
 import com.example.amand.projetointegrador.model.AnuncioDoacao;
+import com.facebook.internal.Utility;
 
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
