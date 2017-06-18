@@ -218,14 +218,16 @@ public class DoacaoGerenciarFragment extends Fragment {
                         ad.setDataPublicacao(date);
 
                         listAnuncio.add(ad);
-                        DoacaoGerenciarAdapter da = new DoacaoGerenciarAdapter(context, listAnuncio, getActivity());
-                        listDoacao.setAdapter(da);
+
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
+            DoacaoGerenciarAdapter da = new DoacaoGerenciarAdapter(context, listAnuncio, getActivity());
+            listDoacao.setAdapter(da);
         }
 
     }

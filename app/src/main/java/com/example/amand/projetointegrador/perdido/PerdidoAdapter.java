@@ -15,19 +15,15 @@ import android.widget.TextView;
 import com.example.amand.projetointegrador.R;
 import com.example.amand.projetointegrador.RegistroActivity;
 import com.example.amand.projetointegrador.model.AnuncioPerdido;
+import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by amanda on 29/03/17.
- */
-
 public class PerdidoAdapter extends BaseAdapter {
 
     GridView grid;
-
 
     private List<AnuncioPerdido> perdidos = new ArrayList<>();
 
@@ -52,61 +48,44 @@ public class PerdidoAdapter extends BaseAdapter {
     }
 
     public long getItemId(int position) {
-        return 0;
+        return perdidos.indexOf(perdidos.get(position));
+    }
+
+    public class Holder {
+        private TextView nomeAnimal;
+        private ImageView imgView;
     }
 
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        // TODO Auto-generated method stub
-        View grid;
-        LayoutInflater inflater = (LayoutInflater) mContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        Holder holder = null;
 
         if (convertView == null) {
 
-            grid = new View(mContext);
-            grid = inflater.inflate(R.layout.item, null);
+            LayoutInflater inflater = (LayoutInflater) mContext
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.item, parent, false);
 
-            nomeAnimal = (TextView) grid.findViewById(R.id.nomeAnimal);
-            nomeAnimal.setText(perdidos.get(position).getNome());
+            holder = new Holder();
 
-            imgView = (ImageView) grid.findViewById(R.id.itemImg);
+            holder.nomeAnimal = (TextView) convertView.findViewById(R.id.nomeAnimal);
+            holder.imgView = (ImageView) convertView.findViewById(R.id.itemImg);
 
-            if(!perdidos.get(position).getImgAnucio().isEmpty()) {
-                new DownloadImageTask((ImageView) grid.findViewById(R.id.itemImg)).execute(
-                        RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/perdido/" + perdidos.get(position).getId() +
-                                "/" + perdidos.get(position).getImgAnucio().get(0));
-            }
+            convertView.setTag(holder);
+
 
         } else {
-            grid = (View) convertView;
+            holder = (Holder) convertView.getTag();
         }
 
-        return grid;
-    }
+        holder.nomeAnimal.setText(perdidos.get(position).getNome());
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
+        if (!perdidos.get(position).getImgAnucio().isEmpty()) {
+            Picasso.with(mContext).load(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/perdido/" + perdidos.get(position).getId() +
+                    "/" + perdidos.get(position).getImgAnucio().get(0)).placeholder(R.drawable.imgplaceholder).into(holder.imgView);
         }
 
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
+        return convertView;
     }
 }

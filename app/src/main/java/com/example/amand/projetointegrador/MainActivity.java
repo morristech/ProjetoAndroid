@@ -31,7 +31,9 @@ import com.example.amand.projetointegrador.helpers.Session;
 import com.example.amand.projetointegrador.perdido.PerdidoFragment;
 import com.google.android.gms.maps.model.Circle;
 import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -77,6 +79,7 @@ public class MainActivity extends AppCompatActivity
 
 
         bb = (BottomBar) findViewById(R.id.bottomBar);
+
         bb.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
@@ -116,14 +119,12 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        barUserImg = (CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.barUserImg);
         barUserEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.barUserEmail);
         barUserName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.barUserName);
 
         GetDados get = new GetDados();
         get.execute();
-
-        new DownloadImageTask((CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.barUserImg))
-                .execute(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/" + session.getUserPrefs() + "/" + session.getUserImg());
 
         System.out.print(session.getUserImg());
 
@@ -131,6 +132,9 @@ public class MainActivity extends AppCompatActivity
             barUserEmail.setText(session.getUserEmail());
             barUserName.setText(session.getUserName());
         }
+
+        if (session.getUserImg() != null) {
+            Picasso.with(ctx).load(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/" + session.getUserPrefs() + "/" + session.getUserImg()).into(barUserImg);        }
 
     }
 
@@ -175,6 +179,7 @@ public class MainActivity extends AppCompatActivity
 
                 session.setUserImg(perfil.getString("fotoPerfil"));
                 session.setUserName(obj.getString("nome"));
+
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -313,29 +318,5 @@ public class MainActivity extends AppCompatActivity
         session.setUserName("");
         finish();
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
-    }
-
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        CircleImageView bmImage;
-
-        public DownloadImageTask(CircleImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
     }
 }

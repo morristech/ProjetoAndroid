@@ -16,6 +16,7 @@ import com.example.amand.projetointegrador.R;
 import com.example.amand.projetointegrador.RegistroActivity;
 import com.example.amand.projetointegrador.model.AnuncioDoacao;
 import com.facebook.internal.Utility;
+import com.squareup.picasso.Picasso;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -31,7 +32,6 @@ public class DoacaoAdapter extends BaseAdapter {
 
     GridView grid;
 
-
     private List<AnuncioDoacao> doacoes;
 
     private ImageView imgView;
@@ -43,7 +43,6 @@ public class DoacaoAdapter extends BaseAdapter {
     public DoacaoAdapter(Context c, List<AnuncioDoacao> anuncios) {
         this.mContext = c;
         this.doacoes = anuncios;
-
     }
 
     public int getCount() {
@@ -55,61 +54,48 @@ public class DoacaoAdapter extends BaseAdapter {
     }
 
     public long getItemId(int position) {
-        return 0;
+        return doacoes.indexOf(doacoes.get(position));
     }
+
+    public class Holder {
+        private TextView nomeAnimal;
+        private ImageView imgView;
+    }
+
 
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
 
         // TODO Auto-generated method stub
         View grid;
-        LayoutInflater inflater = (LayoutInflater) mContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        Holder holder = null;
 
         if (convertView == null) {
 
-            grid = new View(mContext);
-            grid = inflater.inflate(R.layout.item, null);
+            LayoutInflater inflater = (LayoutInflater) mContext
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.item, parent, false);
 
-            nomeAnimal = (TextView) grid.findViewById(R.id.nomeAnimal);
-            nomeAnimal.setText(doacoes.get(position).getNome());
+            holder = new Holder();
 
-            imgView = (ImageView) grid.findViewById(R.id.itemImg);
+            holder.nomeAnimal = (TextView) convertView.findViewById(R.id.nomeAnimal);
+            holder.imgView = (ImageView) convertView.findViewById(R.id.itemImg);
 
-            if(!doacoes.get(position).getImgAnucio().isEmpty()) {
-                new DownloadImageTask((ImageView) grid.findViewById(R.id.itemImg)).execute(
-                        RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/doacao/" + doacoes.get(position).getId() +
-                                "/" + doacoes.get(position).getImgAnucio().get(0));
-            }
+            convertView.setTag(holder);
+
 
         } else {
-            grid = (View) convertView;
+            holder = (Holder) convertView.getTag();
         }
 
-        return grid;
+        holder.nomeAnimal.setText(doacoes.get(position).getNome());
+
+        if (!doacoes.get(position).getImgAnucio().isEmpty()) {
+            Picasso.with(mContext).load(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/doacao/" + doacoes.get(position).getId() +
+                    "/" + doacoes.get(position).getImgAnucio().get(0)).placeholder(R.drawable.imgplaceholder).into(holder.imgView);
+        }
+
+        return convertView;
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-    }
 }

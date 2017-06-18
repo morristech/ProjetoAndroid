@@ -23,6 +23,7 @@ import com.example.amand.projetointegrador.RegistroActivity;
 import com.example.amand.projetointegrador.helpers.Session;
 import com.example.amand.projetointegrador.model.Anuncio;
 import com.example.amand.projetointegrador.model.AnuncioDoacao;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -57,7 +58,6 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
         this.mContext = c;
         this.doacoes = anuncios;
         this.activity = activity;
-        inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public int getCount() {
@@ -87,6 +87,7 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
 
         if (convertView == null) {
 
+            this.inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.item_gerenciar, parent, false);
             holder = new Holder();
 
@@ -98,8 +99,15 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
 
             holder.imgView = (ImageView) convertView.findViewById(R.id.imgAnimal);
             convertView.setTag(holder);
+
         } else {
+
             holder = (Holder) convertView.getTag();
+        }
+
+        if (!doacoes.get(position).getImgAnucio().isEmpty()) {
+            Picasso.with(mContext).load(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/doacao/" + doacoes.get(position).getId() +
+                    "/" + doacoes.get(position).getImgAnucio().get(0)).placeholder(R.drawable.imgplaceholder).into(holder.imgView);
         }
 
         holder.nomeAnimal.setText(doacoes.get(position).getNome());
@@ -137,38 +145,7 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
             }
         });
 
-        if (!doacoes.get(position).getImgAnucio().isEmpty()) {
-            new DownloadImageTask((ImageView) convertView.findViewById(R.id.imgAnimal)).execute(
-                    RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/doacao/" + doacoes.get(position).getId() +
-                            "/" + doacoes.get(position).getImgAnucio().get(0));
-        }
-
-
         return convertView;
-    }
-
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
     }
 
     private class DeleteService extends AsyncTask<String, Void, String> {

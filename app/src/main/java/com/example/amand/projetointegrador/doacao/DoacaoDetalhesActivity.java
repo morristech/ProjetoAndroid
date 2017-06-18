@@ -410,7 +410,8 @@ public class DoacaoDetalhesActivity extends AppCompatActivity implements View.On
                 if(o.getString("porte").equals("null") || o.getString("porte").isEmpty()) {
                     porteAnimal.setVisibility(View.GONE);
                 } else {
-                    porteAnimal.setText(o.getString("porte"));
+                    String porte = "Porte: "+o.getString("porte");
+                    porteAnimal.setText(porte);
                 }
 
                 if(o.getString("descricao").equals("null") || o.getString("descricao").isEmpty()) {

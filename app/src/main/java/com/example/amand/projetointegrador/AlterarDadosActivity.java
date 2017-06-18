@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.amand.projetointegrador.helpers.Session;
 import com.mvc.imagepicker.ImagePicker;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -202,8 +203,7 @@ public class AlterarDadosActivity extends AppCompatActivity {
                 dataNascimento.setText(sdf.format(data));
 
                 if (!imgurl.equals("null") && !imgurl.isEmpty() && !imgurl.equals("")) {
-                    new DownloadImageTask((CircleImageView) findViewById(R.id.imgAlterarDados))
-                            .execute(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/" + idShared + "/" + imgurl);
+                    Picasso.with(ctx).load(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/" + idShared + "/" + imgurl).into(imagem);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
