@@ -20,6 +20,7 @@ import com.example.amand.projetointegrador.helpers.Session;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -172,7 +173,7 @@ public class RegistroActivity extends AppCompatActivity {
                 System.out.println(resposta.getStatusLine().getStatusCode());
                 System.out.println(resposta.getStatusLine().getReasonPhrase());
 
-                systemRes = EntityUtils.toString(resposta.getEntity());
+                systemRes = EntityUtils.toString(resposta.getEntity(), StandardCharsets.UTF_8);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -229,7 +230,7 @@ public class RegistroActivity extends AppCompatActivity {
 
                 chamada.setEntity(new UrlEncodedFormEntity(parametros));
                 resposta = cliente.execute(chamada);
-                systemRes = EntityUtils.toString(resposta.getEntity());
+                systemRes = EntityUtils.toString(resposta.getEntity(), StandardCharsets.UTF_8);
 
                 System.out.println(resposta.getStatusLine().getStatusCode());
                 System.out.println(resposta.getStatusLine().getReasonPhrase());

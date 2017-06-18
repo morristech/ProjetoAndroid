@@ -76,7 +76,7 @@ public class EncontradoDetalhesActivity extends AppCompatActivity implements Vie
     private Dialog contatoDialog;
 
     private String nomeUsuario = "";
-    private String emailUsuario = "";
+    private String[] emailUsuario;
     private String telefoneUsuario = "";
     private String celularUsuario = "";
     private String whatsUsuario = "";
@@ -106,8 +106,6 @@ public class EncontradoDetalhesActivity extends AppCompatActivity implements Vie
         //DoacaoAdapter doacaoAdapter = new DoacaoAdapter(this);
         // Get intent data
         mapa = findViewById(R.id.mapaDetalhesEncontrado);
-
-        encontradoBtn = (Button) findViewById(R.id.contato);
 
         indicator = (CircleIndicator) findViewById(R.id.indicator);
 
@@ -172,7 +170,7 @@ public class EncontradoDetalhesActivity extends AppCompatActivity implements Vie
             @Override
             public void onClick(View v) {
                 contatoDialog.dismiss();
-                String address = emailUsuario;
+                String[] address = emailUsuario;
                 String subject = "Vi o seu anúncio " +tituloAnuncio.getText().toString();
                 String body = "Olá, vi o seu anúncio pelo aplicativo Lucky Pets e fiquei interessado.";
                 composeEmail(address, subject, body);
@@ -238,7 +236,7 @@ public class EncontradoDetalhesActivity extends AppCompatActivity implements Vie
      * @param subject assunto
      * @param body corpo do e-mail (texto base, citando o animal e etc)
      */
-    public void composeEmail(String address, String subject, String body) {
+    public void composeEmail(String[] address, String subject, String body) {
         // se não funcionar, o correto seria "String[] addresses"
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:")); // Apenas apps de e-mail
@@ -355,7 +353,7 @@ public class EncontradoDetalhesActivity extends AppCompatActivity implements Vie
 
                 /* Pega dados do usuário para popular o botão de contato */
                 nomeUsuario = usuario.getString("nome");
-                emailUsuario = usuario.getString("email");
+                emailUsuario = new String[] {usuario.getString("email")};
                 telefoneUsuario = perfil.getString("telefone");
                 celularUsuario = perfil.getString("celular");
                 whatsUsuario = perfil.getString("whatsapp");

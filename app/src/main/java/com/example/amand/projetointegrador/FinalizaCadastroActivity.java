@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import br.com.sapereaude.maskedEditText.MaskedEditText;
 import cz.msebera.android.httpclient.HttpEntity;
@@ -217,7 +218,7 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
                 chamada.setHeader("Authorization", "Basic " + session.getToken());
 
                 HttpResponse resposta = cliente.execute(chamada);
-                systemRes = EntityUtils.toString(resposta.getEntity());
+                systemRes = EntityUtils.toString(resposta.getEntity(), StandardCharsets.UTF_8);
 
                 System.out.println(resposta.getStatusLine().getStatusCode());
                 System.out.println(resposta.getStatusLine().getReasonPhrase());

@@ -26,6 +26,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -155,7 +156,7 @@ public class AlterarDadosActivity extends AppCompatActivity {
                 chamada.setHeader("Authorization", "Basic " + s.getToken());
 
                 resposta = cliente.execute(chamada);
-                systemRes = EntityUtils.toString(resposta.getEntity());
+                systemRes = EntityUtils.toString(resposta.getEntity(), StandardCharsets.UTF_8);
 
                 System.out.println(resposta.getStatusLine().getStatusCode());
                 System.out.println(resposta.getStatusLine().getReasonPhrase());
@@ -295,7 +296,7 @@ public class AlterarDadosActivity extends AppCompatActivity {
 
                 chamada.setEntity(entity);
                 resposta = cliente.execute(chamada);
-                stringRes = EntityUtils.toString(resposta.getEntity());
+                stringRes = EntityUtils.toString(resposta.getEntity(), StandardCharsets.UTF_8);
 
                 System.out.println(resposta.getStatusLine().getStatusCode());
                 System.out.println(resposta.getStatusLine().getReasonPhrase());

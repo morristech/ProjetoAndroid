@@ -27,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -146,7 +147,7 @@ public class DoacaoFragment extends Fragment {
                 chamada.setHeader("Authorization", "Basic " + session.getToken());
 
                 resposta = cliente.execute(chamada);
-                systemRes = EntityUtils.toString(resposta.getEntity());
+                systemRes = EntityUtils.toString(resposta.getEntity(), StandardCharsets.UTF_8);
 
                 System.out.println(resposta.getStatusLine().getStatusCode());
                 System.out.println(resposta.getStatusLine().getReasonPhrase());
@@ -169,9 +170,10 @@ public class DoacaoFragment extends Fragment {
             if (s != null) {
 
                 try {
-                    JSONArray array = new JSONArray(s);
 
                     listAnuncio.clear();
+
+                    JSONArray array = new JSONArray(s);
 
                     final int numberIterator = array.length();
                     for (int i = 0; i < numberIterator; i++) {
@@ -188,13 +190,13 @@ public class DoacaoFragment extends Fragment {
                             }
                         }
 
+                        ad.setNome(obj.getString("nome"));
                         ad.setId(obj.getLong("id"));
                         ad.setImgAnucio(list);
                         ad.setCastrado(obj.getBoolean("castrado"));
                         ad.setDeficiencia(obj.getBoolean("deficiencia"));
                         ad.setIdade(obj.getInt("idade"));
                         ad.setRaca(obj.getString("raca"));
-                        ad.setNome(obj.getString("nome"));
                         ad.setCor(obj.getString("cor"));
                         ad.setDescricao(obj.getString("descricao"));
                         ad.setSexo(obj.getString("sexo"));
@@ -223,14 +225,16 @@ public class DoacaoFragment extends Fragment {
                         ad.setDataPublicacao(date);
 
                         listAnuncio.add(ad);
-                        DoacaoAdapter da = new DoacaoAdapter(context, listAnuncio);
-                        gridDoacao.setAdapter(da);
+
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
+            DoacaoAdapter da = new DoacaoAdapter(context, listAnuncio);
+            gridDoacao.setAdapter(da);
         }
 
     }
@@ -253,7 +257,7 @@ public class DoacaoFragment extends Fragment {
                 chamada.setHeader("Authorization", "Basic " + session.getToken());
 
                 resposta = cliente.execute(chamada);
-                systemRes = EntityUtils.toString(resposta.getEntity());
+                systemRes = EntityUtils.toString(resposta.getEntity(), StandardCharsets.UTF_8);
 
                 System.out.println(resposta.getStatusLine().getStatusCode());
                 System.out.println(resposta.getStatusLine().getReasonPhrase());

@@ -456,7 +456,8 @@
                 android:textColor="#fff"
                 android:textSize="18dp"
                 android:layout_marginBottom="20dp"
-                android:id="@+id/enviaAnuncio"/>
+                android:id="@+id/enviaAnuncio"
+                />
         </LinearLayout>
 
     </RelativeLayout>

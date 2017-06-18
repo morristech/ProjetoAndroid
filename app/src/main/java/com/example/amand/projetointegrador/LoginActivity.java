@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -242,7 +243,7 @@ public class LoginActivity extends Activity {
                 chamada.setEntity(new UrlEncodedFormEntity(parametros));
                 resposta = cliente.execute(chamada);
                 try {
-                    systemRes = EntityUtils.toString(resposta.getEntity());
+                    systemRes = EntityUtils.toString(resposta.getEntity(), StandardCharsets.UTF_8);
                 } catch (Exception e) {
                     systemRes = "Erro";
                 }

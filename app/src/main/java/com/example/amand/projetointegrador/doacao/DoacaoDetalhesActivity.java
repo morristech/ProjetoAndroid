@@ -65,10 +65,12 @@ public class DoacaoDetalhesActivity extends AppCompatActivity implements View.On
     Session s;
 
     private String nomeUsuario = "";
-    private String emailUsuario = "";
+    private String[] emailUsuario;
     private String telefoneUsuario = "";
     private String celularUsuario = "";
     private String whatsUsuario = "";
+
+    private PagerAdapter pAdapter;
 
     private Button btnFechar, btnWhatsApp, btnEmail, btnTelefone, btnSms, getBtnWhatsApp, btnFacebook, btnCelular;
     private TextView nomeDialog;
@@ -92,6 +94,8 @@ public class DoacaoDetalhesActivity extends AppCompatActivity implements View.On
         Intent i = getIntent();
 
         id = i.getLongExtra("doacao", 0);
+
+        pAdapter = new CustomPagerAdapter(ctx, bitmaps);
 
         //DoacaoAdapter doacaoAdapter = new DoacaoAdapter(this);
         // Get intent data
@@ -119,6 +123,7 @@ public class DoacaoDetalhesActivity extends AppCompatActivity implements View.On
         nomeDialog = (TextView) contatoDialog.findViewById(R.id.nomeDialog);
 
         btnContato = (Button) findViewById(R.id.btnContato);
+
 
         btnFechar = (Button) contatoDialog.findViewById(R.id.btnFechar);
         btnFechar.setOnClickListener(new View.OnClickListener() {
@@ -156,7 +161,7 @@ public class DoacaoDetalhesActivity extends AppCompatActivity implements View.On
             @Override
             public void onClick(View v) {
                 contatoDialog.dismiss();
-                String address = emailUsuario;
+                String[] address = emailUsuario;
                 String subject = "Estou interessado no " +nomeAnimal.getText().toString();
                 String body = "Olá, vi o seu anúncio pelo aplicativo Lucky Pets e fiquei interessado.";
                 composeEmail(address, subject, body);
@@ -241,7 +246,7 @@ public class DoacaoDetalhesActivity extends AppCompatActivity implements View.On
      * @param subject assunto
      * @param body corpo do e-mail (texto base, citando o animal e etc)
      */
-    public void composeEmail(String address, String subject, String body) {
+    public void composeEmail(String[] address, String subject, String body) {
         // se não funcionar, o correto seria "String[] addresses"
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:")); // Apenas apps de e-mail
@@ -358,7 +363,7 @@ public class DoacaoDetalhesActivity extends AppCompatActivity implements View.On
 
                 /* Pega dados do usuário para popular o botão de contato */
                 nomeUsuario = usuario.getString("nome");
-                emailUsuario = usuario.getString("email");
+                emailUsuario = new String[] {usuario.getString("email")};
                 telefoneUsuario = perfil.getString("telefone");
                 celularUsuario = perfil.getString("celular");
                 whatsUsuario = perfil.getString("whatsapp");
@@ -427,6 +432,8 @@ public class DoacaoDetalhesActivity extends AppCompatActivity implements View.On
                     }
                 }
 
+                System.out.println(images.toString() +"+++++++++++");
+
                 for (String str : images) {
                     DownloadImageTask down = new DownloadImageTask();
                     down.execute(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/file/doacao/" + id + "/" + str);
@@ -458,7 +465,6 @@ public class DoacaoDetalhesActivity extends AppCompatActivity implements View.On
         protected void onPostExecute(Bitmap result) {
             bitmaps.add(result);
 
-            PagerAdapter pAdapter = new CustomPagerAdapter(ctx, bitmaps);
             viewPager.setAdapter(pAdapter);
             indicator.setViewPager(viewPager);
         }

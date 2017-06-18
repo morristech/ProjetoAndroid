@@ -29,7 +29,7 @@ public class DoacaoAdapter extends BaseAdapter {
     GridView grid;
 
 
-    private List<AnuncioDoacao> doacoes = new ArrayList<>();
+    private List<AnuncioDoacao> doacoes;
 
     private ImageView imgView;
     private TextView nomeAnimal;

@@ -27,7 +27,8 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -52,18 +53,19 @@
             android:exported="true"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ChoiceActivity" />
-        <activity android:name=".RegistroActivity" />
-        <activity android:name=".doacao.novaDoacaoActivity" />
-        <activity android:name=".encontrado.novoEncontradoActivity" />
-        <activity android:name=".perdido.novoPerdidoActivity" />
-        <activity android:name=".doacao.DoacaoDetalhesActivity" />
-        <activity android:name=".FinalizaCadastroActivity" />
+        <activity android:name=".ChoiceActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".RegistroActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".doacao.novaDoacaoActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".encontrado.novoEncontradoActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".perdido.novoPerdidoActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".doacao.DoacaoDetalhesActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".FinalizaCadastroActivity" android:screenOrientation="portrait"/>
         <activity
             android:name=".SplashScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -84,11 +86,11 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".PreviewActivity" />
-        <activity android:name=".perdido.PerdidoDetalhesActivity" />
-        <activity android:name=".encontrado.EncontradoDetalhesActivity" />
-        <activity android:name=".AlterarDadosActivity" />
-        <activity android:name=".GerenciarAnunciosActivity"></activity>
+        <activity android:name=".PreviewActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".perdido.PerdidoDetalhesActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".encontrado.EncontradoDetalhesActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".AlterarDadosActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".GerenciarAnunciosActivity" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

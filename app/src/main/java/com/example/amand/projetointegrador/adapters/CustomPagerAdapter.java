@@ -24,16 +24,14 @@ public class CustomPagerAdapter extends PagerAdapter {
 
     Context mContext;
     LayoutInflater mLayoutInflater;
-    List<Bitmap> img = new ArrayList<>();
+    List<Bitmap> img;
     Session s;
 
-    boolean isImageFitToScreen;
-
     public CustomPagerAdapter(Context context, List<Bitmap> imgs) {
-        mContext = context;
-        mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.mContext = context;
+        this.mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         s = new Session(mContext);
-        img = imgs;
+        this.img = imgs;
     }
 
     @Override

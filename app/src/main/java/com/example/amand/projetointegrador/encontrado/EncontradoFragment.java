@@ -29,6 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -144,7 +145,7 @@ public class EncontradoFragment extends Fragment {
                 chamada.setHeader("Authorization", "Basic " + session.getToken());
 
                 resposta = cliente.execute(chamada);
-                systemRes = EntityUtils.toString(resposta.getEntity());
+                systemRes = EntityUtils.toString(resposta.getEntity(), StandardCharsets.UTF_8);
 
                 System.out.println(resposta.getStatusLine().getStatusCode());
                 System.out.println(resposta.getStatusLine().getReasonPhrase());
@@ -218,14 +219,15 @@ public class EncontradoFragment extends Fragment {
                         ae.setDataPublicacao(date);
 
                         listAnuncio.add(ae);
-                        EncontradoAdapter ea = new EncontradoAdapter(context, listAnuncio);
-                        gridEncontrado.setAdapter(ea);
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
+            EncontradoAdapter ea = new EncontradoAdapter(context, listAnuncio);
+            gridEncontrado.setAdapter(ea);
         }
 
     }
@@ -247,7 +249,7 @@ public class EncontradoFragment extends Fragment {
                 chamada.setHeader("Authorization", "Basic " + session.getToken());
 
                 resposta = cliente.execute(chamada);
-                systemRes = EntityUtils.toString(resposta.getEntity());
+                systemRes = EntityUtils.toString(resposta.getEntity(), StandardCharsets.UTF_8);
 
                 System.out.println(resposta.getStatusLine().getStatusCode());
                 System.out.println(resposta.getStatusLine().getReasonPhrase());

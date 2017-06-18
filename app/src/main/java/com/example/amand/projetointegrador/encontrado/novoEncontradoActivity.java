@@ -50,6 +50,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import cz.msebera.android.httpclient.HttpEntity;
@@ -447,7 +448,7 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
 
             // TODO do something with the bitmap
 
-            File file = new File(getFilesDir().getPath() + "image" + bitmap.getByteCount() + ".png");
+            File file = new File(getFilesDir().getPath() + "/image" + Calendar.getInstance().getTimeInMillis() + ".png");
 
 
             try {

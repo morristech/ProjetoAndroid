@@ -27,6 +27,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import cz.msebera.android.httpclient.HttpEntity;
@@ -294,9 +295,13 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
 
                 if(nome.equals("") || nome.isEmpty()) {
                     nomeAnimal.setError("Digite o nome do animal");
+                    enviaAnuncio.setClickable(true);
+                    enviaAnuncio.setBackgroundResource(R.color.colorAccent);
                 }
 
                 else {
+                    enviaAnuncio.setClickable(false);
+                    enviaAnuncio.setBackgroundResource(R.color.colorDivider);
                     AnuncioService newAnuncio = new AnuncioService();
                     newAnuncio.execute(nome, tipo, porte, sexo, raca, cor, observacoes, deficiente, castrado);
                 }
@@ -327,7 +332,7 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
 
             // TODO do something with the bitmap
 
-            File file = new File(getFilesDir().getPath() + "image" + bitmap.getByteCount() + ".png");
+            File file = new File(getFilesDir().getPath() + "/image" + Calendar.getInstance().getTimeInMillis() + ".png");
 
 
             try {
