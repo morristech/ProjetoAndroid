@@ -1,5 +1,6 @@
 package com.example.amand.projetointegrador.doacao;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -52,6 +53,8 @@ public class DoacaoFragment extends Fragment {
     final List<AnuncioDoacao> listAnuncio = new ArrayList<>();
     private SwipeRefreshLayout swipeRefresh;
 
+    private ProgressDialog mProgressDialog;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -83,6 +86,10 @@ public class DoacaoFragment extends Fragment {
         context = this.getActivity().getApplicationContext();
         gridDoacao = (GridView) view.findViewById(R.id.gridDoacao);
 
+        mProgressDialog = new ProgressDialog(this.getActivity());
+        mProgressDialog.setMessage("Signing........");
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.setCancelable(false);
 
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -273,6 +280,8 @@ public class DoacaoFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
 
+            mProgressDialog.dismiss();
+
             if (swipeRefresh.isRefreshing()) {
                 swipeRefresh.setRefreshing(false);
             }
@@ -349,6 +358,7 @@ public class DoacaoFragment extends Fragment {
     public void getDoacoesFilter(String tipo, String porte, String sexo) {
 
         new GetFiltered().execute(tipo, porte, sexo);
+        mProgressDialog.show();
 
     }
 }

@@ -9,11 +9,20 @@
     tools:showIn="@layout/app_bar_main"
     android:id="@+id/flContent">
 
+    <ProgressBar
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="35dp"
+        android:id="@+id/loadAnuncios"
+        android:visibility="gone"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/flAnuncios"
         android:paddingBottom="40dp" />
+
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"

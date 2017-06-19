@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.amand.projetointegrador.MainActivity;
 import com.example.amand.projetointegrador.R;
 import com.example.amand.projetointegrador.RegistroActivity;
 import com.example.amand.projetointegrador.adapters.CustomPagerAdapter;
@@ -217,16 +218,6 @@ public class PerdidoDetalhesActivity extends AppCompatActivity implements View.O
 
         GetService get = new GetService();
         get.execute();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -471,6 +462,26 @@ public class PerdidoDetalhesActivity extends AppCompatActivity implements View.O
 
 
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(PerdidoDetalhesActivity.this, MainActivity.class);
+        startActivity(i);
+        finish();
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle arrow click here
+        if (item.getItemId() == android.R.id.home) {
+            Intent i = new Intent(PerdidoDetalhesActivity.this, MainActivity.class);
+            startActivity(i);
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {

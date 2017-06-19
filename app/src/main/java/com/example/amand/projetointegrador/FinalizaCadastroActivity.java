@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import br.com.sapereaude.maskedEditText.MaskedEditText;
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.client.HttpClient;
@@ -48,7 +49,7 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
     private MaskedEditText finalizaCadastroTelefone;
     private MaskedEditText finalizaCadastroCelular;
     private MaskedEditText finalizaCadastroWhats;
-    private Button finalizaCadastroBtn;
+    private CircularProgressButton finalizaCadastroBtn;
     Session session;
 
     public static String file;
@@ -67,7 +68,7 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
         finalizaCadastroTelefone = (MaskedEditText) findViewById(R.id.finalizaCadastroTelefone);
         finalizaCadastroCelular = (MaskedEditText) findViewById(R.id.finalizaCadastroCelular);
         finalizaCadastroWhats = (MaskedEditText) findViewById(R.id.finalizaCadastroWhats);
-        finalizaCadastroBtn = (Button) findViewById(R.id.finalizaCadastroBtn);
+        finalizaCadastroBtn = (CircularProgressButton) findViewById(R.id.finalizaCadastroBtn);
         ImagePicker.setMinQuality(600, 600);
 
 
@@ -83,9 +84,9 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                finalizaCadastroBtn.startAnimation();
+
                 try {
-                    finalizaCadastroBtn.setClickable(false);
-                    finalizaCadastroBtn.setBackgroundResource(R.color.colorDivider);
                     perfilService service = new perfilService(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/usuario/upload");
 
                     service.execute(file, finalizaCadastroTelefone.getText().toString(), finalizaCadastroCelular.getText().toString(),
@@ -187,6 +188,8 @@ public class FinalizaCadastroActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(HttpResponse httpResponse) {
+
+            finalizaCadastroBtn.revertAnimation();
 
             if (httpResponse.getStatusLine().getStatusCode() == 200) {
                 //Toast.makeText(getApplicationContext(), String.valueOf(httpResponse.getStatusLine().getStatusCode()), Toast.LENGTH_SHORT).show();

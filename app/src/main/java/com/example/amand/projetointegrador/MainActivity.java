@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -43,6 +44,7 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.client.HttpClient;
 import cz.msebera.android.httpclient.client.methods.HttpGet;
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity
     private TextView barUserName;
     private TextView barUserEmail;
     private Context ctx;
+    private ProgressBar loadAnuncios;
 
     private BottomBar bb;
 
@@ -72,6 +75,9 @@ public class MainActivity extends AppCompatActivity
         barUserName = (TextView) findViewById(R.id.barUserName);
         barUserEmail = (TextView) findViewById(R.id.barUserEmail);
 
+        loadAnuncios = (ProgressBar) findViewById(R.id.loadAnuncios);
+
+        loadAnuncios.animate();
         ctx = this;
         session = new Session(this);
 
@@ -195,6 +201,7 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            finish();
             super.onBackPressed();
         }
     }
@@ -222,7 +229,7 @@ public class MainActivity extends AppCompatActivity
             final Spinner porte = (Spinner) dialog.findViewById(R.id.spinnerporte);
             final Spinner sexo = (Spinner) dialog.findViewById(R.id.spinnersexo);
 
-            Button dialogButton = (Button) dialog.findViewById(R.id.btnFiltrar);
+            final CircularProgressButton dialogButton = (CircularProgressButton) dialog.findViewById(R.id.btnFiltrar);
             // if button is clicked, close the custom dialog
             dialogButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -255,19 +262,21 @@ public class MainActivity extends AppCompatActivity
                     if (frag instanceof DoacaoFragment) {
                         DoacaoFragment df = (DoacaoFragment) MainActivity.this.getSupportFragmentManager().findFragmentById(R.id.flAnuncios);
                         df.getDoacoesFilter(tipoStr, porteStr, sexoStr);
+                        dialog.dismiss();
                     }
 
                     if (frag instanceof PerdidoFragment) {
                         PerdidoFragment pf = (PerdidoFragment) MainActivity.this.getSupportFragmentManager().findFragmentById(R.id.flAnuncios);
                         pf.getPerdidosFilter(tipoStr, porteStr, sexoStr);
+                        dialog.dismiss();
                     }
 
                     if (frag instanceof EncontradoFragment) {
                         EncontradoFragment ef = (EncontradoFragment) MainActivity.this.getSupportFragmentManager().findFragmentById(R.id.flAnuncios);
                         ef.getEncontradosFilter(tipoStr, porteStr, sexoStr);
+                        dialog.dismiss();
                     }
 
-                    dialog.dismiss();
                 }
             });
 
@@ -287,10 +296,11 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_novoanuncio) {
             Intent intent = new Intent(MainActivity.this, ChoiceActivity.class);
             startActivity(intent);
+            finish();
         } else if (id == R.id.nav_meusanuncios) {
             Intent mine = new Intent(MainActivity.this, GerenciarAnunciosActivity.class);
             startActivity(mine);
-
+            finish();
         } else if (id == R.id.nav_vizanuncios) {
             FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
             tx.replace(R.id.flAnuncios, Fragment.instantiate(MainActivity.this, "com.example.amand.projetointegrador.doacao.DoacaoFragment"));
@@ -299,6 +309,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_editprofile) {
             Intent i = new Intent(MainActivity.this, AlterarDadosActivity.class);
             startActivity(i);
+            finish();
         } else if (id == R.id.nav_sobre) {
 
         } else if (id == R.id.nav_logout) {

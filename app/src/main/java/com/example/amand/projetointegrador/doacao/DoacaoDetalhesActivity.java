@@ -19,10 +19,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.amand.projetointegrador.MainActivity;
 import com.example.amand.projetointegrador.adapters.CustomPagerAdapter;
 import com.example.amand.projetointegrador.R;
 import com.example.amand.projetointegrador.RegistroActivity;
 import com.example.amand.projetointegrador.helpers.Session;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -213,16 +215,6 @@ public class DoacaoDetalhesActivity extends AppCompatActivity implements View.On
         btnContato.setOnClickListener(this);
         GetService get = new GetService();
         get.execute();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -447,6 +439,26 @@ public class DoacaoDetalhesActivity extends AppCompatActivity implements View.On
 
 
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(DoacaoDetalhesActivity.this, MainActivity.class);
+        startActivity(i);
+        finish();
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle arrow click here
+        if (item.getItemId() == android.R.id.home) {
+            Intent i = new Intent(DoacaoDetalhesActivity.this, MainActivity.class);
+            startActivity(i);
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {

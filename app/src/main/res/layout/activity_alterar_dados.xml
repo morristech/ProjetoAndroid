@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:mask="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bgdrawable"
@@ -11,177 +11,170 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        >
+        android:orientation="vertical">
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/imgAlterarDados"
             android:layout_width="160dp"
             android:layout_height="160dp"
             android:layout_gravity="center_horizontal"
-            android:elevation="5dp"
             android:layout_marginBottom="30dp"
             android:layout_marginTop="20dp"
-            android:id="@+id/imgAlterarDados"
+            android:elevation="5dp"
+            android:src="@drawable/imgplaceholder"
             app:civ_border_color="#a1a1a1"
             app:civ_border_width="2dp"
-            app:civ_fill_color="#b6b0b0"
-            android:src="@drawable/imgplaceholder"
-            />
+            app:civ_fill_color="#b6b0b0" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/uploadImageButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="-68dp"
+            android:layout_marginBottom="15dp"
             android:layout_marginLeft="190dp"
-            android:scaleType="center"
+            android:layout_marginTop="-68dp"
             android:elevation="10dp"
-            android:src="@drawable/ic_add_photo"
-            android:layout_marginBottom="15dp"/>
+            android:scaleType="center"
+            android:src="@drawable/ic_add_photo" />
 
         <View
             android:layout_width="300dp"
             android:layout_height="0.5dp"
-            android:layout_margin="25dp"
-            android:background="@color/colorAccent"
             android:layout_gravity="center"
-            />
+            android:layout_margin="25dp"
+            android:background="@color/colorAccent" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:text="E-mail"
             android:layout_marginTop="10dp"
             android:drawablePadding="12dp"
-            android:drawableTint="#646464"
             android:drawableStart="@drawable/ic_email_black_24dp"
-            />
+            android:drawableTint="#646464"
+            android:text="E-mail"
+            android:textSize="17sp" />
 
         <EditText
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/email"
             android:clickable="false"
             android:cursorVisible="false"
             android:focusable="false"
-            android:focusableInTouchMode="false"/>
+            android:focusableInTouchMode="false" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:text="Nome"
             android:layout_marginTop="25dp"
             android:drawablePadding="12dp"
-            android:drawableTint="#646464"
             android:drawableStart="@drawable/ic_person_black_24dp"
-            />
+            android:drawableTint="#646464"
+            android:text="Nome"
+            android:textSize="17sp" />
 
         <EditText
+            android:id="@+id/nome"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/nome"/>
+            android:layout_height="wrap_content" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:text="Data de Nascimento"
             android:layout_marginTop="25dp"
             android:drawablePadding="12dp"
-            android:drawableTint="#646464"
             android:drawableStart="@drawable/ic_date_range_black_24dp"
-            />
+            android:drawableTint="#646464"
+            android:text="Data de Nascimento"
+            android:textSize="17sp" />
 
         <br.com.sapereaude.maskedEditText.MaskedEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/dataNascimento"
-            app:mask="##/##/####"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:allowed_chars="0123456789"
-            />
+            app:mask="##/##/####" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:text="Telefone"
             android:layout_marginTop="25dp"
             android:drawablePadding="15dp"
-            android:drawableTint="#646464"
             android:drawableStart="@drawable/ic_local_phone_black_24dp"
-            />
+            android:drawableTint="#646464"
+            android:text="Telefone"
+            android:textSize="17sp" />
 
         <br.com.sapereaude.maskedEditText.MaskedEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/telefone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:inputType="phone"
-            app:mask="## ####-####"
             app:allowed_chars="0123456789"
-            />
+            app:mask="## ####-####" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:text="Celular"
             android:layout_marginTop="25dp"
             android:drawablePadding="15dp"
-            android:drawableTint="#646464"
             android:drawableStart="@drawable/ic_phone_android_black_24dp"
+            android:drawableTint="#646464"
+            android:text="Celular"
+            android:textSize="17sp"
 
             />
 
         <br.com.sapereaude.maskedEditText.MaskedEditText
+            android:id="@+id/celular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/celular"
             android:inputType="phone"
-            app:mask="## #####-####"
-            app:allowed_chars="0123456789"/>
+            app:allowed_chars="0123456789"
+            app:mask="## #####-####" />
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:text="WhatsApp"
             android:layout_marginTop="25dp"
             android:drawablePadding="15dp"
-            android:drawableTint="#646464"
             android:drawableStart="@drawable/ic_whatsapp_logo"
+            android:drawableTint="#646464"
+            android:text="WhatsApp"
+            android:textSize="17sp"
 
             />
 
         <br.com.sapereaude.maskedEditText.MaskedEditText
+            android:id="@+id/whatsapp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/whatsapp"
             android:inputType="phone"
-            app:mask="## #####-####"
-            app:allowed_chars="0123456789"/>
+            app:allowed_chars="0123456789"
+            app:mask="## #####-####" />
 
-        <Button
+        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
             android:id="@+id/enviaDados"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Atualizar dados"
-            android:background="@color/colorAccent"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:textAllCaps="false"
             android:layout_gravity="center_horizontal"
-            android:textSize="18sp"
+            android:layout_marginBottom="25dp"
             android:layout_marginTop="25dp"
+            android:background="@color/colorAccent"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:layout_marginBottom="25dp"/>
+            android:text="Atualizar dados"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:spinning_bar_color="#FFF"
+            app:spinning_bar_padding="6dp"
+            app:spinning_bar_width="4dp" />
 
     </LinearLayout>
 

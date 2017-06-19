@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.amand.projetointegrador.MainActivity;
 import com.example.amand.projetointegrador.R;
 import com.example.amand.projetointegrador.RegistroActivity;
 import com.example.amand.projetointegrador.adapters.CustomPagerAdapter;
@@ -207,13 +208,24 @@ public class EncontradoDetalhesActivity extends AppCompatActivity implements Vie
         get.execute();
     }
 
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(EncontradoDetalhesActivity.this, MainActivity.class);
+        startActivity(i);
+        finish();
+        super.onBackPressed();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
+        // handle arrow click here
+        if (item.getItemId() == android.R.id.home) {
+            Intent i = new Intent(EncontradoDetalhesActivity.this, MainActivity.class);
+            startActivity(i);
+            finish();
         }
+
         return super.onOptionsItemSelected(item);
     }
 

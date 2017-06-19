@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:mask="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bgdrawable"
@@ -12,63 +12,62 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="15dp"
-        >
+        android:padding="15dp">
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="E-mail"
             android:layout_marginTop="10dp"
-            android:textColor="#333"
-            android:textSize="19dp"
+            android:drawablePadding="12dp"
             android:drawableStart="@drawable/ic_email_black_24dp"
             android:drawableTint="#333"
-            android:drawablePadding="12dp"/>
+            android:text="E-mail"
+            android:textColor="#333"
+            android:textSize="19dp" />
 
         <EditText
+            android:id="@+id/emailNovaConta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:elevation="2dp"
-            android:padding="15dp"
             android:inputType="textEmailAddress"
-            android:id="@+id/emailNovaConta"/>
+            android:padding="15dp" />
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Nome"
-            android:textColor="#333"
             android:layout_marginTop="20dp"
-            android:textSize="19dp"
+            android:drawablePadding="12dp"
             android:drawableStart="@drawable/ic_person_black_24dp"
             android:drawableTint="#333"
-            android:drawablePadding="12dp"/>
+            android:text="Nome"
+            android:textColor="#333"
+            android:textSize="19dp" />
 
         <EditText
+            android:id="@+id/nomeNovaConta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:elevation="2dp"
-            android:padding="15dp"
             android:inputType="textPersonName"
-            android:id="@+id/nomeNovaConta"/>
+            android:padding="15dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Data de Nascimento"
             android:layout_marginTop="20dp"
-            android:textSize="19dp"
-            android:textColor="#333"
+            android:drawablePadding="12dp"
             android:drawableStart="@drawable/ic_date_range_black_24dp"
             android:drawableTint="#333"
-            android:drawablePadding="12dp"/>
+            android:text="Data de Nascimento"
+            android:textColor="#333"
+            android:textSize="19dp" />
 
 
         <br.com.sapereaude.maskedEditText.MaskedEditText
@@ -78,57 +77,59 @@
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:elevation="2dp"
-            android:padding="15dp"
             android:ems="10"
             android:inputType="date"
-            mask:mask="##/##/####"
+            android:nextFocusDown="@+id/senhaNovaConta"
+            android:padding="15dp"
+            android:imeOptions="actionNext"
             mask:allowed_chars="1234567890"
-            />
+            mask:mask="##/##/####" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:drawablePadding="12dp"
+            android:drawableStart="@drawable/ic_lock_outline_black_24dp"
+            android:drawableTint="#333"
             android:text="Senha"
-            android:layout_marginTop="20dp"
-            android:textSize="19dp"
             android:textColor="#333"
-            android:drawableStart="@drawable/ic_lock_outline_black_24dp"
-            android:drawableTint="#333"
-            android:drawablePadding="12dp"/>
+            android:textSize="19dp" />
 
         <EditText
+            android:id="@+id/senhaNovaConta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:elevation="2dp"
-            android:padding="15dp"
             android:inputType="textPassword"
-            android:id="@+id/senhaNovaConta"/>
+            android:padding="15dp" />
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Confirme sua senha"
             android:layout_marginTop="20dp"
-            android:textSize="19dp"
-            android:textColor="#333"
+            android:drawablePadding="12dp"
             android:drawableStart="@drawable/ic_lock_outline_black_24dp"
             android:drawableTint="#333"
-            android:drawablePadding="12dp"/>
+            android:text="Confirme sua senha"
+            android:textColor="#333"
+            android:textSize="19dp" />
 
         <EditText
+            android:id="@+id/confirmaSenhaNovaConta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:elevation="2dp"
-            android:padding="15dp"
             android:inputType="textPassword"
-            android:id="@+id/confirmaSenhaNovaConta"/>
+            android:padding="15dp" />
 
-        <Button
+        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+            android:id="@+id/abrirNovaConta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -141,16 +142,9 @@
             android:textAllCaps="false"
             android:textColor="#fff"
             android:textSize="18dp"
-            android:id="@+id/abrirNovaConta"/>
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/progressoRegistro"
-            android:layout_gravity="center_horizontal"
-            android:elevation="10dp"
-            android:layout_marginTop="25dp"
-            android:visibility="invisible"/>
+            mask:spinning_bar_color="#FFF"
+            mask:spinning_bar_padding="6dp"
+            mask:spinning_bar_width="4dp" />
 
 
     </LinearLayout>

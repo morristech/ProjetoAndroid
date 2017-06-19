@@ -154,14 +154,11 @@ public class EncontradoGerenciarAdapter extends BaseAdapter {
             this.pos = position;
         }
 
-        private String
-                webAdd = RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/anuncio/delete-encontrado/" + encontrados.get(pos).getId();
-
         @Override
         protected String doInBackground(String... params) {
 
             HttpClient cliente = HttpClientBuilder.create().build();
-            HttpGet chamada = new HttpGet(webAdd);
+            HttpGet chamada = new HttpGet(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/anuncio/delete-encontrado/" + encontrados.get(pos).getId());
             HttpResponse resposta = null;
             String systemRes = "";
 

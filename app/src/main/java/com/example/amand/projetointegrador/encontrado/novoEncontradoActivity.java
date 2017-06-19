@@ -53,6 +53,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.client.HttpClient;
@@ -75,7 +76,7 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
     private EditText corAnimal;
     private EditText observacoesAnimal;
     private EditText titulo;
-    private Button enviaAnuncio;
+    private CircularProgressButton enviaAnuncio;
     private Switch resgatado;
     private View mapa;
     private TextView switchTxt;
@@ -251,7 +252,7 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
         porteAnimal = (SegmentedGroup) findViewById(R.id.porteAnimal);
         corAnimal = (EditText) findViewById(R.id.corAnimal);
         observacoesAnimal = (EditText) findViewById(R.id.descricaoAnimal);
-        enviaAnuncio = (Button) findViewById(R.id.enviaAnuncio);
+        enviaAnuncio = (CircularProgressButton) findViewById(R.id.enviaAnuncio);
         titulo = (EditText) findViewById(R.id.titulo);
         resgatado = (Switch) findViewById(R.id.switchResgatado);
         mapa = findViewById(R.id.mapaEncontrado);
@@ -415,11 +416,8 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
             public void onClick(View v) {
                 if(titulo.getText().toString().equals("") || titulo.getText().toString().isEmpty()) {
                     titulo.setError("Digite o titulo do anúncio");
-                    enviaAnuncio.setClickable(true);
-                    enviaAnuncio.setBackgroundResource(R.color.colorAccent);
                 } else {
-                    enviaAnuncio.setClickable(false);
-                    enviaAnuncio.setBackgroundResource(R.color.colorDivider);
+                    enviaAnuncio.startAnimation();
                     novoEncontradoActivity.AnuncioService anuncio = new novoEncontradoActivity.AnuncioService();
                     anuncio.execute(tipo, sexo, corAnimal.getText().toString(),
                             observacoesAnimal.getText().toString(), titulo.getText().toString(), resgatadoString, porte,
@@ -429,12 +427,21 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(novoEncontradoActivity.this, MainActivity.class);
+        startActivity(i);
+        finish();
+        super.onBackPressed();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
         if (item.getItemId() == android.R.id.home) {
-            finish(); // close this activity and return to preview activity (if there is any)
+            Intent i = new Intent(novoEncontradoActivity.this, MainActivity.class);
+            startActivity(i);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -585,6 +592,8 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
 
         @Override
         protected void onPostExecute(HttpResponse httpResponse) {
+
+            enviaAnuncio.revertAnimation();
 
             if(httpResponse.getStatusLine().getStatusCode() == 200) {
                 Toast.makeText(getApplicationContext(), "Anúncio publicado com sucesso!", Toast.LENGTH_SHORT).show();

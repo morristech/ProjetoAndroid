@@ -391,6 +391,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <Switch
                     android:id="@+id/switchResgatado"
                     android:layout_width="wrap_content"
@@ -399,15 +400,14 @@
 
 
                 <TextView
+                    android:id="@+id/switchTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/switchTxt"
                     android:layout_marginLeft="10dp"
                     android:text="Sim"
                     android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </LinearLayout>
-
 
 
             <TextView
@@ -462,7 +462,7 @@
                 android:layout_height="200dp"
                 android:layout_marginTop="15dp" />
 
-            <Button
+            <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                 android:id="@+id/enviaAnuncio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -476,7 +476,10 @@
                 android:text="Enviar anúncio"
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="18dp" />
+                android:textSize="18dp"
+                app:spinning_bar_color="#FFF"
+                app:spinning_bar_padding="6dp"
+                app:spinning_bar_width="4dp" />
 
         </LinearLayout>
 

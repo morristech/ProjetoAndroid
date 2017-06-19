@@ -86,7 +86,6 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".PreviewActivity" android:screenOrientation="portrait"/>
         <activity android:name=".perdido.PerdidoDetalhesActivity" android:screenOrientation="portrait"/>
         <activity android:name=".encontrado.EncontradoDetalhesActivity" android:screenOrientation="portrait"/>
         <activity android:name=".AlterarDadosActivity" android:screenOrientation="portrait"/>

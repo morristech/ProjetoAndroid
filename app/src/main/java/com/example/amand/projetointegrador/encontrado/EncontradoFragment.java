@@ -1,5 +1,6 @@
 package com.example.amand.projetointegrador.encontrado;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -50,6 +51,7 @@ public class EncontradoFragment extends Fragment {
     final List<AnuncioEncontrado> listAnuncio = new ArrayList<>();
     private SwipeRefreshLayout swipeRefresh;
 
+    private ProgressDialog mProgressDialog;
 
     private EncontradoFragment.OnFragmentInteractionListener mListener;
 
@@ -80,6 +82,11 @@ public class EncontradoFragment extends Fragment {
         gridEncontrado = (GridView) view.findViewById(R.id.gridDoacao);
         GetService get = new GetService();
         get.execute();
+
+        mProgressDialog = new ProgressDialog(this.getActivity());
+        mProgressDialog.setMessage("Signing........");
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.setCancelable(false);
 
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -265,6 +272,8 @@ public class EncontradoFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
 
+            mProgressDialog.dismiss();
+
             if (s != null) {
 
                 try {
@@ -332,7 +341,7 @@ public class EncontradoFragment extends Fragment {
     }
 
     public void getEncontradosFilter(String tipo, String porte, String sexo) {
-
+        mProgressDialog.show();
         new GetFiltered().execute(tipo, porte, sexo);
 
     }

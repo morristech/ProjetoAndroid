@@ -1,5 +1,6 @@
 package com.example.amand.projetointegrador.perdido;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -48,6 +49,8 @@ public class PerdidoFragment extends Fragment {
     final List<AnuncioPerdido> listAnuncio = new ArrayList<>();
     private SwipeRefreshLayout swipeRefresh;
 
+    private ProgressDialog mProgressDialog;
+
 
     private PerdidoFragment.OnFragmentInteractionListener mListener;
 
@@ -78,6 +81,11 @@ public class PerdidoFragment extends Fragment {
         gridPerdido = (GridView) view.findViewById(R.id.gridDoacao);
         GetService get = new GetService();
         get.execute();
+
+        mProgressDialog = new ProgressDialog(this.getActivity());
+        mProgressDialog.setMessage("Signing........");
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.setCancelable(false);
 
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -265,6 +273,7 @@ public class PerdidoFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
 
+            mProgressDialog.dismiss();
 
             if (s != null) {
 
@@ -333,6 +342,7 @@ public class PerdidoFragment extends Fragment {
 
     public void getPerdidosFilter(String tipo, String porte, String sexo) {
 
+        mProgressDialog.show();
         new GetFiltered().execute(tipo, porte, sexo);
 
     }

@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.sapereaude.maskedEditText.MaskedEditText;
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.NameValuePair;
 import cz.msebera.android.httpclient.client.HttpClient;
@@ -43,14 +44,13 @@ public class RegistroActivity extends AppCompatActivity {
     private MaskedEditText dataNascimentoNovaConta;
     private EditText senhaNovaConta;
     private EditText confirmaSenhaNovaConta;
-    private Button abrirNovaConta;
-    private ProgressBar pb;
+    private CircularProgressButton abrirNovaConta;
     private Session session;
     static Long id;
     private String token;
 
     public static final String ENDERECO_WEB = "http://31.220.58.131:8080";
-    //public static final String ENDERECO_WEB = "http://192.168.25.5:8888";
+    //public static final String ENDERECO_WEB = "http://192.168.25.6:8888";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +58,13 @@ public class RegistroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registro);
 
         session = new Session(this);
-        pb = (ProgressBar) findViewById(R.id.progressoRegistro);
-        pb.setMax(10);
 
         emailNovaConta = (EditText) findViewById(R.id.emailNovaConta);
         nomeNovaConta = (EditText) findViewById(R.id.nomeNovaConta);
         dataNascimentoNovaConta = (MaskedEditText) findViewById(R.id.dataNascimentoNovaConta);
         senhaNovaConta = (EditText) findViewById(R.id.senhaNovaConta);
         confirmaSenhaNovaConta = (EditText) findViewById(R.id.confirmaSenhaNovaConta);
-        abrirNovaConta = (Button) findViewById(R.id.abrirNovaConta);
+        abrirNovaConta = (CircularProgressButton) findViewById(R.id.abrirNovaConta);
 
         abrirNovaConta.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,48 +74,36 @@ public class RegistroActivity extends AppCompatActivity {
 
                 if (!confirmaSenhaNovaConta.getText().toString().equals(senhaNovaConta.getText().toString())) {
                     confirmaSenhaNovaConta.setError("Senhas não correspondem");
-                    abrirNovaConta.setClickable(true);
-                    abrirNovaConta.setBackgroundResource(R.color.colorAccent);
                 }
 
                 else if (emailNovaConta.getText().toString().isEmpty() || emailNovaConta.getText().toString().equals("")) {
                     emailNovaConta.setError("Digite seu e-mail");
                     emailNovaConta.requestFocus();
-                    abrirNovaConta.setClickable(true);
-                    abrirNovaConta.setBackgroundResource(R.color.colorAccent);
                 }
 
                 else if (nomeNovaConta.getText().toString().isEmpty() || nomeNovaConta.getText().toString().equals("")) {
                     nomeNovaConta.setError("Digite seu nome");
                     nomeNovaConta.requestFocus();
-                    abrirNovaConta.setClickable(true);
-                    abrirNovaConta.setBackgroundResource(R.color.colorAccent);
                 }
 
                 else if (senhaNovaConta.getText().toString().isEmpty() || senhaNovaConta.getText().toString().equals("")) {
                     senhaNovaConta.setError("Digite sua senha");
                     senhaNovaConta.requestFocus();
-                    abrirNovaConta.setClickable(true);
-                    abrirNovaConta.setBackgroundResource(R.color.colorAccent);
                 }
 
                 else if (confirmaSenhaNovaConta.getText().toString().isEmpty() || confirmaSenhaNovaConta.getText().toString().equals("")) {
                     confirmaSenhaNovaConta.setError("Confirme sua senha");
                     confirmaSenhaNovaConta.requestFocus();
-                    abrirNovaConta.setClickable(true);
-                    abrirNovaConta.setBackgroundResource(R.color.colorAccent);
                 }
 
                 else if (dataNascimentoNovaConta.getText().toString().isEmpty() || dataNascimentoNovaConta.getText().toString().equals("")) {
                     dataNascimentoNovaConta.setError("Digite sua data de nascimento");
                     dataNascimentoNovaConta.requestFocus();
-                    abrirNovaConta.setClickable(true);
-                    abrirNovaConta.setBackgroundResource(R.color.colorAccent);
 
                 } else {
 
-                    abrirNovaConta.setClickable(false);
-                    abrirNovaConta.setBackgroundResource(R.color.colorDivider);
+                    abrirNovaConta.startAnimation();
+
                     JSONObject o = new JSONObject();
                     try {
                     /*DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -135,10 +121,6 @@ public class RegistroActivity extends AppCompatActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    count = 1;
-                    pb.setVisibility(View.VISIBLE);
-                    pb.setProgress(0);
-
 
                     WebService newUsuario = new WebService(ENDERECO_WEB + "/adotapet-servidor/api/usuario/cadastro");
                     newUsuario.execute(o);
@@ -186,7 +168,7 @@ public class RegistroActivity extends AppCompatActivity {
                 System.out.println(resposta.getStatusLine().getStatusCode());
                 System.out.println(resposta.getStatusLine().getReasonPhrase());
 
-                systemRes = EntityUtils.toString(resposta.getEntity(), StandardCharsets.UTF_8);
+                systemRes = EntityUtils.toString(resposta.getEntity());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -195,19 +177,15 @@ public class RegistroActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onProgressUpdate(Integer... values) {
-            abrirNovaConta.setVisibility(View.GONE);
-            pb.setProgress(values[0]);
-        }
-
-        @Override
         protected void onPostExecute(String s) {
-            pb.setVisibility(View.GONE);
-            abrirNovaConta.setVisibility(View.VISIBLE);
+
+            abrirNovaConta.revertAnimation();
 
             if (s.equals("Erro")) {
                 emailNovaConta.setError("Este e-mail já está em uso");
                 emailNovaConta.requestFocus();
+                abrirNovaConta.setClickable(true);
+                abrirNovaConta.setBackgroundResource(R.color.colorAccent);
             } else {
                 Toast.makeText(RegistroActivity.this, "Conta criada com sucesso!", Toast.LENGTH_SHORT).show();
 

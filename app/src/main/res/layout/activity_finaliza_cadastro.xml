@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:mask="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bgdrawable"
@@ -50,8 +50,8 @@
             android:layout_marginBottom="20dp"
             android:inputType="phone"
             mask:allowed_chars="1234567890"
-            mask:mask="## ####-####"
-            mask:keep_hint="false"/>
+            mask:keep_hint="false"
+            mask:mask="## ####-####" />
 
         <TextView
             android:layout_width="match_parent"
@@ -93,7 +93,7 @@
             mask:allowed_chars="1234567890"
             mask:mask="## #####-####" />
 
-        <Button
+        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
             android:id="@+id/finalizaCadastroBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,7 +107,10 @@
             android:text="Concluido!"
             android:textAllCaps="false"
             android:textColor="#eee"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            mask:spinning_bar_color="#FFF"
+            mask:spinning_bar_padding="6dp"
+            mask:spinning_bar_width="4dp" />
 
 
     </LinearLayout>

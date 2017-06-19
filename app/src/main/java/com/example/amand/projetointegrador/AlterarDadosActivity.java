@@ -34,6 +34,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.sapereaude.maskedEditText.MaskedEditText;
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.NameValuePair;
@@ -62,7 +63,7 @@ public class AlterarDadosActivity extends AppCompatActivity {
 
     private CircleImageView imagem;
     private FloatingActionButton btnUpload;
-    private Button enviar;
+    private CircularProgressButton enviar;
 
     Context ctx;
     Session s;
@@ -84,7 +85,7 @@ public class AlterarDadosActivity extends AppCompatActivity {
 
         imagem = (CircleImageView) findViewById(R.id.imgAlterarDados);
         btnUpload = (FloatingActionButton) findViewById(R.id.uploadImageButton);
-        enviar = (Button) findViewById(R.id.enviaDados);
+        enviar = (CircularProgressButton) findViewById(R.id.enviaDados);
 
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +97,7 @@ public class AlterarDadosActivity extends AppCompatActivity {
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                enviar.startAnimation();
                 UpdateService update = new UpdateService();
                 update.execute(nome.getText().toString(),
                         dataNascimento.getText().toString(),
@@ -125,6 +127,7 @@ public class AlterarDadosActivity extends AppCompatActivity {
         Intent i = new Intent(AlterarDadosActivity.this, MainActivity.class);
         startActivity(i);
         finish();
+        super.onBackPressed();
     }
 
     @Override
@@ -236,31 +239,6 @@ public class AlterarDadosActivity extends AppCompatActivity {
 
     }
 
-
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        CircleImageView bmImage;
-
-        public DownloadImageTask(CircleImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-    }
-
     private class UpdateService extends AsyncTask<String, Void, String> {
 
         private String webAdd = RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/usuario/edita-usuario/";
@@ -312,12 +290,11 @@ public class AlterarDadosActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
 
+            enviar.revertAnimation();
+
                 if(s.equals("Sucesso!")) {
 
                     Toast.makeText(ctx, "Atualizado com sucesso", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(AlterarDadosActivity.this, MainActivity.class);
-                    startActivity(i);
-                    finish();
 
                 } else {
                     Toast.makeText(ctx, "Ocorreu um erro", Toast.LENGTH_SHORT).show();

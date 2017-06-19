@@ -53,6 +53,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.client.HttpClient;
@@ -78,7 +79,7 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
     private EditText corAnimal;
     private EditText observacoesAnimal;
     private EditText nomeAnimal;
-    private Button enviaAnuncio;
+    private CircularProgressButton enviaAnuncio;
     private View mapa;
 
     private String tipo;
@@ -248,7 +249,7 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
         racaAnimal = (EditText) findViewById(R.id.racaAnimal);
         corAnimal = (EditText) findViewById(R.id.corAnimal);
         observacoesAnimal = (EditText) findViewById(R.id.descricaoAnimal);
-        enviaAnuncio = (Button) findViewById(R.id.enviaAnuncio);
+        enviaAnuncio = (CircularProgressButton) findViewById(R.id.enviaAnuncio);
         nomeAnimal = (EditText) findViewById(R.id.nomeAnimal);
         mapa = findViewById(R.id.mapaPerdido);
 
@@ -398,11 +399,8 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
 
                 if(nomeAnimal.getText().toString().equals("") || nomeAnimal.getText().toString().isEmpty()) {
                     nomeAnimal.setError("Digite o nome do animal");
-                    enviaAnuncio.setClickable(true);
-                    enviaAnuncio.setBackgroundResource(R.color.colorAccent);
                 } else{
-                    enviaAnuncio.setClickable(false);
-                    enviaAnuncio.setBackgroundResource(R.color.colorDivider);
+                    enviaAnuncio.startAnimation();
                     AnuncioService anuncio = new AnuncioService();
                     anuncio.execute(tipo, sexo,
                             racaAnimal.getText().toString(),
@@ -441,12 +439,21 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
             // permissions this app might request
         }
     }
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(novoPerdidoActivity.this, MainActivity.class);
+        startActivity(i);
+        finish();
+        super.onBackPressed();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
         if (item.getItemId() == android.R.id.home) {
-            finish(); // close this activity and return to preview activity (if there is any)
+            Intent i = new Intent(novoPerdidoActivity.this, MainActivity.class);
+            startActivity(i);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -573,6 +580,8 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
 
         @Override
         protected void onPostExecute(HttpResponse httpResponse) {
+
+            enviaAnuncio.revertAnimation();
 
             if(httpResponse.getStatusLine().getStatusCode() == 200) {
                 Toast.makeText(getApplicationContext(), "Anúncio publicado com sucesso!", Toast.LENGTH_SHORT).show();

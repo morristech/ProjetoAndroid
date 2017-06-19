@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.client.HttpClient;
@@ -51,7 +52,7 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
     private EditText racaAnimal;
     private EditText corAnimal;
     private EditText observacoesAnimal;
-    private Button enviaAnuncio;
+    private CircularProgressButton enviaAnuncio;
 
     private String porte = "";
 
@@ -99,7 +100,7 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
         btnMasculino = (RadioButton) findViewById(R.id.btnMasculino);
         porteAnimal = (SegmentedGroup) findViewById(R.id.porteAnimal);
 
-        enviaAnuncio = (Button) findViewById(R.id.enviaAnuncio);
+        enviaAnuncio = (CircularProgressButton) findViewById(R.id.enviaAnuncio);
 
         tipoAnimal = (SegmentedGroup) findViewById(R.id.tipoAnimal);
         sexoAnimal = (SegmentedGroup) findViewById(R.id.sexoAnimal);
@@ -141,7 +142,7 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View v) {
                 for (File url : urlImg) {
-                    if(url.getName().equals(img1.getTag())) {
+                    if (url.getName().equals(img1.getTag())) {
                         urlImg.remove(url);
                         img1.setTag("addimage2");
                         img1.setImageResource(R.drawable.addimage2);
@@ -156,7 +157,7 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View v) {
                 for (File url : urlImg) {
-                    if(url.getName().equals(img2.getTag())) {
+                    if (url.getName().equals(img2.getTag())) {
                         urlImg.remove(url);
                         img2.setTag("addimage2");
                         img2.setImageResource(R.drawable.addimage2);
@@ -170,7 +171,7 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View v) {
                 for (File url : urlImg) {
-                    if(url.getName().equals(img3.getTag())) {
+                    if (url.getName().equals(img3.getTag())) {
                         urlImg.remove(url);
                         img3.setTag("addimage2");
                         img3.setImageResource(R.drawable.addimage2);
@@ -184,7 +185,7 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View v) {
                 for (File url : urlImg) {
-                    if(url.getName().equals(img4.getTag())) {
+                    if (url.getName().equals(img4.getTag())) {
                         urlImg.remove(url);
                         img4.setTag("addimage2");
                         img4.setImageResource(R.drawable.addimage2);
@@ -198,7 +199,7 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View v) {
                 for (File url : urlImg) {
-                    if(url.getName().equals(img5.getTag())) {
+                    if (url.getName().equals(img5.getTag())) {
                         urlImg.remove(url);
                         img5.setTag("addimage2");
                         img5.setImageResource(R.drawable.addimage2);
@@ -212,7 +213,7 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View v) {
                 for (File url : urlImg) {
-                    if(url.getName().equals(img6.getTag())) {
+                    if (url.getName().equals(img6.getTag())) {
                         urlImg.remove(url);
                         img6.setTag("addimage2");
                         img6.setImageResource(R.drawable.addimage2);
@@ -293,17 +294,13 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
                 cor = corAnimal.getText().toString();
                 observacoes = observacoesAnimal.getText().toString();
 
-                if(nome.equals("") || nome.isEmpty()) {
+                if (nome.equals("") || nome.isEmpty()) {
                     nomeAnimal.setError("Digite o nome do animal");
-                    enviaAnuncio.setClickable(true);
-                    enviaAnuncio.setBackgroundResource(R.color.colorAccent);
-                }
-
-                else {
-                    enviaAnuncio.setClickable(false);
-                    enviaAnuncio.setBackgroundResource(R.color.colorDivider);
+                    nomeAnimal.requestFocus();
+                } else {
                     AnuncioService newAnuncio = new AnuncioService();
                     newAnuncio.execute(nome, tipo, porte, sexo, raca, cor, observacoes, deficiente, castrado);
+                    enviaAnuncio.startAnimation();
                 }
             }
         });
@@ -311,10 +308,20 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
     }
 
     @Override
+    public void onBackPressed() {
+        Intent i = new Intent(novaDoacaoActivity.this, MainActivity.class);
+        startActivity(i);
+        finish();
+        super.onBackPressed();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
         if (item.getItemId() == android.R.id.home) {
-            finish(); // close this activity and return to preview activity (if there is any)
+            Intent i = new Intent(novaDoacaoActivity.this, MainActivity.class);
+            startActivity(i);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -432,14 +439,14 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
         @Override
         protected void onPostExecute(HttpResponse httpResponse) {
 
-            if(httpResponse.getStatusLine().getStatusCode() == 200) {
+            enviaAnuncio.revertAnimation();
+
+            if (httpResponse.getStatusLine().getStatusCode() == 200) {
                 Toast.makeText(getApplicationContext(), "Anúncio publicado com sucesso!", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(novaDoacaoActivity.this, MainActivity.class);
                 startActivity(i);
                 finish();
-            }
-
-            else {
+            } else {
                 Toast.makeText(getApplicationContext(), "Ocorreu um erro.", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(novaDoacaoActivity.this, MainActivity.class);
                 startActivity(i);

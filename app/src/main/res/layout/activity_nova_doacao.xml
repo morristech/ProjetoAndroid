@@ -13,18 +13,18 @@
         android:orientation="vertical">
 
         <HorizontalScrollView
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
             android:id="@+id/novaDoacaoPager"
-            android:elevation="4dp"
-            android:background="#fff">
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:elevation="4dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -32,27 +32,27 @@
                     android:layout_marginEnd="15dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="110dp"
-                        android:layout_height="110dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:src="@drawable/addimage2"
                         android:id="@+id/addimage1"
-                        android:tag="addimage2"/>
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/addimage2"
+                        android:tag="addimage2" />
 
                     <ImageButton
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ic_close_browser"
-                        android:background="#00ffffff"
-                        android:tint="#cc0044"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="15dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_below="@+id/addimage1"
                         android:id="@+id/rmimage1"
-                        android:visibility="gone"/>
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_below="@+id/addimage1"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#00ffffff"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_close_browser"
+                        android:tint="#cc0044"
+                        android:visibility="gone" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -61,27 +61,27 @@
                     android:layout_marginEnd="15dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="110dp"
-                        android:layout_height="110dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:src="@drawable/addimage2"
                         android:id="@+id/addimage2"
-                        android:tag="addimage2"/>
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/addimage2"
+                        android:tag="addimage2" />
 
                     <ImageButton
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ic_close_browser"
-                        android:background="#00ffffff"
-                        android:tint="#cc0044"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="15dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_below="@+id/addimage2"
                         android:id="@+id/rmimage2"
-                        android:visibility="gone"/>
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_below="@+id/addimage2"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#00ffffff"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_close_browser"
+                        android:tint="#cc0044"
+                        android:visibility="gone" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -90,27 +90,27 @@
                     android:layout_marginEnd="15dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="110dp"
-                        android:layout_height="110dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:src="@drawable/addimage2"
                         android:id="@+id/addimage3"
-                        android:tag="addimage2"/>
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/addimage2"
+                        android:tag="addimage2" />
 
                     <ImageButton
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ic_close_browser"
-                        android:background="#00ffffff"
-                        android:tint="#cc0044"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="15dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_below="@+id/addimage3"
                         android:id="@+id/rmimage3"
-                        android:visibility="gone"/>
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_below="@+id/addimage3"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#00ffffff"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_close_browser"
+                        android:tint="#cc0044"
+                        android:visibility="gone" />
 
                 </RelativeLayout>
 
@@ -120,27 +120,27 @@
                     android:layout_marginEnd="15dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="110dp"
-                        android:layout_height="110dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:src="@drawable/addimage2"
                         android:id="@+id/addimage4"
-                        android:tag="addimage2"/>
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/addimage2"
+                        android:tag="addimage2" />
 
                     <ImageButton
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ic_close_browser"
-                        android:background="#00ffffff"
-                        android:tint="#cc0044"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="15dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_below="@+id/addimage4"
                         android:id="@+id/rmimage4"
-                        android:visibility="gone"/>
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_below="@+id/addimage4"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#00ffffff"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_close_browser"
+                        android:tint="#cc0044"
+                        android:visibility="gone" />
 
                 </RelativeLayout>
 
@@ -150,28 +150,27 @@
                     android:layout_marginEnd="15dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="110dp"
-                        android:layout_height="110dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:src="@drawable/addimage2"
                         android:id="@+id/addimage5"
-                        android:tag="addimage2"
-                        />
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/addimage2"
+                        android:tag="addimage2" />
 
                     <ImageButton
+                        android:id="@+id/rmimage5"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
+                        android:layout_below="@+id/addimage5"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#00ffffff"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_close_browser"
-                        android:background="#00ffffff"
                         android:tint="#cc0044"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="15dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_below="@+id/addimage5"
-                        android:id="@+id/rmimage5"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                 </RelativeLayout>
 
@@ -181,27 +180,27 @@
                     android:layout_marginEnd="15dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/addimage6"
                         android:layout_width="110dp"
                         android:layout_height="110dp"
-                        android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp"
+                        android:layout_marginTop="15dp"
                         android:src="@drawable/addimage2"
-                        android:id="@+id/addimage6"
-                        android:tag="addimage2"/>
+                        android:tag="addimage2" />
 
                     <ImageButton
+                        android:id="@+id/rmimage6"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
+                        android:layout_below="@+id/addimage6"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#00ffffff"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_close_browser"
-                        android:background="#00ffffff"
                         android:tint="#cc0044"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="15dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_below="@+id/addimage6"
-                        android:id="@+id/rmimage6"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                 </RelativeLayout>
             </LinearLayout>
@@ -222,23 +221,23 @@
                 android:layout_marginTop="2dp"
                 android:elevation="2dp"
                 android:hint="Nome do animal *"
-                android:paddingTop="5dp"
-                android:inputType="textPersonName"/>
+                android:inputType="textPersonName"
+                android:paddingTop="5dp" />
 
             <info.hoang8f.android.segmented.SegmentedGroup
                 android:id="@+id/tipoAnimal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:background="#fff"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
+                android:layout_marginTop="25dp"
+                android:background="#fff"
                 android:orientation="horizontal"
-                app:sc_checked_text_color="#eee"
                 app:sc_border_width="1dp"
-                android:layout_marginBottom="10dp"
-                app:sc_tint_color="@color/colorAccent"
-                app:sc_corner_radius="0dp">
+                app:sc_checked_text_color="#eee"
+                app:sc_corner_radius="0dp"
+                app:sc_tint_color="@color/colorAccent">
 
                 <RadioButton
                     android:id="@+id/cachorroTipo"
@@ -248,7 +247,7 @@
                     android:width="@dimen/doacao_segmented_width"
                     android:padding="15dp"
                     android:text="Cachorro"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
 
                 <RadioButton
                     android:id="@+id/gatoTipo"
@@ -265,17 +264,17 @@
                 android:id="@+id/sexoAnimal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
                 android:layout_marginTop="15dp"
                 android:background="#fff"
                 android:orientation="horizontal"
                 app:sc_border_width="1dp"
                 app:sc_checked_text_color="#eee"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                app:sc_tint_color="@color/colorAccent"
-                app:sc_corner_radius="0dp">
+                app:sc_corner_radius="0dp"
+                app:sc_tint_color="@color/colorAccent">
 
-               <RadioButton
+                <RadioButton
                     android:id="@+id/btnFeminino"
                     style="@style/RadioButton"
                     android:layout_width="wrap_content"
@@ -351,8 +350,8 @@
                 android:layout_marginTop="15dp"
                 android:elevation="2dp"
                 android:hint="Raça"
-                android:paddingTop="20dp"
-                android:inputType="text"/>
+                android:inputType="text"
+                android:paddingTop="20dp" />
 
             <EditText
                 android:id="@+id/corAnimal"
@@ -361,8 +360,8 @@
                 android:layout_marginTop="15dp"
                 android:elevation="2dp"
                 android:hint="Cor"
-                android:paddingTop="20dp"
-                android:inputType="text"/>
+                android:inputType="text"
+                android:paddingTop="20dp" />
 
             <EditText
                 android:id="@+id/descricaoAnimal"
@@ -394,21 +393,19 @@
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:id="@+id/deficienciaSim"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Sim"
-                    android:id="@+id/deficienciaSim"
-                    />
+                    android:text="Sim" />
 
                 <RadioButton
+                    android:id="@+id/deficienciaNao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:text="Não"
-                    android:id="@+id/deficienciaNao"
-                    />
+                    android:text="Não" />
             </RadioGroup>
 
             <TextView
@@ -427,25 +424,27 @@
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:id="@+id/castradoSim"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Sim"
-                    android:id="@+id/castradoSim"/>
+                    android:text="Sim" />
 
                 <RadioButton
+                    android:id="@+id/castradoNao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:text="Não"
-                    android:id="@+id/castradoNao"/>
+                    android:text="Não" />
             </RadioGroup>
 
-            <Button
+            <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                android:id="@+id/enviaAnuncio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
                 android:layout_marginTop="25dp"
                 android:background="@color/colorAccent"
                 android:elevation="2dp"
@@ -455,9 +454,9 @@
                 android:textAllCaps="false"
                 android:textColor="#fff"
                 android:textSize="18dp"
-                android:layout_marginBottom="20dp"
-                android:id="@+id/enviaAnuncio"
-                />
+                app:spinning_bar_color="#FFF"
+                app:spinning_bar_padding="6dp"
+                app:spinning_bar_width="4dp" />
         </LinearLayout>
 
     </RelativeLayout>

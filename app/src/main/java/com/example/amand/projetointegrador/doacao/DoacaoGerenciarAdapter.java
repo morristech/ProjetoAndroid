@@ -80,7 +80,7 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
     }
 
     // create a new ImageView for each item referenced by the Adapter
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
 
         Holder holder = null;
         s = new Session(mContext);
@@ -124,7 +124,7 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
                 builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
-                        DeleteService del = new DeleteService(position);
+                        DeleteService del = new DeleteService(posicao);
                         del.execute();
                         dialog.dismiss();
                     }
@@ -156,14 +156,13 @@ public class DoacaoGerenciarAdapter extends BaseAdapter {
             this.pos = position;
         }
 
-        private String
-                webAdd = RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/anuncio/delete-doacao/" + doacoes.get(pos).getId();
-
         @Override
         protected String doInBackground(String... params) {
 
+            System.out.println(doacoes.get(pos).getId());
+
             HttpClient cliente = HttpClientBuilder.create().build();
-            HttpGet chamada = new HttpGet(webAdd);
+            HttpGet chamada = new HttpGet(RegistroActivity.ENDERECO_WEB + "/adotapet-servidor/api/anuncio/delete-doacao/" + doacoes.get(pos).getId());
             HttpResponse resposta = null;
             String systemRes = "";
 

@@ -53,6 +53,7 @@ dependencies {
     compile 'ru.egslava:MaskedEditText:1.0.5'
     testCompile 'junit:junit:4.12'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'br.com.simplepass:loading-button-android:1.7.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

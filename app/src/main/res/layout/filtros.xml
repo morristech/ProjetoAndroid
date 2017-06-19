@@ -1,72 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="300dp"
+    android:layout_width="250dp"
     android:layout_height="match_parent"
-    android:layout_margin="15dp">
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <android.support.v7.widget.DialogTitle
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:text="Por Tipo:"
-        android:textSize="16sp"
-        style="@style/AlertDialog.AppCompat"/>
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorPrimary" />
 
     <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/spinnertipo"
-        android:spinnerMode="dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:entries="@array/spinner_tipo"
-        android:padding="10dp">
-    </Spinner>
+        android:padding="10dp"
+        android:spinnerMode="dialog"/>
 
     <android.support.v7.widget.DialogTitle
-        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:text="Por Porte:"
-        android:textSize="16sp"
-        style="@style/AlertDialog.AppCompat"/>
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorPrimary" />
 
     <Spinner
+        android:id="@+id/spinnerporte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinnerporte"
-        android:spinnerMode="dialog"
         android:entries="@array/spinner_porte"
-        android:padding="10dp">
-    </Spinner>
+        android:padding="10dp"
+        android:spinnerMode="dialog"/>
+
 
     <android.support.v7.widget.DialogTitle
-        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:text="Por Sexo:"
-        android:textSize="16sp"
-        style="@style/AlertDialog.AppCompat"/>
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorPrimary" />
 
     <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/spinnersexo"
-        android:spinnerMode="dialog"
-        android:entries="@array/spinner_sexo"
-        android:padding="10dp">
-    </Spinner>
-
-    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Filtrar"
-        android:background="@color/colorAccent"
+        android:entries="@array/spinner_sexo"
+        android:padding="10dp"
+        android:spinnerMode="dialog" />
+
+    <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+        android:id="@+id/btnFiltrar"
+        app:spinning_bar_color="#FFF"
+        app:spinning_bar_padding="6dp"
+        app:spinning_bar_width="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
+        android:background="@color/colorAccent"
+        android:text="Filtrar"
         android:textAllCaps="false"
-        android:textSize="16sp"
         android:textColor="#fff"
-        android:id="@+id/btnFiltrar"/>
-
+        android:textSize="16sp"
+        android:layout_marginBottom="15dp"/>
 
 
 </LinearLayout>
