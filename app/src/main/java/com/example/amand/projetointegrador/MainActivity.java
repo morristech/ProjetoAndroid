@@ -311,7 +311,9 @@ public class MainActivity extends AppCompatActivity
             startActivity(i);
             finish();
         } else if (id == R.id.nav_sobre) {
-
+            Intent i = new Intent(MainActivity.this, AboutActivity.class);
+            startActivity(i);
+            finish();
         } else if (id == R.id.nav_logout) {
             logout();
         }

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient2"
+    tools:context="com.example.amand.projetointegrador.AboutActivity">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#fff"
+        android:layout_margin="15dp"
+        android:elevation="5dp">
+
+        <TextView
+            android:layout_margin="20dp"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Este aplicativo foi desenvolvido na disciplina de Projeto Integrador I, no curso superior de Tecnologia em Análise e Desenvolvimento de Sistemas no IFPR, campus Foz do Iguaçu"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Acadêmicos:"
+            android:textSize="18sp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="20dp"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/amanda"
+            app:civ_border_color="#9f666666"
+            app:civ_border_width="1dp"
+            android:layout_gravity="center_horizontal"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amanda Louise Acosta Morais"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="amandaalouise@live.com"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:layout_marginTop="5dp" />
+
+        <View
+            android:layout_width="200dp"
+            android:layout_height="0.5dp"
+            android:layout_gravity="center"
+            android:background="@color/colorDivider"
+            android:layout_margin="20dp"
+            />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/bruno"
+            app:civ_border_color="#9f666666"
+            app:civ_border_width="1dp"
+            android:layout_gravity="center_horizontal"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bruno Goerck Confortin"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="brunoconfortin@gmail.com"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"/>
+
+        <View
+            android:layout_width="200dp"
+            android:layout_height="0.5dp"
+            android:layout_gravity="center"
+            android:background="@color/colorDivider"
+            android:layout_margin="20dp"
+            />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/jade"
+            app:civ_border_color="#9f666666"
+            app:civ_border_width="1dp"
+            android:layout_gravity="center_horizontal"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jade Mathias da Silva"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="jademathiass@gmail.com"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="25dp"/>
+    </LinearLayout>
+
+
+</ScrollView>
