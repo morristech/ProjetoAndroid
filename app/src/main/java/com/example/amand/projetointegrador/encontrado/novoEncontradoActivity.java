@@ -593,8 +593,6 @@ public class novoEncontradoActivity extends AppCompatActivity implements View.On
         @Override
         protected void onPostExecute(HttpResponse httpResponse) {
 
-            enviaAnuncio.revertAnimation();
-
             if(httpResponse.getStatusLine().getStatusCode() == 200) {
                 Toast.makeText(getApplicationContext(), "Anúncio publicado com sucesso!", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(novoEncontradoActivity.this, MainActivity.class);

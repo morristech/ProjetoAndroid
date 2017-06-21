@@ -87,7 +87,7 @@ public class DoacaoFragment extends Fragment {
         gridDoacao = (GridView) view.findViewById(R.id.gridDoacao);
 
         mProgressDialog = new ProgressDialog(this.getActivity());
-        mProgressDialog.setMessage("Signing........");
+        mProgressDialog.setMessage("Filtrando...");
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mProgressDialog.setCancelable(false);
 

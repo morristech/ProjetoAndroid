@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bgdrawable"
+    android:background="@drawable/gradient2"
     tools:context="com.example.amand.projetointegrador.FinalizaCadastroActivity">
 
     <LinearLayout
@@ -20,6 +20,9 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="30dp"
             android:elevation="5dp"
+            mask:civ_border_color="#888"
+            mask:civ_border_width="1dp"
+            mask:civ_border_overlay="true"
             android:src="@drawable/imgplaceholder" />
 
         <android.support.design.widget.FloatingActionButton

@@ -581,8 +581,6 @@ public class novoPerdidoActivity extends AppCompatActivity implements View.OnCli
         @Override
         protected void onPostExecute(HttpResponse httpResponse) {
 
-            enviaAnuncio.revertAnimation();
-
             if(httpResponse.getStatusLine().getStatusCode() == 200) {
                 Toast.makeText(getApplicationContext(), "Anúncio publicado com sucesso!", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(novoPerdidoActivity.this, MainActivity.class);

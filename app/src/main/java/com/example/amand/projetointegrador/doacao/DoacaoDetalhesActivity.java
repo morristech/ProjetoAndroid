@@ -443,8 +443,6 @@ public class DoacaoDetalhesActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onBackPressed() {
-        Intent i = new Intent(DoacaoDetalhesActivity.this, MainActivity.class);
-        startActivity(i);
         finish();
         super.onBackPressed();
     }
@@ -453,8 +451,6 @@ public class DoacaoDetalhesActivity extends AppCompatActivity implements View.On
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
         if (item.getItemId() == android.R.id.home) {
-            Intent i = new Intent(DoacaoDetalhesActivity.this, MainActivity.class);
-            startActivity(i);
             finish();
         }
 

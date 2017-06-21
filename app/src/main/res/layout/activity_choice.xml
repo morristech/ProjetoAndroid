@@ -3,44 +3,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgrounddoaplicativodecachorrinhos"
+    android:background="@drawable/gradient"
     tools:context="com.example.amand.projetointegrador.ChoiceActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:layout_marginTop="20dp">
 
-        <ImageButton
-            android:id="@+id/btnDoacao"
-            android:layout_width="325dp"
-            android:layout_height="150dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:background="@drawable/novadoacao"
-            android:elevation="5dp" />
-
-
-        <ImageButton
-            android:id="@+id/btnPerdido"
-            android:layout_width="325dp"
-            android:layout_height="150dp"
-            android:layout_below="@id/btnDoacao"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/novoperdido"
-            android:elevation="5dp" />
-
-        <ImageButton
-            android:id="@+id/btnEncontrado"
-            android:layout_width="325dp"
-            android:layout_height="150dp"
-            android:layout_below="@+id/btnPerdido"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/novoencontrado"
-            android:elevation="5dp" />
+            <ImageButton
+                android:id="@+id/btnDoacao"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/bannerdoacao"
+                android:background="#00ffffff"
+                android:elevation="5dp"
+                android:layout_gravity="center_horizontal"/>
 
 
-    </RelativeLayout>
+            <ImageButton
+                android:layout_marginTop="25dp"
+                android:id="@+id/btnEncontrado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:elevation="5dp"
+                android:background="#00ffffff"
+                android:scaleType="centerInside"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/bannerencontrado" />
+
+
+
+            <ImageButton
+                android:layout_marginTop="25dp"
+                android:id="@+id/btnPerdido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="#00ffffff"
+                android:elevation="5dp"
+                android:scaleType="centerInside"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/bannerperdido" />
+
+    </LinearLayout>
+
 
 </ScrollView>

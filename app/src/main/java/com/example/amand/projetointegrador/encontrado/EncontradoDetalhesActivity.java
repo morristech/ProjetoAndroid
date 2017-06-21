@@ -211,8 +211,6 @@ public class EncontradoDetalhesActivity extends AppCompatActivity implements Vie
 
     @Override
     public void onBackPressed() {
-        Intent i = new Intent(EncontradoDetalhesActivity.this, MainActivity.class);
-        startActivity(i);
         finish();
         super.onBackPressed();
     }
@@ -221,8 +219,6 @@ public class EncontradoDetalhesActivity extends AppCompatActivity implements Vie
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
         if (item.getItemId() == android.R.id.home) {
-            Intent i = new Intent(EncontradoDetalhesActivity.this, MainActivity.class);
-            startActivity(i);
             finish();
         }
 

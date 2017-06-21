@@ -466,8 +466,6 @@ public class PerdidoDetalhesActivity extends AppCompatActivity implements View.O
 
     @Override
     public void onBackPressed() {
-        Intent i = new Intent(PerdidoDetalhesActivity.this, MainActivity.class);
-        startActivity(i);
         finish();
         super.onBackPressed();
     }
@@ -476,8 +474,6 @@ public class PerdidoDetalhesActivity extends AppCompatActivity implements View.O
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
         if (item.getItemId() == android.R.id.home) {
-            Intent i = new Intent(PerdidoDetalhesActivity.this, MainActivity.class);
-            startActivity(i);
             finish();
         }
 

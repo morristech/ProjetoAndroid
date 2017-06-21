@@ -84,7 +84,7 @@ public class EncontradoFragment extends Fragment {
         get.execute();
 
         mProgressDialog = new ProgressDialog(this.getActivity());
-        mProgressDialog.setMessage("Signing........");
+        mProgressDialog.setMessage("Filtrando...");
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mProgressDialog.setCancelable(false);
 
@@ -92,7 +92,6 @@ public class EncontradoFragment extends Fragment {
             @Override
             public void onRefresh() {
 
-                //Esse negocio tá me fodendo
                 EncontradoFragment.GetService get2 = new EncontradoFragment.GetService();
                 get2.execute();
             }

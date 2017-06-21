@@ -179,13 +179,11 @@ public class RegistroActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
 
-            abrirNovaConta.revertAnimation();
 
             if (s.equals("Erro")) {
                 emailNovaConta.setError("Este e-mail já está em uso");
                 emailNovaConta.requestFocus();
-                abrirNovaConta.setClickable(true);
-                abrirNovaConta.setBackgroundResource(R.color.colorAccent);
+                abrirNovaConta.revertAnimation();
             } else {
                 Toast.makeText(RegistroActivity.this, "Conta criada com sucesso!", Toast.LENGTH_SHORT).show();
 
@@ -207,7 +205,7 @@ public class RegistroActivity extends AppCompatActivity {
 
             HttpClient cliente = HttpClientBuilder.create().build();
             HttpPost chamada = new HttpPost(webAdd);
-            HttpResponse resposta = null;
+            HttpResponse resposta;
             String systemRes = "";
 
             try {
@@ -221,7 +219,12 @@ public class RegistroActivity extends AppCompatActivity {
 
                 chamada.setEntity(new UrlEncodedFormEntity(parametros));
                 resposta = cliente.execute(chamada);
-                systemRes = EntityUtils.toString(resposta.getEntity(), StandardCharsets.UTF_8);
+                try {
+                    systemRes = EntityUtils.toString(resposta.getEntity(), StandardCharsets.UTF_8);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    systemRes = "Erro";
+                }
 
                 System.out.println(resposta.getStatusLine().getStatusCode());
                 System.out.println(resposta.getStatusLine().getReasonPhrase());
@@ -245,20 +248,19 @@ public class RegistroActivity extends AppCompatActivity {
                 try {
 
                     JSONObject obj = new JSONObject(s);
-                    JSONObject perfil = obj.getJSONObject("perfil");
 
                     session.setUserPrefs(obj.getLong("id"));
                     session.setUserEmail(obj.getString("email"));
                     session.setUserName(obj.getString("nome"));
-                    session.setUserImg(perfil.getString("fotoPerfil"));
                     session.setToken(token);
 
                     System.out.println(session.getUserPrefs() + "*************");
 
+
                     Intent intent = new Intent(RegistroActivity.this, FinalizaCadastroActivity.class);
                     startActivity(intent);
                 } catch (Exception e) {
-
+                    e.printStackTrace();
                     Toast.makeText(RegistroActivity.this, "Erro", Toast.LENGTH_SHORT).show();
                 }
 

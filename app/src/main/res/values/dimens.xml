@@ -9,4 +9,9 @@
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="encontrado_sexotipo_width">165dp</dimen>
     <dimen name="encontrado_porte_width">115dp</dimen>
+    <dimen name="texto_choice_activity">19sp</dimen>
+    <dimen name="img_height">90dp</dimen>
+    <dimen name="img_width">310dp</dimen>
+    <dimen name="marginleft_choice">0dp</dimen>
+    <dimen name="marginright_choice">0dp</dimen>
 </resources>

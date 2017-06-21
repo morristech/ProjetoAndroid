@@ -3,4 +3,8 @@
     <dimen name="doacao_segmented_width">180dp</dimen>
     <dimen name="encontrado_sexotipo_width">180dp</dimen>
     <dimen name="encontrado_porte_width">120dp</dimen>
+    <dimen name="img_height">145dp</dimen>
+    <dimen name="img_width">720dp</dimen>
+    <dimen name="marginleft_choice">14dp</dimen>
+    <dimen name="marginright_choice">14dp</dimen>
 </resources>

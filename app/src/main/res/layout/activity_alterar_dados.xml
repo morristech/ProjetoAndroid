@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:mask="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bgdrawable"
+    android:background="@drawable/gradient2"
     tools:context="com.example.amand.projetointegrador.AlterarDadosActivity">
 
     <LinearLayout
@@ -25,8 +24,8 @@
             android:layout_marginTop="20dp"
             android:elevation="5dp"
             android:src="@drawable/imgplaceholder"
-            app:civ_border_color="#a1a1a1"
-            app:civ_border_width="2dp"
+            app:civ_border_color="#888"
+            app:civ_border_width="1dp"
             app:civ_fill_color="#b6b0b0" />
 
         <android.support.design.widget.FloatingActionButton

@@ -69,25 +69,26 @@ public class DoacaoGerenciarFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = getActivity().getApplicationContext();
+        context = this.getActivity().getApplicationContext();
         session = new Session(context);
+
+        GetService get = new GetService();
+        get.execute();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_doacao_gerenciar, container, false);
+        // Inflate the layout for this fragment
+
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
         listDoacao = (ListView) view.findViewById(R.id.listGerenciaDoacao);
-        GetService get = new GetService();
-        get.execute();
 
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
 
-                //Esse negocio tá me fodendo
                 GetService get2 = new GetService();
                 get2.execute();
             }

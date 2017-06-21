@@ -439,8 +439,6 @@ public class novaDoacaoActivity extends AppCompatActivity implements View.OnClic
         @Override
         protected void onPostExecute(HttpResponse httpResponse) {
 
-            enviaAnuncio.revertAnimation();
-
             if (httpResponse.getStatusLine().getStatusCode() == 200) {
                 Toast.makeText(getApplicationContext(), "Anúncio publicado com sucesso!", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(novaDoacaoActivity.this, MainActivity.class);
